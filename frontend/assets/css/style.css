@@ -1,23 +1,4 @@
-/*
-Theme Name: FoodMart
-Theme URI: https://templatesjungle.com/
-Author: TemplatesJungle
-Author URI: https://templatesjungle.com/
-Description: FoodMart is specially designed product packaged for eCommerce store websites.
-Version: 1.1
-*/
-
-/*--------------------------------------------------------------
-This is main CSS file that contains custom style rules used in this template
---------------------------------------------------------------*/
-
-/*------------------------------------*\
-    Table of contents
-\*------------------------------------*/
-
-/*------------------------------------------------
-
-CSS STRUCTURE:
+/* CSS STRUCTURE:
 
 1. VARIABLES
 
@@ -103,14 +84,20 @@ CSS STRUCTURE:
 }
 /* Theme Colors */
 :root {
-    --accent-color       : #FFC43F;
-    --dark-color         : #222222;
-    --light-dark-color   : #727272;
+    --accent-color       : #E6B800;
+    --dark-color         : #1A1A2E;
+    --light-dark-color   : #16213E;
     --light-color        : #fff;
-    --grey-color         : #dbdbdb;
-    --light-grey-color   : #fafafa;
-    --primary-color      : #6995B1;
-    --light-primary-color   : #eef1f3;
+    --grey-color         : #E5E5E5;
+    --light-grey-color   : #F8F9FA;
+    --primary-color      : #0F3460;
+    --light-primary-color   : #E8F2FF;
+    --secondary-color    : #533483;
+    --tertiary-color     : #E43F5A;
+    --success-color      : #28A745;
+    --warning-color      : #FFC107;
+    --info-color         : #17A2B8;
+    --danger-color       : #DC3545;
 }
 
 /* Fonts */
@@ -120,136 +107,132 @@ CSS STRUCTURE:
 }
 
 body {
-  --bs-link-color: #333;
-  --bs-link-hover-color:#333;
+  --bs-link-color: var(--primary-color);
+  --bs-link-hover-color: var(--accent-color);
 
-  --bs-link-color-rgb: 40,40,40;
-  --bs-link-hover-color-rgb: 0,0,0;
+  --bs-link-color-rgb: 15, 52, 96;
+  --bs-link-hover-color-rgb: 230, 184, 0;
 
-  /* --bs-link-color: #FFC43F;
-  --bs-link-hover-color: #FFC43F; */
-
-  --bs-light-rgb: 248, 248, 248;
+  --bs-light-rgb: 248, 249, 250;
 
   --bs-font-sans-serif: "Open Sans", sans-serif;
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 2;
-  --bs-body-color: #747474;
+  --bs-body-color: var(--light-dark-color);
 
-  --bs-primary: #FFC43F;
-  --bs-primary-rgb: 255, 196, 63;
+  --bs-primary: var(--primary-color);
+  --bs-primary-rgb: 15, 52, 96;
 
-  --bs-success: #a3be4c;
-  --bs-success-rgb: 163, 190, 76;
+  --bs-success: var(--success-color);
+  --bs-success-rgb: 40, 167, 69;
   
-  --bs-primary-bg-subtle: #FFF9EB;
-  --bs-success-bg-subtle: #eef5e5;
+  --bs-primary-bg-subtle: var(--light-primary-color);
+  --bs-success-bg-subtle: #E8F5E8;
   
-  --bs-border-color: #F7F7F7;
+  --bs-border-color: var(--grey-color);
 
-  --bs-secondary-rgb: 230, 243, 251;
-  /* --bs-success-rgb: 238, 245, 228; */
-  --bs-danger-rgb: 249, 235, 231;
-  --bs-warning-rgb: 255, 249, 235;
-  --bs-info-rgb: 230, 243, 250;
+  --bs-secondary-rgb: 83, 52, 131;
+  --bs-danger-rgb: 220, 53, 69;
+  --bs-warning-rgb: 255, 193, 7;
+  --bs-info-rgb: 23, 162, 184;
 }
 .btn-primary {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #ffc43f;
+  --bs-btn-color: var(--light-color);
+  --bs-btn-bg: var(--primary-color);
   --bs-btn-border-color: transparent;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #f7a422;
+  --bs-btn-hover-color: var(--light-color);
+  --bs-btn-hover-bg: var(--light-dark-color);
   --bs-btn-hover-border-color: transparent;
-  --bs-btn-focus-shadow-rgb: 49,132,253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #ffc43f;
+  --bs-btn-focus-shadow-rgb: 15, 52, 96;
+  --bs-btn-active-color: var(--light-color);
+  --bs-btn-active-bg: var(--dark-color);
   --bs-btn-active-border-color: transparent;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #d3d7dd;
+  --bs-btn-disabled-color: var(--light-color);
+  --bs-btn-disabled-bg: var(--grey-color);
   --bs-btn-disabled-border-color: transparent;
 }
 .btn-outline-primary {
-  --bs-btn-color: #ffc43f;
-  --bs-btn-border-color: #ffc43f;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #ffc107;
-  --bs-btn-hover-border-color: #ffc107;
-  --bs-btn-focus-shadow-rgb: 13,110,253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #ffc107;
-  --bs-btn-active-border-color: #ffc107;
+  --bs-btn-color: var(--primary-color);
+  --bs-btn-border-color: var(--primary-color);
+  --bs-btn-hover-color: var(--light-color);
+  --bs-btn-hover-bg: var(--primary-color);
+  --bs-btn-hover-border-color: var(--primary-color);
+  --bs-btn-focus-shadow-rgb: 15, 52, 96;
+  --bs-btn-active-color: var(--light-color);
+  --bs-btn-active-bg: var(--primary-color);
+  --bs-btn-active-border-color: var(--primary-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff3cd;
+  --bs-btn-disabled-color: var(--primary-color);
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #fff3cd;
+  --bs-btn-disabled-border-color: var(--primary-color);
   --bs-gradient: none;
 }
 .btn-outline-light {
-  --bs-btn-color: #747474;
-  --bs-btn-border-color: #EFEFEF;
-  --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #EFEFEF;
-  --bs-btn-hover-border-color: #EFEFEF;
-  --bs-btn-focus-shadow-rgb: 248,249,250;
-  --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #EFEFEF;
-  --bs-btn-active-border-color: #EFEFEF;
+  --bs-btn-color: var(--light-dark-color);
+  --bs-btn-border-color: var(--grey-color);
+  --bs-btn-hover-color: var(--dark-color);
+  --bs-btn-hover-bg: var(--grey-color);
+  --bs-btn-hover-border-color: var(--grey-color);
+  --bs-btn-focus-shadow-rgb: 229, 229, 229;
+  --bs-btn-active-color: var(--dark-color);
+  --bs-btn-active-bg: var(--grey-color);
+  --bs-btn-active-border-color: var(--grey-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #EFEFEF;
+  --bs-btn-disabled-color: var(--grey-color);
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #EFEFEF;
+  --bs-btn-disabled-border-color: var(--grey-color);
   --bs-gradient: none;
 }
 .btn-warning {
-  --bs-btn-color: #747474;
-  --bs-btn-bg: #FCF7EB;
-  --bs-btn-border-color: #FCF7EB;
-  --bs-btn-hover-color: #747474;
-  --bs-btn-hover-bg: #FFECBE;
-  --bs-btn-hover-border-color: #FFECBE;
-  --bs-btn-focus-shadow-rgb: 217,164,6;
-  --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #FFECBE;
-  --bs-btn-active-border-color: #FFECBE;
+  --bs-btn-color: var(--dark-color);
+  --bs-btn-bg: var(--warning-color);
+  --bs-btn-border-color: var(--warning-color);
+  --bs-btn-hover-color: var(--dark-color);
+  --bs-btn-hover-bg: var(--accent-color);
+  --bs-btn-hover-border-color: var(--accent-color);
+  --bs-btn-focus-shadow-rgb: 255, 193, 7;
+  --bs-btn-active-color: var(--dark-color);
+  --bs-btn-active-bg: var(--accent-color);
+  --bs-btn-active-border-color: var(--accent-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #FCF7EB;
-  --bs-btn-disabled-border-color: #FCF7EB;
+  --bs-btn-disabled-color: var(--dark-color);
+  --bs-btn-disabled-bg: var(--warning-color);
+  --bs-btn-disabled-border-color: var(--warning-color);
 }
 .btn-success {
-  --bs-btn-color: #222;
-  --bs-btn-bg: #EEF5E4;
-  --bs-btn-border-color: #EEF5E4;
-  --bs-btn-hover-color: #222;
-  --bs-btn-hover-bg: #9de3c2;
-  --bs-btn-hover-border-color: #9de3c2;
-  --bs-btn-focus-shadow-rgb: 60,153,110;
-  --bs-btn-active-color: #222;
-  --bs-btn-active-bg: #9de3c2;
-  --bs-btn-active-border-color: #9de3c2;
+  --bs-btn-color: var(--light-color);
+  --bs-btn-bg: var(--success-color);
+  --bs-btn-border-color: var(--success-color);
+  --bs-btn-hover-color: var(--light-color);
+  --bs-btn-hover-bg: var(--secondary-color);
+  --bs-btn-hover-border-color: var(--secondary-color);
+  --bs-btn-focus-shadow-rgb: 40, 167, 69;
+  --bs-btn-active-color: var(--light-color);
+  --bs-btn-active-bg: var(--secondary-color);
+  --bs-btn-active-border-color: var(--secondary-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #222;
-  --bs-btn-disabled-bg: #EEF5E4;
-  --bs-btn-disabled-border-color: #EEF5E4;
+  --bs-btn-disabled-color: var(--light-color);
+  --bs-btn-disabled-bg: var(--success-color);
+  --bs-btn-disabled-border-color: var(--success-color);
 }
 .btn-danger {
-  --bs-btn-color: #222;
-  --bs-btn-bg: #FFEADA;
-  --bs-btn-border-color: #FFEADA;
-  --bs-btn-hover-color: #222;
-  --bs-btn-hover-bg: #ecc9af;
-  --bs-btn-hover-border-color: #ecc9af;
-  --bs-btn-focus-shadow-rgb: 60,153,110;
-  --bs-btn-active-color: #222;
-  --bs-btn-active-bg: #ecc9af;
-  --bs-btn-active-border-color: #ecc9af;
+  --bs-btn-color: var(--light-color);
+  --bs-btn-bg: var(--danger-color);
+  --bs-btn-border-color: var(--danger-color);
+  --bs-btn-hover-color: var(--light-color);
+  --bs-btn-hover-bg: var(--tertiary-color);
+  --bs-btn-hover-border-color: var(--tertiary-color);
+  --bs-btn-focus-shadow-rgb: 220, 53, 69;
+  --bs-btn-active-color: var(--light-color);
+  --bs-btn-active-bg: var(--tertiary-color);
+  --bs-btn-active-border-color: var(--tertiary-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #222;
-  --bs-btn-disabled-bg: #FFEADA;
-  --bs-btn-disabled-border-color: #FFEADA;
+  --bs-btn-disabled-color: var(--light-color);
+  --bs-btn-disabled-bg: var(--danger-color);
+  --bs-btn-disabled-border-color: var(--danger-color);
 }
 body {
   letter-spacing: 0.03em;
@@ -268,15 +251,15 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: 700;
 }
 .breadcrumb.text-white {
-  --bs-breadcrumb-divider-color: #fff;
+  --bs-breadcrumb-divider-color: var(--light-color);
   --bs-breadcrumb-item-active-color: var(--bs-primary);
 }
 .dropdown-menu {
   --bs-dropdown-link-active-bg: var(--bs-primary);
 }
 .nav-pills .nav-link {
-  --bs-nav-pills-link-active-color: #111;
-  --bs-nav-pills-link-active-bg: #f1f1f1;
+  --bs-nav-pills-link-active-color: var(--dark-color);
+  --bs-nav-pills-link-active-bg: var(--light-grey-color);
 }
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
@@ -429,7 +412,7 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 15px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #252525;
+  color: var(--dark-color);
   bottom: 0;
   right: 0;
 }
@@ -450,19 +433,19 @@ h1,h2,h3,h4,h5,h6 {
   width: 38px;
   height: 38px;
   line-height: 38px;
-  background: #F1F1F1;
-  color: #222222;
+  background: var(--light-grey-color);
+  color: var(--dark-color);
   padding: 0;
   text-align: center;
   border-radius: 10px;
   --bs-btn-border-color: transparent;
-  --bs-btn-active-bg: #ec9b22;
+  --bs-btn-active-bg: var(--accent-color);
   --bs-btn-active-border-color: transparent;
-  --bs-btn-hover-bg: #FFC43F;
+  --bs-btn-hover-bg: var(--primary-color);
   --bs-btn-hover-border-color: transparent;
-  --bs-btn-disabled-color: #ccc;
-  --bs-btn-disabled-bg: #eaeaea;
-  --bs-btn-disabled-border-color: #eaeaea
+  --bs-btn-disabled-color: var(--grey-color);
+  --bs-btn-disabled-bg: var(--grey-color);
+  --bs-btn-disabled-border-color: var(--grey-color)
 }
 .swiper-prev:hover,
 .swiper-next:hover {
@@ -475,7 +458,7 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 22px;
   text-align: right;
   text-transform: capitalize;
-  color: #787878;
+  color: var(--light-dark-color);
 }
 /* category carousel */
 .category-carousel .category-item {
