@@ -699,6 +699,17 @@ h1,h2,h3,h4,h5,h6 {
   }
 }
 
+/* Logo Styles */
+.main-logo img {
+  max-width: 80px;
+  height: auto;
+}
+
+.footer-menu img {
+  max-width: 60px;
+  height: auto;
+}
+
 /* single product */
 /* product-thumbnail-slider */
 .product-thumbnail-slider {
