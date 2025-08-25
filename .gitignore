@@ -1,0 +1,74 @@
+# OS & Editor files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.tmp
+*.temp
+*~
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Backend specific
+backend/.env
+backend/.env.local
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production.local
+backend/config/database.json
+backend/uploads/
+backend/dist/
+backend/build/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.npm
+.eslintcache
+.cache/
+.parcel-cache
+
+# Frontend build artifacts (if using build tools)
+frontend/dist/
+frontend/build/
+frontend/.cache/
+
+# Testing
+coverage/
+.nyc_output
+
+# Production
+.env.production
+
+# Backup files
+*.backup
+*.bak
+
+# Documentation build
+docs/build/

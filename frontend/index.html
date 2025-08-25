@@ -1,24 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>FoodMart - �picerie en ligne - Site web gratuit</title>
+    <title>CardMaster - Boutique TCG en ligne - Cartes � collectionner</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="author" content="">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="keywords" content="TCG, cartes � collectionner, Pokemon, Yu-Gi-Oh, Magic, Lorcana, Altered">
+    <meta name="description" content="Boutique sp�cialis�e en cartes � collectionner TCG - Pokemon, Yu-Gi-Oh!, Magic the Gathering, Lorcana et plus">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/vendor/vendor.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=NUnité:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=NUnit�:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   </head>
   <body>
@@ -86,37 +86,47 @@
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Votre panier</span>
-            <span class="badge bg-primary rounded-pill">3</span>
+            <span class="badge bg-primary rounded-pill" id="cart-count">3</span>
           </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-sm">
+          <ul class="list-group mb-3" id="cart-items">
+            <li class="list-group-item d-flex justify-content-between lh-sm" data-item="booster-pokemon">
               <div>
-                <h6 class="my-0">Cidre fermier</h6>
-                <small class="text-body-secondary">Br�ve description</small>
+                <h6 class="my-0">Booster Pokemon �carlate</h6>
+                <small class="text-body-secondary">Pack de 11 cartes</small>
+              </div>
+              <span class="text-body-secondary">4,50�</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm" data-item="deck-yugioh">
+              <div>
+                <h6 class="my-0">Deck Yu-Gi-Oh! Structure</h6>
+                <small class="text-body-secondary">Deck pr�-construit</small>
               </div>
               <span class="text-body-secondary">12�</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
+            <li class="list-group-item d-flex justify-content-between lh-sm" data-item="pochettes-ultra-pro">
               <div>
-                <h6 class="my-0">Raisins frais</h6>
-                <small class="text-body-secondary">Br�ve description</small>
+                <h6 class="my-0">Pochettes Ultra Pro</h6>
+                <small class="text-body-secondary">Protection cartes x100</small>
               </div>
               <span class="text-body-secondary">8�</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Ketchup Heinz</h6>
-                <small class="text-body-secondary">Br�ve description</small>
-              </div>
-              <span class="text-body-secondary">5�</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
+            <li class="list-group-item d-flex justify-content-between" id="cart-total">
               <span>Total (EUR)</span>
-              <strong>25�</strong>
+              <strong id="total-amount">24,50�</strong>
             </li>
           </ul>
+
+          <div class="d-flex gap-2 mb-3">
+            <button class="btn btn-outline-danger flex-fill" type="button" id="clear-cart-btn">
+              <svg width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+              </svg>
+              Vider le panier
+            </button>
+          </div>
   
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continuer vers la commande</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit" id="checkout-btn">Continuer vers la commande</button>
         </div>
       </div>
     </div>
@@ -131,7 +141,7 @@
             <span class="text-primary">Recherche</span>
           </h4>
           <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Que recherchez-vous ?" aria-label="Que recherchez-vous ?">
+            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Recherchez vos cartes TCG..." aria-label="Recherchez vos cartes TCG...">
             <button class="btn btn-dark rounded-end rounded-0" type="submit">Rechercher</button>
           </form>
         </div>
@@ -145,7 +155,7 @@
           <div class="col-sm-4 col-lg-3 text-center text-sm-start">
             <div class="main-logo">
               <a href="index.html">
-                <img src="images/logo.png" alt="logo" class="img-fluid">
+                <img src="assets/images/logo.png" alt="logo" class="img-fluid">
               </a>
             </div>
           </div>
@@ -154,7 +164,7 @@
             <div class="search-bar row bg-light p-2 my-2 rounded-4">
               <div class="col-md-4 d-none d-md-block">
                 <select class="form-select border-0 bg-transparent">
-                  <option>Toutes les catégories</option>
+                  <option>Toutes les cat�gories</option>
                   <option>Pokemon</option>
                   <option>Yu-Gi-Oh!</option>
                   <option>Magic the Gathering</option>
@@ -165,7 +175,7 @@
               </div>
               <div class="col-11 col-md-7">
                 <form id="search-form" class="text-center" action="index.html" method="post">
-                  <input type="text" class="form-control border-0 bg-transparent" placeholder="Recherchez parmi plus de 20 000 produits" />
+                  <input type="text" class="form-control border-0 bg-transparent" placeholder="Recherchez parmi plus de 10 000 cartes TCG" />
                 </form>
               </div>
               <div class="col-1">
@@ -202,7 +212,7 @@
             <div class="cart text-end d-none d-lg-block dropdown">
               <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                 <span class="fs-6 text-muted dropdown-toggle">Votre Panier</span>
-                <span class="cart-total fs-5 fw-bold">1290,00�</span>
+                <span class="cart-total fs-5 fw-bold">24,50�</span>
               </button>
             </div>
           </div>
@@ -228,7 +238,7 @@
                 <div class="offcanvas-body">
               
                   <select class="filter-categories border-0 mb-0 me-5">
-                    <option>Acheter par catégories</option>
+                    <option>Acheter par cat�gories</option>
                     <option>Pokemon</option>
                     <option>Yu-Gi-Oh!</option>
                     <option>Magic the Gathering</option>
@@ -270,7 +280,7 @@
       </div>
     </header>
     
-    <section class="py-3" style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
+    <section class="py-3" style="background-image: url('assets/images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
@@ -285,13 +295,13 @@
                     <div class="swiper-slide">
                       <div class="row banner-content p-5">
                         <div class="content-wrapper col-md-7">
-                          <div class="categories my-3">100% naturel</div>
-                          <h3 class="display-4">Smoothies Frais & Jus d'�t�</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <div class="categories my-3">Nouveaut�</div>
+                          <h3 class="display-4">Collection Pokemon �carlate & Violet</h3>
+                          <p>D�couvrez les nouvelles cartes Pokemon avec des m�caniques in�dites et des illustrations �poustouflantes.</p>
                           <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Acheter Maintenant</a>
                         </div>
                         <div class="img-wrapper col-md-5">
-                          <img src="images/product-thumb-1.png" class="img-fluid">
+                          <img src="assets/images/product-thumb-1.png" class="img-fluid">
                         </div>
                       </div>
                     </div>
@@ -299,13 +309,13 @@
                     <div class="swiper-slide">
                       <div class="row banner-content p-5">
                         <div class="content-wrapper col-md-7">
-                          <div class="categories mb-3 pb-3">100% naturel</div>
-                          <h3 class="banner-title">Smoothies Frais & Jus d'�t�</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <div class="categories mb-3 pb-3">�dition Limit�e</div>
+                          <h3 class="banner-title">Cartes Yu-Gi-Oh! 25�me Anniversaire</h3>
+                          <p>C�l�brez les 25 ans de Yu-Gi-Oh! avec des cartes collector exclusives et des reprints mythiques.</p>
                           <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Voir la Collection</a>
                         </div>
                         <div class="img-wrapper col-md-5">
-                          <img src="images/product-thumb-1.png" class="img-fluid">
+                          <img src="assets/images/product-thumb-1.png" class="img-fluid">
                         </div>
                       </div>
                     </div>
@@ -313,13 +323,13 @@
                     <div class="swiper-slide">
                       <div class="row banner-content p-5">
                         <div class="content-wrapper col-md-7">
-                          <div class="categories mb-3 pb-3">100% naturel</div>
-                          <h3 class="banner-title">Ketchup de Tomate Heinz</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+                          <div class="categories mb-3 pb-3">Promo</div>
+                          <h3 class="banner-title">Magic the Gathering Commander</h3>
+                          <p>D�couvrez les nouveaux decks Commander avec des strat�gies in�dites et des cartes l�gendaires.</p>
                           <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Voir la Collection</a>
                         </div>
                         <div class="img-wrapper col-md-5">
-                          <img src="images/product-thumb-2.png" class="img-fluid">
+                          <img src="assets/images/product-thumb-2.png" class="img-fluid">
                         </div>
                       </div>
                     </div>
@@ -330,24 +340,24 @@
                 </div>
               </div>
               
-              <div class="banner-ad bg-success-subtle block-2" style="background:url('images/ad-image-1.png') no-repeat;background-position: right bottom">
+              <div class="banner-ad bg-success-subtle block-2" style="background:url('assets/images/ad-image-1.png') no-repeat;background-position: right bottom">
                 <div class="row banner-content p-5">
 
                   <div class="content-wrapper col-md-7">
-                    <div class="categories sale mb-3 pb-3">20% de r�duction</div>
-                    <h3 class="banner-title">Fruits & L�gumes</h3>
+                    <div class="categories sale mb-3 pb-3">25% de r�duction</div>
+                    <h3 class="banner-title">Boosters & Starter Decks</h3>
                     <a href="#" class="d-flex align-items-center nav-link">Voir la Collection <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg></a>
                   </div>
 
                 </div>
               </div>
 
-              <div class="banner-ad bg-danger block-3" style="background:url('images/ad-image-2.png') no-repeat;background-position: right bottom">
+              <div class="banner-ad bg-danger block-3" style="background:url('assets/images/ad-image-2.png') no-repeat;background-position: right bottom">
                 <div class="row banner-content p-5">
 
                   <div class="content-wrapper col-md-7">
-                    <div class="categories sale mb-3 pb-3">15% de r�duction</div>
-                    <h3 class="item-title">Produits de Boulangerie</h3>
+                    <div class="categories sale mb-3 pb-3">30% de r�duction</div>
+                    <h3 class="item-title">Accessoires & Protections</h3>
                     <a href="#" class="d-flex align-items-center nav-link">Voir la Collection <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg></a>
                   </div>
 
@@ -368,10 +378,10 @@
           <div class="col-md-12">
 
             <div class="section-header d-flex flex-wrap justify-content-between mb-5">
-              <h2 class="section-title">Cat�gories</h2>
+              <h2 class="section-title">Cat?gories</h2>
 
               <div class="d-flex align-items-center">
-                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Cat�gories ?</a>
+                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Cat?gories ?</a>
                 <div class="swiper-buttons">
                   <button class="swiper-prev category-carousel-prev btn btn-yellow">?</button>
                   <button class="swiper-next category-carousel-next btn btn-yellow">?</button>
@@ -387,27 +397,27 @@
             <div class="category-carousel swiper">
               <div class="swiper-wrapper">
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
+                  <img src="assets/images/icon-vegetables-broccoli.png" alt="Category Thumbnail">
                   <h3 class="category-title">Pokemon</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-bread-baguette.png" alt="Category Thumbnail">
+                  <img src="assets/images/icon-bread-baguette.png" alt="Category Thumbnail">
                   <h3 class="category-title">Yu-Gi-Oh!</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-soft-drinks-bottle.png" alt="Category Thumbnail">
+                  <img src="assets/images/icon-soft-drinks-bottle.png" alt="Category Thumbnail">
                   <h3 class="category-title">Magic the Gathering</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-wine-glass-bottle.png" alt="Category Thumbnail">
+                  <img src="assets/images/icon-wine-glass-bottle.png" alt="Category Thumbnail">
                   <h3 class="category-title">Lorcana</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-animal-products-drumsticks.png" alt="Category Thumbnail">
+                  <img src="assets/images/icon-animal-products-drumsticks.png" alt="Category Thumbnail">
                   <h3 class="category-title">Altered</h3>
                 </a>
                 <a href="index.html" class="nav-link category-item swiper-slide">
-                  <img src="images/icon-bread-herb-flour.png" alt="Category Thumbnail">
+                  <img src="assets/images/icon-bread-herb-flour.png" alt="Category Thumbnail">
                   <h3 class="category-title">Riftbound</h3>
                 </a>
                 
@@ -427,10 +437,10 @@
 
             <div class="section-header d-flex flex-wrap flex-wrap justify-content-between mb-5">
               
-              <h2 class="section-title">Nouvelles Marques Arriv�es</h2>
+              <h2 class="section-title">Nouveaux Produits TCG</h2>
 
               <div class="d-flex align-items-center">
-                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Cat�gories ?</a>
+                <a href="#" class="btn-link text-decoration-none">Voir Tous les Nouveaux Produits ?</a>
                 <div class="swiper-buttons">
                   <button class="swiper-prev brand-carousel-prev btn btn-yellow">?</button>
                   <button class="swiper-next brand-carousel-next btn btn-yellow">?</button>
@@ -450,12 +460,12 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-11.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="assets/images/product-thumb-11.jpg" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
-                          <p class="text-muted mb-0">Pot Ambr�</p>
-                          <h5 class="card-title">Le meilleur miel nectar que vous souhaitez</h5>
+                          <p class="text-muted mb-0">Booster Pack</p>
+                          <h5 class="card-title">Pokemon �carlate & Violet - Obsidienne</h5>
                         </div>
                       </div>
                     </div>
@@ -465,12 +475,12 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-12.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="assets/images/product-thumb-12.jpg" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
-                          <p class="text-muted mb-0">Pot Ambr�</p>
-                          <h5 class="card-title">Le meilleur miel nectar que vous souhaitez</h5>
+                          <p class="text-muted mb-0">Structure Deck</p>
+                          <h5 class="card-title">Yu-Gi-Oh! - Albaz Strike Reloaded</h5>
                         </div>
                       </div>
                     </div>
@@ -480,12 +490,12 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-13.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="assets/images/product-thumb-13.jpg" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
-                          <p class="text-muted mb-0">Pot Ambr�</p>
-                          <h5 class="card-title">Le meilleur miel nectar que vous souhaitez</h5>
+                          <p class="text-muted mb-0">Commander Deck</p>
+                          <h5 class="card-title">Magic - Fallout Hail Caesar</h5>
                         </div>
                       </div>
                     </div>
@@ -495,12 +505,12 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-14.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="assets/images/product-thumb-14.jpg" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
-                          <p class="text-muted mb-0">Pot Ambr�</p>
-                          <h5 class="card-title">Le meilleur miel nectar que vous souhaitez</h5>
+                          <p class="text-muted mb-0">Starter Deck</p>
+                          <h5 class="card-title">Lorcana - The First Chapter</h5>
                         </div>
                       </div>
                     </div>
@@ -510,12 +520,12 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-11.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="assets/images/product-thumb-11.jpg" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
-                          <p class="text-muted mb-0">Pot Ambr�</p>
-                          <h5 class="card-title">Le meilleur miel nectar que vous souhaitez</h5>
+                          <p class="text-muted mb-0">Booster Box</p>
+                          <h5 class="card-title">Altered - Beyond the Gates</h5>
                         </div>
                       </div>
                     </div>
@@ -525,12 +535,12 @@
                   <div class="card mb-3 p-3 rounded-4 shadow border-0">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="images/product-thumb-12.jpg" class="img-fluid rounded" alt="Card title">
+                        <img src="assets/images/product-thumb-12.jpg" class="img-fluid rounded" alt="Card title">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body py-0">
-                          <p class="text-muted mb-0">Pot Ambr�</p>
-                          <h5 class="card-title">Le meilleur miel nectar que vous souhaitez</h5>
+                          <p class="text-muted mb-0">Extension Set</p>
+                          <h5 class="card-title">One Piece - Paramount War</h5>
                         </div>
                       </div>
                     </div>
@@ -575,12 +585,12 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
-                        <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
+                        <h3>Booster Pokemon �carlate & Violet</h3>
+                        <span class="qty">1 Pack</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.8</span>
+                        <span class="price">4,50�</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
                               <span class="input-group-btn">
@@ -606,11 +616,41 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-biscuits.png"  class="tab-image">
+                            <img src="assets/images/thumb-biscuits.png"  class="tab-image">
+                          </a>
+                        </figure>
+                        <h3>Structure Deck Yu-Gi-Oh! Albaz</h3>
+                        <span class="qty">1 Deck</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.6</span>
+                        <span class="price">12,00�</span>
+                        <div class="d-flex align-items-center justify-content-between">
+                          <div class="input-group product-qty">
+                              <span class="input-group-btn">
+                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                  </button>
+                              </span>
+                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                              <span class="input-group-btn">
+                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                  </button>
+                              </span>
+                          </div>
+                          <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="product-item">
+                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                        <figure>
+                          <a href="index.html" title="Product Title">
+                            <img src="assets/images/thumb-cucumber.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -636,11 +676,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="assets/images/thumb-milk.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -666,11 +706,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -696,11 +736,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-biscuits.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -726,11 +766,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-biscuits.png"  class="tab-image">
+                            <img src="assets/images/thumb-cucumber.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -756,11 +796,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="assets/images/thumb-milk.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -786,11 +826,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -816,41 +856,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-biscuits.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">$18.00</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
-                          </div>
-                          <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="product-item">
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="images/thumb-biscuits.png"  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -886,11 +896,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="assets/images/thumb-cucumber.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -917,11 +927,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="assets/images/thumb-milk.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -948,11 +958,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-orange-juice.png"  class="tab-image">
+                            <img src="assets/images/thumb-orange-juice.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -978,11 +988,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-raspberries.png"  class="tab-image">
+                            <img src="assets/images/thumb-raspberries.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1008,11 +1018,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1038,11 +1048,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1076,11 +1086,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-cucumber.png"  class="tab-image">
+                            <img src="assets/images/thumb-cucumber.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1106,11 +1116,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-milk.png"  class="tab-image">
+                            <img src="assets/images/thumb-milk.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1136,11 +1146,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-tomatoes.png"  class="tab-image">
+                            <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1166,11 +1176,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                            <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1196,11 +1206,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1226,11 +1236,11 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Jus de Melon Frais Sunstar</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                         <span class="price">$18.00</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
@@ -1266,12 +1276,12 @@
                         <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                         <figure>
                           <a href="index.html" title="Product Title">
-                            <img src="images/thumb-bananas.png"  class="tab-image">
+                            <img src="assets/images/thumb-bananas.png"  class="tab-image">
                           </a>
                         </figure>
                         <h3>Carte Magic Rare</h3>
-                        <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                        <span class="price">25,00€</span>
+                        <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                        <span class="price">25,00�</span>
                         <div class="d-flex align-items-center justify-content-between">
                           <div class="input-group product-qty">
                               <span class="input-group-btn">
@@ -1309,12 +1319,12 @@
         <div class="row">
           
           <div class="col-md-6">
-            <div class="banner-ad bg-danger mb-3" style="background: url('images/ad-image-3.png');background-repeat: no-repeat;background-position: right bottom;">
+            <div class="banner-ad bg-danger mb-3" style="background: url('assets/images/ad-image-3.png');background-repeat: no-repeat;background-position: right bottom;">
               <div class="banner-content p-5">
 
-                <div class="categories text-primary fs-3 fw-bold">Jusqu'à 25% de réduction</div>
+                <div class="categories text-primary fs-3 fw-bold">Jusqu'� 25% de r�duction</div>
                 <h3 class="banner-title">Chocolat Noir Luxa</h3>
-                <p>Muffins très savoureux et crémeux à la vanille.</p>
+                <p>Muffins tr�s savoureux et cr�meux � la vanille.</p>
                 <a href="#" class="btn btn-dark text-uppercase">Voir Maintenant</a>
 
               </div>
@@ -1322,12 +1332,12 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="banner-ad bg-info" style="background: url('images/ad-image-4.png');background-repeat: no-repeat;background-position: right bottom;">
+            <div class="banner-ad bg-info" style="background: url('assets/images/ad-image-4.png');background-repeat: no-repeat;background-position: right bottom;">
               <div class="banner-content p-5">
 
-                <div class="categories text-primary fs-3 fw-bold">Jusqu'à 25% de réduction</div>
-                <h3 class="banner-title">Muffins Crémeux</h3>
-                <p>Muffins très savoureux et crémeux à la vanille.</p>
+                <div class="categories text-primary fs-3 fw-bold">Jusqu'� 25% de r�duction</div>
+                <h3 class="banner-title">Muffins Cr�meux</h3>
+                <p>Muffins tr�s savoureux et cr�meux � la vanille.</p>
                 <a href="#" class="btn btn-dark text-uppercase">Voir Maintenant</a>
 
               </div>
@@ -1346,13 +1356,13 @@
 
             <div class="section-header d-flex flex-wrap justify-content-between my-5">
               
-              <h2 class="section-title">Produits les plus vendus</h2>
+              <h2 class="section-title">Cartes les plus populaires</h2>
 
               <div class="d-flex align-items-center">
-                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Catégories →</a>
+                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Cat�gories ?</a>
                 <div class="swiper-buttons">
-                  <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-                  <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+                  <button class="swiper-prev products-carousel-prev btn btn-primary">?</button>
+                  <button class="swiper-next products-carousel-next btn btn-primary">?</button>
                 </div>  
               </div>
             </div>
@@ -1370,11 +1380,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1399,11 +1409,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1428,11 +1438,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1457,11 +1467,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1484,39 +1494,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                  <span class="price">$18.00</span>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                            </button>
-                        </span>
-                    </div>
-                    <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
-                  </div>
-                </div>
-
-                <div class="product-item swiper-slide">
-                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                  <figure>
-                    <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
-                    </a>
-                  </figure>
-                  <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1540,11 +1522,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1568,11 +1550,39 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                  <figure>
+                    <a href="index.html" title="Product Title">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Jus de Melon Frais Sunstar</h3>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1604,12 +1614,12 @@
     <section class="py-5">
       <div class="container-fluid">
 
-        <div class="bg-secondary py-5 my-5 rounded-5" style="background: url('images/bg-leaves-img-pattern.png') no-repeat;">
+        <div class="bg-secondary py-5 my-5 rounded-5" style="background: url('assets/images/bg-leaves-img-pattern.png') no-repeat;">
           <div class="container my-5">
             <div class="row">
               <div class="col-md-6 p-5">
                 <div class="section-header">
-                  <h2 class="section-title display-4">Get <span class="text-primary">25% Discount</span> on your first purchase</h2>
+                  <h2 class="section-title display-4">Obtenez <span class="text-primary">25% de R�duction</span> sur votre premier achat</h2>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst amet, metus, sit massa posuere maecenas. At tellus ut nunc amet vel egestas.</p>
               </div>
@@ -1651,7 +1661,7 @@
 
             <div class="section-header d-flex justify-content-between">
               
-              <h2 class="section-title">Most popular products</h2>
+              <h2 class="section-title">Cartes les plus recherch�es</h2>
 
               <div class="d-flex align-items-center">
                 <a href="#" class="btn-link text-decoration-none">View All Categories ?</a>
@@ -1674,11 +1684,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1702,11 +1712,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1730,11 +1740,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1758,11 +1768,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1785,39 +1795,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                  <span class="price">$18.00</span>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                            </button>
-                        </span>
-                    </div>
-                    <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
-                  </div>
-                </div>
-
-                <div class="product-item swiper-slide">
-                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                  <figure>
-                    <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
-                    </a>
-                  </figure>
-                  <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1841,11 +1823,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1869,11 +1851,39 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                  <figure>
+                    <a href="index.html" title="Product Title">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Jus de Melon Frais Sunstar</h3>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1909,13 +1919,13 @@
 
             <div class="section-header d-flex justify-content-between">
               
-              <h2 class="section-title">Nouveautés</h2>
+              <h2 class="section-title">Derni�res Sorties TCG</h2>
 
               <div class="d-flex align-items-center">
-                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Catégories →</a>
+                <a href="#" class="btn-link text-decoration-none">Voir Toutes les Cat�gories ?</a>
                 <div class="swiper-buttons">
-                  <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
-                  <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+                  <button class="swiper-prev products-carousel-prev btn btn-primary">?</button>
+                  <button class="swiper-next products-carousel-next btn btn-primary">?</button>
                 </div>  
               </div>
             </div>
@@ -1932,11 +1942,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1960,11 +1970,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -1988,11 +1998,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -2016,11 +2026,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -2043,39 +2053,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoes.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoes.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
-                  <span class="price">$18.00</span>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <div class="input-group product-qty">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                        <span class="input-group-btn">
-                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                            </button>
-                        </span>
-                    </div>
-                    <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
-                  </div>
-                </div>
-
-                <div class="product-item swiper-slide">
-                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                  <figure>
-                    <a href="index.html" title="Product Title">
-                      <img src="images/thumb-tomatoketchup.png"  class="tab-image">
-                    </a>
-                  </figure>
-                  <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -2099,11 +2081,11 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-tomatoketchup.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -2127,11 +2109,39 @@
                   <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="images/thumb-bananas.png"  class="tab-image">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
                     </a>
                   </figure>
                   <h3>Jus de Melon Frais Sunstar</h3>
-                  <span class="qty">1 Unité</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
+                  <span class="price">$18.00</span>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                        </span>
+                    </div>
+                    <a href="#" class="nav-link">Ajouter au Panier <iconify-icon icon="uil:shopping-cart"></a>
+                  </div>
+                </div>
+
+                <div class="product-item swiper-slide">
+                  <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                  <figure>
+                    <a href="index.html" title="Product Title">
+                      <img src="assets/images/thumb-bananas.png"  class="tab-image">
+                    </a>
+                  </figure>
+                  <h3>Jus de Melon Frais Sunstar</h3>
+                  <span class="qty">1 Unit�</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg> 4.5</span>
                   <span class="price">$18.00</span>
                   <div class="d-flex align-items-center justify-content-between">
                     <div class="input-group product-qty">
@@ -2164,7 +2174,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="section-header d-flex align-items-center justify-content-between my-5">
-            <h2 class="section-title">Our Recent Blog</h2>
+            <h2 class="section-title">Actualit�s TCG</h2>
             <div class="btn-wrap align-right">
               <a href="#" class="d-flex align-items-center nav-link">Read All Articles <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg></a>
             </div>
@@ -2175,19 +2185,19 @@
             <article class="post-item card border-0 shadow-sm p-3">
               <div class="image-holder zoom-effect">
                 <a href="#">
-                  <img src="images/post-thumb-1.jpg" alt="post" class="card-img-top">
+                  <img src="assets/images/post-thumb-1.jpg" alt="post" class="card-img-top">
                 </a>
               </div>
               <div class="card-body">
                 <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                  <div class="meta-date"><svg width="16" height="16"><use xlink:href="#calendar"></use></svg>22 Aug 2021</div>
-                  <div class="meta-categories"><svg width="16" height="16"><use xlink:href="#category"></use></svg>tips & tricks</div>
+                  <div class="meta-date"><svg width="16" height="16"><use xlink:href="#calendar"></use></svg>22 Aug 2023</div>
+                  <div class="meta-categories"><svg width="16" height="16"><use xlink:href="#category"></use></svg>strat�gie</div>
                 </div>
                 <div class="post-header">
                   <h3 class="post-title">
-                    <a href="#" class="text-decoration-none">Top 10 casual look ideas to dress up your kids</a>
+                    <a href="#" class="text-decoration-none">Top 10 des cartes Pokemon les plus recherch�es en 2023</a>
                   </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec quam. A in arcu, hendrerit neque dolor morbi...</p>
+                  <p>D�couvrez notre s�lection des cartes Pokemon les plus pris�es par les collectionneurs cette ann�e. Des cartes vintage aux derni�res sorties...</p>
                 </div>
               </div>
             </article>
@@ -2196,19 +2206,19 @@
             <article class="post-item card border-0 shadow-sm p-3">
               <div class="image-holder zoom-effect">
                 <a href="#">
-                  <img src="images/post-thumb-2.jpg" alt="post" class="card-img-top">
+                  <img src="assets/images/post-thumb-2.jpg" alt="post" class="card-img-top">
                 </a>
               </div>
               <div class="card-body">
                 <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                  <div class="meta-date"><svg width="16" height="16"><use xlink:href="#calendar"></use></svg>25 Aug 2021</div>
-                  <div class="meta-categories"><svg width="16" height="16"><use xlink:href="#category"></use></svg>trending</div>
+                  <div class="meta-date"><svg width="16" height="16"><use xlink:href="#calendar"></use></svg>25 Aug 2023</div>
+                  <div class="meta-categories"><svg width="16" height="16"><use xlink:href="#category"></use></svg>nouveaut�s</div>
                 </div>
                 <div class="post-header">
                   <h3 class="post-title">
-                    <a href="#" class="text-decoration-none">Latest trends of wearing street wears supremely</a>
+                    <a href="#" class="text-decoration-none">Lorcana : Le nouveau TCG Disney qui r�volutionne le march�</a>
                   </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec quam. A in arcu, hendrerit neque dolor morbi...</p>
+                  <p>Analyse compl�te du nouveau jeu de cartes Disney Lorcana, ses m�caniques uniques et pourquoi il attire autant les collectionneurs...</p>
                 </div>
               </div>
             </article>
@@ -2217,19 +2227,19 @@
             <article class="post-item card border-0 shadow-sm p-3">
               <div class="image-holder zoom-effect">
                 <a href="#">
-                  <img src="images/post-thumb-3.jpg" alt="post" class="card-img-top">
+                  <img src="assets/images/post-thumb-3.jpg" alt="post" class="card-img-top">
                 </a>
               </div>
               <div class="card-body">
                 <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
-                  <div class="meta-date"><svg width="16" height="16"><use xlink:href="#calendar"></use></svg>28 Aug 2021</div>
-                  <div class="meta-categories"><svg width="16" height="16"><use xlink:href="#category"></use></svg>inspiration</div>
+                  <div class="meta-date"><svg width="16" height="16"><use xlink:href="#calendar"></use></svg>28 Aug 2023</div>
+                  <div class="meta-categories"><svg width="16" height="16"><use xlink:href="#category"></use></svg>guide</div>
                 </div>
                 <div class="post-header">
                   <h3 class="post-title">
-                    <a href="#" class="text-decoration-none">10 Different Types of comfortable clothes ideas for women</a>
+                    <a href="#" class="text-decoration-none">Comment prot�ger et conserver vos cartes de collection</a>
                   </h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipi elit. Aliquet eleifend viverra enim tincidunt donec quam. A in arcu, hendrerit neque dolor morbi...</p>
+                  <p>Guide complet pour pr�server vos cartes TCG : pochettes, classeurs, conditions de stockage et astuces de conservation professionnelle...</p>
                 </div>
               </div>
             </article>
@@ -2241,18 +2251,18 @@
     <section class="py-5 my-5">
       <div class="container-fluid">
 
-        <div class="bg-warning py-5 rounded-5" style="background-image: url('images/bg-pattern-2.png') no-repeat;">
+        <div class="bg-warning py-5 rounded-5" style="background-image: url('assets/images/bg-pattern-2.png') no-repeat;">
           <div class="container">
             <div class="row">
               <div class="col-md-4">
-                <img src="images/phone.png" alt="phone" class="image-float img-fluid">
+                <img src="assets/images/phone.png" alt="phone" class="image-float img-fluid">
               </div>
               <div class="col-md-8">
-                <h2 class="my-5">Achetez plus vite avec l'App foodmart</h2>
+                <h2 class="my-5">Achetez plus vite avec l'App CardMaster</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis. Amet blandit tortor praesent ante vitae. A, enim pretiummi senectus magna. Sagittis sed ptibus liberolectus non et psryroin.</p>
                 <div class="d-flex gap-2 flex-wrap">
-                  <img src="images/app-store.jpg" alt="app-store">
-                  <img src="images/google-play.jpg" alt="google-play">
+                  <img src="assets/images/app-store.jpg" alt="app-store">
+                  <img src="assets/images/google-play.jpg" alt="google-play">
                 </div>
               </div>
             </div>
@@ -2312,7 +2322,7 @@
                 </div>
                 <div class="col-md-10">
                   <div class="card-body p-0">
-                    <h5>Paiement 100% sécurisé</h5>
+                    <h5>Paiement 100% s�curis�</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
                   </div>
                 </div>
@@ -2327,7 +2337,7 @@
                 </div>
                 <div class="col-md-10">
                   <div class="card-body p-0">
-                    <h5>Garantie qualité</h5>
+                    <h5>Garantie qualit�</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
                   </div>
                 </div>
@@ -2342,7 +2352,7 @@
                 </div>
                 <div class="col-md-10">
                   <div class="card-body p-0">
-                    <h5>Économies garanties</h5>
+                    <h5>�conomies garanties</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
                   </div>
                 </div>
@@ -2374,7 +2384,7 @@
 
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer-menu">
-              <img src="images/logo.png" alt="logo">
+              <img src="assets/images/logo.png" alt="logo">
               <div class="social-links mt-5">
                 <ul class="d-flex list-unstyled gap-2">
                   <li>
@@ -2409,10 +2419,10 @@
 
           <div class="col-md-2 col-sm-6">
             <div class="footer-menu">
-              <h5 class="widget-title">Ultras</h5>
+              <h5 class="widget-title">CardMaster</h5>
               <ul class="menu-list list-unstyled">
                 <li class="menu-item">
-                  <a href="#" class="nav-link">À propos</a>
+                  <a href="#" class="nav-link">� propos</a>
                 </li>
                 <li class="menu-item">
                   <a href="#" class="nav-link">Conditions</a>
@@ -2421,7 +2431,7 @@
                   <a href="#" class="nav-link">Nos Journaux</a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="nav-link">Carrières</a>
+                  <a href="#" class="nav-link">Carri�res</a>
                 </li>
                 <li class="menu-item">
                   <a href="#" class="nav-link">Programme d'Affiliation</a>
@@ -2443,7 +2453,7 @@
                   <a href="#" class="nav-link">Contact</a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="nav-link">Politique de Confidentialité</a>
+                  <a href="#" class="nav-link">Politique de Confidentialit�</a>
                 </li>
                 <li class="menu-item">
                   <a href="#" class="nav-link">Retours & Remboursements</a>
@@ -2468,7 +2478,7 @@
                   <a href="#" class="nav-link">Contact</a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="nav-link">Politique de Confidentialité</a>
+                  <a href="#" class="nav-link">Politique de Confidentialit�</a>
                 </li>
                 <li class="menu-item">
                   <a href="#" class="nav-link">Retours & Remboursements</a>
@@ -2485,7 +2495,7 @@
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer-menu">
               <h5 class="widget-title">Abonnez-vous</h5>
-              <p>Abonnez-vous à notre newsletter pour recevoir des mises à jour sur nos offres exceptionnelles.</p>
+              <p>Abonnez-vous � notre newsletter pour recevoir les derni�res nouveaut�s TCG et nos offres exclusives.</p>
               <form class="d-flex mt-3 gap-0" role="newsletter">
                 <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Adresse Email" aria-label="Adresse Email">
                 <button class="btn btn-dark rounded-end rounded-0" type="submit">S'abonner</button>
@@ -2500,18 +2510,156 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6 copyright">
-            <p>© 2023 Foodmart. Tous droits réservés.</p>
+            <p>� 2023 CardMaster. Tous droits r�serv�s.</p>
           </div>
           <div class="col-md-6 credit-link text-start text-md-end">
-            <p>Template HTML gratuit par <a href="https://templatesjungle.com/">TemplatesJungle</a> Distribué par <a href="https://themewagon">ThemeWagon</a></p>
+            <p>Template HTML gratuit par <a href="https://templatesjungle.com/">TemplatesJungle</a> Distribu� par <a href="https://themewagon">ThemeWagon</a></p>
           </div>
         </div>
       </div>
     </div>
-    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/script.js"></script>
+    
+    <!-- Script pour la gestion du panier -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fonction pour vider le panier
+        function clearCart() {
+            // S�lectionner les �l�ments du panier (sans le total)
+            const cartItems = document.querySelectorAll('#cart-items li[data-item]');
+            const cartCount = document.getElementById('cart-count');
+            const totalAmount = document.getElementById('total-amount');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const cartTotal = document.querySelector('.cart-total');
+            
+            // Confirmation avant de vider le panier
+            if (confirm('�tes-vous s�r de vouloir vider votre panier ?')) {
+                // Supprimer tous les articles du panier avec une animation
+                cartItems.forEach(function(item, index) {
+                    setTimeout(function() {
+                        item.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateX(-100%)';
+                        
+                        setTimeout(function() {
+                            item.remove();
+                        }, 300);
+                    }, index * 100);
+                });
+                
+                // Mettre � jour le compteur du panier
+                setTimeout(function() {
+                    cartCount.textContent = '0';
+                    cartCount.classList.remove('bg-primary');
+                    cartCount.classList.add('bg-secondary');
+                    
+                    // Mettre � jour le total
+                    totalAmount.textContent = '0,00�';
+                    
+                    // Mettre � jour le total dans l'en-t�te si il existe
+                    if (cartTotal) {
+                        cartTotal.textContent = '0,00�';
+                    }
+                    
+                    // D�sactiver le bouton de commande
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.classList.remove('btn-primary');
+                    checkoutBtn.classList.add('btn-secondary');
+                    checkoutBtn.textContent = 'Panier vide';
+                    
+                    // Afficher un message de confirmation
+                    showCartMessage('Votre panier a �t� vid� avec succ�s !', 'success');
+                }, cartItems.length * 100 + 300);
+            }
+        }
+        
+        // Fonction pour afficher un message dans le panier
+        function showCartMessage(message, type) {
+            const cartContainer = document.querySelector('#offcanvasCart .offcanvas-body .order-md-last');
+            const existingMessage = cartContainer.querySelector('.cart-message');
+            
+            // Supprimer le message existant s'il y en a un
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Cr�er le nouveau message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `alert alert-${type} cart-message fade show`;
+            messageDiv.innerHTML = `
+                <svg width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
+                ${message}
+            `;
+            
+            // Ins�rer le message en haut du panier
+            cartContainer.insertBefore(messageDiv, cartContainer.firstChild);
+            
+            // Supprimer le message apr�s 3 secondes
+            setTimeout(function() {
+                messageDiv.classList.remove('show');
+                setTimeout(function() {
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 150);
+            }, 3000);
+        }
+        
+        // Ajouter l'�v�nement au bouton "Vider le panier"
+        const clearCartBtn = document.getElementById('clear-cart-btn');
+        if (clearCartBtn) {
+            clearCartBtn.addEventListener('click', clearCart);
+        }
+        
+        // Fonction pour ajouter des effets au panier
+        function addCartInteractions() {
+            const cartItems = document.querySelectorAll('#cart-items li[data-item]');
+            
+            cartItems.forEach(function(item) {
+                // Ajouter un effet hover
+                item.addEventListener('mouseenter', function() {
+                    this.style.transition = 'background-color 0.2s ease';
+                    this.style.backgroundColor = '#f8f9fa';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+        }
+        
+        // Initialiser les interactions du panier
+        addCartInteractions();
+        
+        // Fonction pour calculer le nouveau total (si on veut ajouter d'autres fonctionnalit�s)
+        function updateCartTotal() {
+            const cartItems = document.querySelectorAll('#cart-items li[data-item]');
+            let total = 0;
+            
+            cartItems.forEach(function(item) {
+                const priceText = item.querySelector('.text-body-secondary').textContent;
+                const price = parseFloat(priceText.replace('�', '').replace(',', '.'));
+                total += price;
+            });
+            
+            const totalAmount = document.getElementById('total-amount');
+            if (totalAmount) {
+                totalAmount.textContent = total.toFixed(2).replace('.', ',') + '�';
+            }
+            
+            // Mettre � jour aussi le total dans l'en-t�te
+            const cartTotal = document.querySelector('.cart-total');
+            if (cartTotal) {
+                cartTotal.textContent = total.toFixed(2).replace('.', ',') + '�';
+            }
+        }
+    });
+    </script>
   </body>
 </html>
