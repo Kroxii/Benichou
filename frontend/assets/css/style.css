@@ -731,3 +731,38 @@ h1,h2,h3,h4,h5,h6 {
     height: 740px;
   }
 }
+
+/* ==============================
+   INLINE STYLES MOVED TO CSS
+   ============================== */
+
+/* SVG Icons */
+.svg-icons-hidden {
+  display: none;
+}
+
+/* Background Sections */
+.bg-hero-pattern {
+  background-image: url('../../images/background-pattern.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-leaves-pattern {
+  background: url('../../images/bg-leaves-img-pattern.png') no-repeat;
+}
+
+.bg-app-pattern {
+  background-image: url('../../images/bg-pattern-2.png') no-repeat;
+}
+
+/* Banner Ads */
+.banner-ad-1 {
+  background: url('../../images/ad-image-1.png') no-repeat;
+  background-position: right bottom;
+}
+
+.banner-ad-2 {
+  background: url('../../images/ad-image-2.png') no-repeat;
+  background-position: right bottom;
+}
