@@ -1,34 +1,3 @@
-# CardMas│   ├── 📄 in│     ├── 📂 │   ├── │   ├── �📂 models/        │   └── 📂 database/           # Gestion de base de données
-│       ├── 📂 migrations/     # Scripts de migration
-│       │   ├── 📄 001_create_users_table.js
-│       │   ├── 📄 002_create_categories_table.js
-│       │   ├── 📄 003_create_products_table.js
-│       │   └── 📄 004_create_orders_table.js
-│       └── 📂 seeders/        # Données de test/initialisation
-│           ├── 📄 categoriesSeeder.js
-│           ├── 📄 productsSeeder.js
-│           └── 📄 usersSeeder.jsèles de données
-│   │   ├── 📄 Category.js
-│   │   ├── 📄 Order.js
-│   │   ├── 📄 Product.js
-│   │   └── 📄 User.js
-│   ├── 📂 services/           # Services et logique métier
-│   │   ├── 📄 authService.js
-│   │   ├── 📄 emailService.js
-│   │   └── 📄 paymentService.js
-│   ├── 📂 middleware/         # Middleware (auth, validation, etc.)            # Points d'entrée API REST
-│   │   ├── 📄 index.js        # Point d'entrée API
-│   │   └── 📄 routes.js       # Définition des routeskend/                 # Logique serveur (Back End) 🏗️ STRUCTURE CRÉÉE
-│   ├── 📄 package.json        # Configuration Node.js (vide)
-│   ├── 📄 server.js           # Serveur principal (vide)
-│   ├── 📄 README.md           # Documentation backend  ├── 📄 benichou.png # Logo principal
-│           ├── 📄 left.png     # Icône navigation gauche
-│           └── 📄 right.png    # Icône navigation droite.html           # Page principale du site
-│   ├── 📄 README.md            # Documentation frontend
-│   └── 📂 assets/              # Ressources statiques - Boutique TCG
-
-# CardMaster - Boutique TCG
-
 ![Status](https://img.shields.io/badge/Frontend-✅%20Complet-success)
 ![Status](https://img.shields.io/badge/Backend-🏗️%20Structure%20créée-warning)
 ![Version](https://img.shields.io/badge/Version-Frontend%20v2.0-blue)
