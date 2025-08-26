@@ -1,6 +1,52 @@
+# CardMas│   ├── 📄 in│     ├── 📂 │   ├── │   ├── �📂 models/        │   └── 📂 database/           # Gestion de base de données
+│       ├── 📂 migrations/     # Scripts de migration
+│       │   ├── 📄 001_create_users_table.js
+│       │   ├── 📄 002_create_categories_table.js
+│       │   ├── 📄 003_create_products_table.js
+│       │   └── 📄 004_create_orders_table.js
+│       └── 📂 seeders/        # Données de test/initialisation
+│           ├── 📄 categoriesSeeder.js
+│           ├── 📄 productsSeeder.js
+│           └── 📄 usersSeeder.jsèles de données
+│   │   ├── 📄 Category.js
+│   │   ├── 📄 Order.js
+│   │   ├── 📄 Product.js
+│   │   └── 📄 User.js
+│   ├── 📂 services/           # Services et logique métier
+│   │   ├── 📄 authService.js
+│   │   ├── 📄 emailService.js
+│   │   └── 📄 paymentService.js
+│   ├── 📂 middleware/         # Middleware (auth, validation, etc.)            # Points d'entrée API REST
+│   │   ├── 📄 index.js        # Point d'entrée API
+│   │   └── 📄 routes.js       # Définition des routeskend/                 # Logique serveur (Back End) 🏗️ STRUCTURE CRÉÉE
+│   ├── 📄 package.json        # Configuration Node.js (vide)
+│   ├── 📄 server.js           # Serveur principal (vide)
+│   ├── 📄 README.md           # Documentation backend  ├── 📄 benichou.png # Logo principal
+│           ├── 📄 left.png     # Icône navigation gauche
+│           └── 📄 right.png    # Icône navigation droite.html           # Page principale du site
+│   ├── 📄 README.md            # Documentation frontend
+│   └── 📂 assets/              # Ressources statiques - Boutique TCG
+
 # CardMaster - Boutique TCG
 
-## 📁 Structure du Projet (Mise à jour - Août 2025)
+![Status](https://img.shields.io/badge/Frontend-✅%20Complet-success)
+![Status](https://img.shields.io/badge/Backend-🏗️%20Structure%20créée-warning)
+![Version](https://img.shields.io/badge/Version-Frontend%20v2.0-blue)
+![Last Update](https://img.shields.io/badge/Dernière%20mise%20à%20jour-Août%202025-lightgrey)
+
+## � Table des Matières
+
+1. [📁 Structure du Projet](#-structure-du-projet-mise-à-jour---août-2025)
+2. [🎯 État Actuel du Projet](#-état-actuel-du-projet)
+3. [🚀 Technologies Utilisées](#-technologies-utilisées)
+4. [📝 Fonctionnalités et Progression](#-fonctionnalités-et-progression)
+5. [🛠️ Installation et Développement](#️-installation-et-développement)
+6. [📊 Modèle de Données](#-modèle-de-données-migrations-créées)
+7. [🔄 Prochaines Étapes](#-prochaines-étapes-de-développement)
+8. [🤝 Contribution et Standards](#-contribution-et-standards)
+9. [📈 Métriques du Projet](#-métriques-du-projet)
+
+## �📁 Structure du Projet (Mise à jour - Août 2025)
 
 Ce projet est organisé avec une séparation claire entre le Front End et le Back End pour faciliter le développement, la maintenance et le déploiement.
 
@@ -106,12 +152,13 @@ Benichou/
 - **Google Fonts** : Nunito & Open Sans
 
 ### Backend 🏗️ PRÉVU
-- **Node.js** avec Express.js (à configurer)
-- **Base de données** : PostgreSQL ou MongoDB
+- **Runtime** : Node.js avec Express.js (à configurer)
+- **Base de données** : PostgreSQL ou MongoDB (à choisir)
 - **Authentification** : JWT (JSON Web Tokens)
 - **API Documentation** : Swagger/OpenAPI
 - **Validation** : Middleware de validation des données
 - **Sécurité** : CORS, authentification, autorisation
+- **ORM/ODM** : Sequelize (PostgreSQL) ou Mongoose (MongoDB)
 
 ## 📝 Fonctionnalités et Progression
 
@@ -162,13 +209,32 @@ Benichou/
 
 ## 🛠️ Installation et Développement
 
+### Prérequis
+- **Frontend** : Navigateur web moderne (Chrome, Firefox, Safari, Edge)
+- **Backend** : Node.js 16+ et npm (pour le développement futur)
+- **Git** : Pour le versioning et la collaboration
+
 ### Frontend ✅ PRÊT À L'EMPLOI
 ```bash
-# Ouvrir directement dans un navigateur
-firefox frontend/index.html
-# OU utiliser un serveur local pour le développement
-cd frontend
+# Cloner le projet
+git clone https://github.com/Kroxii/Benichou.git
+cd Benichou/frontend
+
+# Option 1 : Ouvrir directement dans un navigateur
+open index.html  # macOS
+start index.html # Windows
+firefox index.html # Linux
+
+# Option 2 : Serveur local pour le développement (recommandé)
+# Python
 python -m http.server 8000
+
+# Node.js (si installé)
+npx serve .
+
+# PHP (si installé)
+php -S localhost:8000
+
 # Puis ouvrir http://localhost:8000
 ```
 
@@ -200,6 +266,20 @@ npm start
 3. Configuration de la base de données
 4. Développement des contrôleurs et API
 5. Tests d'intégration Frontend <-> Backend
+
+### 🔧 Troubleshooting Frontend
+**Problèmes fréquents et solutions :**
+
+- **Images ne s'affichent pas** : Vérifier que vous utilisez un serveur local (pas file://)
+- **Carousels ne fonctionnent pas** : Vérifier la connexion internet (CDN Swiper.js)
+- **Responsive cassé** : Vérifier la viewport meta tag dans index.html
+- **JavaScript erreurs** : Ouvrir les DevTools (F12) pour voir les erreurs console
+
+**Support navigateurs :**
+- ✅ Chrome 90+
+- ✅ Firefox 88+
+- ✅ Safari 14+
+- ✅ Edge 90+
 
 ## 📊 Modèle de Données (Migrations Créées)
 
@@ -265,7 +345,46 @@ npm start
 
 ---
 
-## 📈 Métriques du Projet
+## � Dépannage et Résolution de Problèmes
+
+### 🔍 Problèmes Frontend
+- **CSS non chargé** : Vérifiez les chemins relatifs dans `index.html`
+- **Carrousel non fonctionnel** : Assurez-vous que Swiper.js est chargé correctement
+- **Images manquantes** : Vérifiez le dossier `assets/images/` et les chemins
+- **Responsive cassé** : Testez Bootstrap CDN et les media queries
+- **Fonts non affichées** : Contrôlez la connexion Google Fonts
+
+### 🔍 Problèmes Backend (Futurs)
+- **Port déjà utilisé** : Modifiez `PORT` dans `.env`
+- **Erreur de base de données** : Vérifiez la configuration dans `config/database.js`
+- **JWT invalide** : Régénérez la `JWT_SECRET` dans `.env`
+- **CORS bloqué** : Configurez les domaines autorisés dans `middleware/cors.js`
+
+### 🛠️ Commandes Utiles
+```bash
+# Frontend - Serveur local simple
+python -m http.server 8000
+# ou
+npx live-server
+
+# Backend - Une fois implémenté
+npm install --force
+DEBUG=* npm start
+npm run test:db
+
+# Validation code
+npx stylelint assets/css/style.css
+npx html-validate index.html
+```
+
+### 📞 Support
+- **Issues GitHub** : Signalez les bugs
+- **Documentation** : README toujours à jour
+- **Tests** : Validez sur différents navigateurs
+
+---
+
+## �📈 Métriques du Projet
 
 **Frontend :** 
 - 📄 1 page HTML complète et moderne
@@ -285,3 +404,18 @@ npm start
 **Version actuelle** : Frontend v2.0 - Site TCG complet avec navigation personnalisée  
 **Prochaine version** : Backend v1.0 - API REST et base de données fonctionnelles  
 **Date de mise à jour** : Août 2025
+
+---
+
+<div align="center">
+
+### 🎯 CardMaster - E-commerce TCG
+
+[![Frontend](https://img.shields.io/badge/Frontend-Production%20Ready-success?style=for-the-badge)](/)
+[![Backend](https://img.shields.io/badge/Backend-In%20Development-orange?style=for-the-badge)](/)
+
+**Développé avec ❤️ pour la communauté TCG**
+
+*Un projet moderne alliant passion du jeu et excellence technique*
+
+</div>
