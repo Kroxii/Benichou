@@ -1,6 +1,6 @@
 ![Status](https://img.shields.io/badge/Frontend-✅%20Complet-success)
 ![Status](https://img.shields.io/badge/Backend-🏗️%20Structure%20créée-warning)
-![Version](https://img.shields.io/badge/Version-Frontend%20v2.0-blue)
+![Version](https://img.shields.io/badge/Version-Frontend%20v1.0-blue)
 ![Last Update](https://img.shields.io/badge/Dernière%20mise%20à%20jour-Août%202025-lightgrey)
 
 ## � Table des Matières
