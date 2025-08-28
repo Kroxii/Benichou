@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tests Automatiques - CardMaster TCG</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+        .test-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .test-error {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .test-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+        .test-info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+        .progress {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+            transition: width 0.3s ease;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Tests Automatiques - CardMaster TCG</h1>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-tests">0</div>
+                <div>Tests Total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="passed-tests" style="color: #28a745;">0</div>
+                <div>Réussis</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="failed-tests" style="color: #dc3545;">0</div>
+                <div>Échecs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="warnings-tests" style="color: #ffc107;">0</div>
+                <div>Warnings</div>
+            </div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <div>
+            <button onclick="runAllTests()">🚀 Lancer tous les tests</button>
+            <button onclick="runHTMLTests()">📄 Tests HTML</button>
+            <button onclick="runJSTests()">⚡ Tests JavaScript</button>
+            <button onclick="runLinkTests()">🔗 Tests Liens</button>
+            <button onclick="clearResults()">🧹 Effacer</button>
+        </div>
+
+        <div id="test-results"></div>
+    </div>
+
+    <script>
+        let testResults = {
+            total: 0,
+            passed: 0,
+            failed: 0,
+            warnings: 0
+        };
+
+        function addTestResult(message, type = 'info', details = '') {
+            testResults.total++;
+            
+            if (type === 'success') testResults.passed++;
+            else if (type === 'error') testResults.failed++;
+            else if (type === 'warning') testResults.warnings++;
+
+            const resultsContainer = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result test-${type}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            resultDiv.innerHTML = `
+                <strong>[${timestamp}]</strong> ${message}
+                ${details ? `<br><small>${details}</small>` : ''}
+            `;
+            
+            resultsContainer.appendChild(resultDiv);
+            resultsContainer.scrollTop = resultsContainer.scrollHeight;
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('total-tests').textContent = testResults.total;
+            document.getElementById('passed-tests').textContent = testResults.passed;
+            document.getElementById('failed-tests').textContent = testResults.failed;
+            document.getElementById('warnings-tests').textContent = testResults.warnings;
+            
+            const percentage = testResults.total > 0 ? 
+                (testResults.passed / testResults.total) * 100 : 0;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+            testResults = { total: 0, passed: 0, failed: 0, warnings: 0 };
+            updateStats();
+        }
+
+        async function testPageExists(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        async function runLinkTests() {
+            addTestResult('Début des tests de liens...', 'info');
+            
+            const pages = [
+                '/frontend/index.html',
+                '/frontend/pages/pokemon.html',
+                '/frontend/pages/yugioh.html',
+                '/frontend/pages/magic.html',
+                '/frontend/pages/lorcana.html',
+                '/frontend/pages/altered.html',
+                '/frontend/pages/riftbound.html',
+                '/frontend/pages/accessoires.html'
+            ];
+
+            for (const page of pages) {
+                const exists = await testPageExists(page);
+                if (exists) {
+                    addTestResult(`Page accessible: ${page}`, 'success');
+                } else {
+                    addTestResult(`Page inaccessible: ${page}`, 'error');
+                }
+            }
+
+            // Test des assets
+            const assets = [
+                '/frontend/assets/css/style.css',
+                '/frontend/assets/js/script.js',
+                '/frontend/assets/images/benichou.png'
+            ];
+
+            for (const asset of assets) {
+                const exists = await testPageExists(asset);
+                if (exists) {
+                    addTestResult(`Asset accessible: ${asset}`, 'success');
+                } else {
+                    addTestResult(`Asset manquant: ${asset}`, 'error');
+                }
+            }
+        }
+
+        function runHTMLTests() {
+            addTestResult('Début des tests HTML...', 'info');
+            
+            // Test des meta tags essentiels
+            const metaViewport = document.querySelector('meta[name="viewport"]');
+            if (metaViewport) {
+                addTestResult('Meta viewport présente', 'success');
+            } else {
+                addTestResult('Meta viewport manquante', 'error');
+            }
+
+            // Test de la structure HTML5
+            const hasDoctype = document.doctype && document.doctype.name === 'html';
+            if (hasDoctype) {
+                addTestResult('DOCTYPE HTML5 correct', 'success');
+            } else {
+                addTestResult('DOCTYPE manquant ou incorrect', 'error');
+            }
+
+            // Test de l'attribut lang
+            const hasLang = document.documentElement.lang;
+            if (hasLang) {
+                addTestResult(`Attribut lang défini: ${hasLang}`, 'success');
+            } else {
+                addTestResult('Attribut lang manquant', 'warning');
+            }
+
+            addTestResult('Tests HTML terminés', 'info');
+        }
+
+        function runJSTests() {
+            addTestResult('Début des tests JavaScript...', 'info');
+            
+            // Test jQuery
+            if (typeof $ !== 'undefined') {
+                addTestResult('jQuery chargé', 'success');
+            } else {
+                addTestResult('jQuery non chargé', 'error');
+            }
+
+            // Test Bootstrap
+            if (typeof bootstrap !== 'undefined') {
+                addTestResult('Bootstrap JS chargé', 'success');
+            } else {
+                addTestResult('Bootstrap JS non chargé', 'error');
+            }
+
+            // Test Swiper
+            if (typeof Swiper !== 'undefined') {
+                addTestResult('Swiper.js chargé', 'success');
+            } else {
+                addTestResult('Swiper.js non chargé', 'error');
+            }
+
+            // Test du système de panier
+            if (typeof window.CartMasterTest !== 'undefined') {
+                addTestResult('Système de panier initialisé', 'success');
+                
+                // Test des fonctions du panier
+                try {
+                    const cartContent = window.CartMasterTest.showCartContent();
+                    addTestResult(`Panier accessible: ${Array.isArray(cartContent) ? cartContent.length : 0} articles`, 'success');
+                } catch (error) {
+                    addTestResult('Erreur d\'accès au panier', 'error', error.message);
+                }
+            } else {
+                addTestResult('Système de panier non initialisé', 'warning');
+            }
+
+            // Test des erreurs JavaScript
+            let hasErrors = false;
+            const originalError = window.onerror;
+            window.onerror = function(msg, url, line) {
+                hasErrors = true;
+                addTestResult(`Erreur JS: ${msg}`, 'error', `${url}:${line}`);
+                if (originalError) originalError(msg, url, line);
+            };
+
+            setTimeout(() => {
+                if (!hasErrors) {
+                    addTestResult('Aucune erreur JavaScript détectée', 'success');
+                }
+                window.onerror = originalError;
+            }, 1000);
+
+            addTestResult('Tests JavaScript terminés', 'info');
+        }
+
+        async function runAllTests() {
+            clearResults();
+            addTestResult('🚀 Début de la suite de tests complète', 'info');
+            
+            runHTMLTests();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            runJSTests();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await runLinkTests();
+            
+            addTestResult('✅ Suite de tests terminée', 'info');
+            
+            // Résumé final
+            const successRate = ((testResults.passed / testResults.total) * 100).toFixed(1);
+            if (successRate >= 90) {
+                addTestResult(`🎉 Excellent ! Taux de réussite: ${successRate}%`, 'success');
+            } else if (successRate >= 70) {
+                addTestResult(`✨ Bien ! Taux de réussite: ${successRate}%`, 'warning');
+            } else {
+                addTestResult(`⚠️ Améliorations nécessaires. Taux de réussite: ${successRate}%`, 'error');
+            }
+        }
+
+        // Auto-test au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            addTestResult('🔧 Outil de test CardMaster TCG initialisé', 'info');
+            addTestResult('Cliquez sur "🚀 Lancer tous les tests" pour commencer', 'info');
+        });
+    </script>
+</body>
+</html>
