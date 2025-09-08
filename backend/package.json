@@ -1,4 +1,21 @@
 {
+  "name": "benichou-backend",
+  "version": "1.0.0",
+  "description": "Backend pour la boutique Benichou TCG",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node database/seeders/index.js",
+    "seed:categories": "node database/seeders/categoriesSeeder.js",
+    "seed:users": "node database/seeders/usersSeeder.js",
+    "seed:products": "node database/seeders/productsSeeder.js",
+    "test:connection": "node test-connection.js",
+    "show:data": "node show-data.js"
+  },
+  "keywords": ["tcg", "trading-cards", "ecommerce", "api"],
+  "author": "Benichou",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",

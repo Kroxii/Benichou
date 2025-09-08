@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+﻿const mongoose = require('mongoose');
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,9 +30,5 @@ const categorySchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-
-// Index pour optimiser les recherches
-categorySchema.index({ slug: 1 });
 categorySchema.index({ isActive: 1 });
-
 module.exports = mongoose.model('Category', categorySchema);

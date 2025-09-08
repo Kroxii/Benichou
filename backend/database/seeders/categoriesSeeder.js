@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Category = require('../models/Category');
+﻿const mongoose = require('mongoose');
+const Category = require('../../models/Category');
 require('dotenv').config();
-
 const categories = [
   {
     name: 'Pokemon',
@@ -53,36 +52,24 @@ const categories = [
     sortOrder: 7
   }
 ];
-
 const seedCategories = async () => {
   try {
-    // Connexion à MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/benichou_db');
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/benichou');
     console.log('Connexion à MongoDB réussie');
-
-    // Supprimer les catégories existantes
     await Category.deleteMany({});
     console.log('Catégories existantes supprimées');
-
-    // Insérer les nouvelles catégories
     const insertedCategories = await Category.insertMany(categories);
     console.log(`${insertedCategories.length} catégories ajoutées avec succès`);
-
-    // Afficher les catégories créées
     insertedCategories.forEach(category => {
       console.log(`- ${category.name} (${category.slug})`);
     });
-
     process.exit(0);
   } catch (error) {
     console.error('Erreur lors du seeding des catégories:', error);
     process.exit(1);
   }
 };
-
-// Exécuter le seeder si appelé directement
 if (require.main === module) {
   seedCategories();
 }
-
 module.exports = seedCategories;

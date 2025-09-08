@@ -1,92 +1,21 @@
-/* FONTS IMPORT */
+﻿
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
-/* CSS STRUCTURE:
 
-1. VARIABLES
-
-2. GENERAL TYPOGRAPHY
-  2.1 General Styles
-  2.2 Floating & Alignment
-  2.3 Forms
-  2.4 Lists
-  2.5 Code
-  2.6 Tables
-  2.7 Spacing
-  2.8 Utilities
-  2.9 Misc
-    - Row Border
-    - Zoom Effect
-  2.10 Buttons
-    - Button Sizes
-    - Button Shapes
-    - Button Color Scheme
-    - Button Aligns
-  2.11 Section
-    - Hero Section
-    - Section Title
-    - Section Paddings
-    - Section Margins
-    - Section Bg Colors
-    - Content Colors
-    - Content Borders
-
-3. EXTENDED TYPOGRAPHY
-  3.1 Blockquote / Pullquote
-  3.2 Text Highlights
-
-4. CONTENT ELEMENTS
-  4.1 Tabs
-  4.2 Accordions
-  4.3 Brand Carousel
-  4.4 Category Carousel
-
-5. BLOG STYLES
-  5.1 Blog Single Post
-  5.2 About Author
-  5.3 Comments List
-  5.4 Comments Form3
-
-6. SITE STRUCTURE
-  6.1 Header
-    - Header Menu
-    - Nav Sidebar
-  6.2 Billboard
-  6.3 About Us Section
-  6.4 Video Section
-  6.5 Selling Products Section
-  6.6 Quotation Section
-  6.7 Latest Blogs Section
-  6.8 Newsletter Section
-  6.9 Instagram Section
-  6.10 Footer
-    - Footer Top
-    - Footer Bottom
-
-7. OTHER PAGES
-  7.1 Product detail
-  7.2 Shop page
-
-    
-/*--------------------------------------------------------------
-/** 1. VARIABLES
---------------------------------------------------------------*/
 :root {
-    /* widths for rows and containers
-     */
+    
     --header-height       : 160px;
     --header-height-min   : 80px;
 }
-/* on mobile devices below 600px
- */
+
 @media screen and (max-width: 600px) {
     :root {
         --header-height : 100px;
         --header-height-min   : 80px;
     }
 }
-/* Theme Colors */
+
 :root {
     --accent-color       : #E6B800;
     --dark-color         : #1A1A2E;
@@ -104,7 +33,7 @@
     --danger-color       : #DC3545;
 }
 
-/* Fonts */
+
 :root {
     --body-font           : "Open Sans", sans-serif;
     --heading-font        : "Nunito", sans-serif;
@@ -269,12 +198,11 @@ h1,h2,h3,h4,h5,h6 {
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
   --bs-gutter-x: 3rem;
 }
-/*----------------------------------------------*/
-/* 6. SITE STRUCTURE */
-/*----------------------------------------------*/
-/* 6.1 Header
---------------------------------------------------------------*/
-/* Preloader */
+
+
+
+
+
 .preloader-wrapper {
   width: 100%;
   height: 100vh;
@@ -331,7 +259,7 @@ h1,h2,h3,h4,h5,h6 {
   }
 }
 
-/* *** Start editing below this line *** */
+
 .container-fluid {
   max-width: 1600px;
 }
@@ -355,7 +283,7 @@ h1,h2,h3,h4,h5,h6 {
   .block-3 { grid-area: 4 / 1 / 5 / 2; }
 }
 
-/* banner ad */
+
 .banner-ad {
   position: relative;
   overflow: hidden;
@@ -381,7 +309,7 @@ h1,h2,h3,h4,h5,h6 {
   background: var(--accent-color);
 }
 
-/* Navigation buttons for main banner */
+
 .swiper-button-prev,
 .swiper-button-next {
   width: 50px;
@@ -411,12 +339,7 @@ h1,h2,h3,h4,h5,h6 {
   min-height: 630px;
   display: flex;
 }
-/* .banner-ad .banner-content {
-  padding: 52px;
-}
-.banner-ad.large .banner-content {
-  padding: 90px;
-} */
+
 .banner-ad .banner-content .categories {
   font-family: 'Garamond', 'Times New Roman', serif;
   font-size: 37px;
@@ -457,7 +380,7 @@ h1,h2,h3,h4,h5,h6 {
   font-size: 54px;
 }
 
-/* Swiper carousel */
+
 .swiper-prev,
 .swiper-next {
   width: 38px;
@@ -504,7 +427,7 @@ h1,h2,h3,h4,h5,h6 {
   text-transform: capitalize;
   color: var(--light-dark-color);
 }
-/* category carousel */
+
 .category-carousel .category-item {
   background: var(--light-color);
   border: 1px solid #FBFBFB;
@@ -529,7 +452,7 @@ h1,h2,h3,h4,h5,h6 {
   margin-top: 20px;
 }
 
-/* brand carousel */
+
 .brand-carousel .brand-item {
   background: var(--light-color);
   border: 1px solid #FBFBFB;
@@ -548,7 +471,7 @@ h1,h2,h3,h4,h5,h6 {
   margin: 0;
 }
 
-/* product tabs */
+
 .product-tabs .nav-tabs {
   justify-content: flex-end;
   border: none;
@@ -561,14 +484,12 @@ h1,h2,h3,h4,h5,h6 {
 }
 .product-tabs .nav-tabs .nav-link.active, 
 .product-tabs .nav-tabs .nav-item.show .nav-link {
-  /* border: none; */
+  
   border-bottom: 3px solid var(--accent-color);
 }
 
-/* product-grid */
-/* .product-grid {
-  gap: 25px;
-} */
+
+
 .product-item {
   position: relative;
   padding: 16px;
@@ -672,12 +593,12 @@ h1,h2,h3,h4,h5,h6 {
   padding: 0;
 }
 
-/* cart */
+
 .cart .product-qty {
   min-width: 130px;
 }
 
-/* floating image */
+
 .image-float {
   margin-top: -140px;
   margin-bottom: -140px;
@@ -687,7 +608,7 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
   }
 }
- /* post item */
+ 
 .post-item .post-meta {
   font-size: 0.8rem;
   line-height: 1;
@@ -697,7 +618,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 @media screen and (max-width: 991px) {
-  /* offcanvas menu */
+  
   .offcanvas-body .nav-item {
     font-weight: 700;
     border-bottom: 1px solid #d1d1d1;
@@ -709,7 +630,7 @@ h1,h2,h3,h4,h5,h6 {
     padding: 14px;
     border-radius: 8px;
   }
-  /* dropdown-menu */
+  
   .dropdown-menu {
     padding: 0;
     border: none;
@@ -726,7 +647,7 @@ h1,h2,h3,h4,h5,h6 {
   }
 }
 
-/* Logo Styles */
+
 .main-logo img {
   max-width: 80px;
   height: auto;
@@ -737,8 +658,8 @@ h1,h2,h3,h4,h5,h6 {
   height: auto;
 }
 
-/* single product */
-/* product-thumbnail-slider */
+
+
 .product-thumbnail-slider {
   height: 740px;
 }
@@ -759,16 +680,14 @@ h1,h2,h3,h4,h5,h6 {
   }
 }
 
-/* ==============================
-   INLINE STYLES MOVED TO CSS
-   ============================== */
 
-/* SVG Icons */
+
+
 .svg-icons-hidden {
   display: none;
 }
 
-/* Background Sections */
+
 .bg-hero-pattern {
   background-image: url('../images/background-pattern.jpg');
   background-repeat: no-repeat;
@@ -783,7 +702,7 @@ h1,h2,h3,h4,h5,h6 {
   background-image: url('../images/bg-pattern-2.png') no-repeat;
 }
 
-/* Banner Ads */
+
 .banner-ad-1 {
   background: url('../images/ad-image-1.png') no-repeat;
   background-position: right bottom;
@@ -794,9 +713,7 @@ h1,h2,h3,h4,h5,h6 {
   background-position: right bottom;
 }
 
-/*--------------------------------------------------------------
-/** HEADER & NAVIGATION STYLES
---------------------------------------------------------------*/
+
 header {
   background: var(--light-color);
   border-bottom: 1px solid var(--grey-color);
@@ -853,9 +770,7 @@ header {
   font-weight: 600;
 }
 
-/*--------------------------------------------------------------
-/** HERO SECTION
---------------------------------------------------------------*/
+
 .hero-section {
   padding: 80px 0;
   background: linear-gradient(135deg, var(--light-primary-color) 0%, var(--light-grey-color) 100%);
@@ -876,9 +791,7 @@ header {
   margin-bottom: 2rem;
 }
 
-/*--------------------------------------------------------------
-/** FOOTER STYLES
---------------------------------------------------------------*/
+
 footer {
   background: var(--dark-color);
   color: var(--light-color);
@@ -918,15 +831,13 @@ footer ul li a:hover {
   color: var(--grey-color);
 }
 
-/*--------------------------------------------------------------
-/** GENERAL IMPROVEMENTS
---------------------------------------------------------------*/
-/* Smooth scrolling */
+
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Reset and base styles */
+
 * {
   box-sizing: border-box;
 }
@@ -936,13 +847,13 @@ img {
   height: auto;
 }
 
-/* Links */
+
 a {
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-/* Section spacing */
+
 .section {
   padding: 80px 0;
 }
@@ -951,7 +862,7 @@ a {
   padding: 60px 0;
 }
 
-/* Text utilities */
+
 .text-accent {
   color: var(--accent-color) !important;
 }
@@ -968,7 +879,7 @@ a {
   background-color: var(--primary-color) !important;
 }
 
-/* Card hover effects */
+
 .card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -978,7 +889,7 @@ a {
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* Buttons improvements */
+
 .btn-primary-custom {
   background: var(--primary-color);
   border-color: var(--primary-color);
@@ -1013,9 +924,7 @@ a {
   transform: translateY(-2px);
 }
 
-/*--------------------------------------------------------------
-/** RESPONSIVE STYLES
---------------------------------------------------------------*/
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -1053,3 +962,4 @@ a {
     padding: 30px 20px;
   }
 }
+

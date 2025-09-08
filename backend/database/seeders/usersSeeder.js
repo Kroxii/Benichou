@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const User = require('../../models/User');
 require('dotenv').config();
-
 const users = [
   {
     username: 'admin',
@@ -41,36 +40,24 @@ const users = [
     isActive: true
   }
 ];
-
 const seedUsers = async () => {
   try {
-    // Connexion à MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/benichou_db');
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/benichou');
     console.log('Connexion à MongoDB réussie');
-
-    // Supprimer les utilisateurs existants
     await User.deleteMany({});
     console.log('Utilisateurs existants supprimés');
-
-    // Insérer les nouveaux utilisateurs
     const insertedUsers = await User.insertMany(users);
     console.log(`${insertedUsers.length} utilisateurs ajoutés avec succès`);
-
-    // Afficher les utilisateurs créés (sans les mots de passe)
     insertedUsers.forEach(user => {
       console.log(`- ${user.username} (${user.email}) - ${user.role}`);
     });
-
     process.exit(0);
   } catch (error) {
     console.error('Erreur lors du seeding des utilisateurs:', error);
     process.exit(1);
   }
 };
-
-// Exécuter le seeder si appelé directement
 if (require.main === module) {
   seedUsers();
 }
-
 module.exports = seedUsers;

@@ -1,29 +1,22 @@
-const mongoose = require('mongoose');
-const Product = require('../models/Product');
-const Category = require('../models/Category');
+﻿const mongoose = require('mongoose');
+const Product = require('../../models/Product');
+const Category = require('../../models/Category');
 require('dotenv').config();
-
 const seedProducts = async () => {
   try {
-    // Connexion à MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/benichou_db');
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/benichou');
     console.log('Connexion à MongoDB réussie');
-
-    // Récupérer les catégories existantes
     const categories = await Category.find({});
     if (categories.length === 0) {
       console.log('Aucune catégorie trouvée. Veuillez d\'abord exécuter le seeder des catégories.');
       process.exit(1);
     }
-
     const pokemon = categories.find(cat => cat.slug === 'pokemon');
     const yugioh = categories.find(cat => cat.slug === 'yugioh');
     const magic = categories.find(cat => cat.slug === 'magic');
     const lorcana = categories.find(cat => cat.slug === 'lorcana');
     const accessoires = categories.find(cat => cat.slug === 'accessoires');
-
     const products = [
-      // Pokemon
       {
         name: 'Booster Pokemon Écarlate et Violet',
         description: 'Booster de 11 cartes de la série Écarlate et Violet avec une carte rare garantie.',
@@ -56,8 +49,6 @@ const seedProducts = async () => {
         isFeatured: false,
         tags: ['pokemon', 'deck', 'preconstruit', 'elite']
       },
-
-      // Yu-Gi-Oh!
       {
         name: 'Booster Yu-Gi-Oh! Power of the Elements',
         description: 'Booster de 9 cartes avec les dernières cartes de la série Power of the Elements.',
@@ -90,8 +81,6 @@ const seedProducts = async () => {
         isFeatured: false,
         tags: ['yugioh', 'deck', 'structure', 'albaz']
       },
-
-      // Magic: The Gathering
       {
         name: 'Booster Magic The Gathering - Dominaria United',
         description: 'Booster de 15 cartes de l\'extension Dominaria United avec une carte rare.',
@@ -124,8 +113,6 @@ const seedProducts = async () => {
         isFeatured: false,
         tags: ['magic', 'commander', 'dragon', 'deck']
       },
-
-      // Lorcana
       {
         name: 'Booster Disney Lorcana - The First Chapter',
         description: 'Booster de 12 cartes Disney Lorcana avec vos personnages Disney préférés.',
@@ -142,8 +129,6 @@ const seedProducts = async () => {
         isFeatured: true,
         tags: ['lorcana', 'disney', 'booster', 'first', 'chapter']
       },
-
-      // Accessoires
       {
         name: 'Protège-cartes Standard (100 pièces)',
         description: 'Protège-cartes transparents de qualité premium pour cartes format standard.',
@@ -177,30 +162,20 @@ const seedProducts = async () => {
         tags: ['accessoire', 'tapis', 'playmat', 'dragon']
       }
     ];
-
-    // Supprimer les produits existants
     await Product.deleteMany({});
     console.log('Produits existants supprimés');
-
-    // Insérer les nouveaux produits
     const insertedProducts = await Product.insertMany(products);
     console.log(`${insertedProducts.length} produits ajoutés avec succès`);
-
-    // Afficher les produits créés
     insertedProducts.forEach(product => {
       console.log(`- ${product.name} (${product.sku}) - ${product.price}€`);
     });
-
     process.exit(0);
   } catch (error) {
     console.error('Erreur lors du seeding des produits:', error);
     process.exit(1);
   }
 };
-
-// Exécuter le seeder si appelé directement
 if (require.main === module) {
   seedProducts();
 }
-
 module.exports = seedProducts;

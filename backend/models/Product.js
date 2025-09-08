@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+﻿const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -82,28 +81,21 @@ const productSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-
-// Index pour optimiser les recherches
 productSchema.index({ name: 'text', description: 'text', tags: 'text' });
 productSchema.index({ category: 1 });
 productSchema.index({ isActive: 1 });
 productSchema.index({ isFeatured: 1 });
 productSchema.index({ price: 1 });
 productSchema.index({ 'rating.average': -1 });
-
-// Méthode virtuelle pour obtenir l'image principale
 productSchema.virtual('primaryImage').get(function() {
   return this.images.find(img => img.isPrimary) || this.images[0];
 });
-
-// Assurer qu'il n'y ait qu'une seule image principale
 productSchema.pre('save', function(next) {
   if (this.images && this.images.length > 0) {
     let primaryCount = 0;
     this.images.forEach(img => {
       if (img.isPrimary) primaryCount++;
     });
-    
     if (primaryCount === 0) {
       this.images[0].isPrimary = true;
     } else if (primaryCount > 1) {
@@ -119,5 +111,4 @@ productSchema.pre('save', function(next) {
   }
   next();
 });
-
 module.exports = mongoose.model('Product', productSchema);

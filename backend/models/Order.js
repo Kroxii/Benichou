@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+﻿const mongoose = require('mongoose');
 const orderItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
@@ -22,7 +21,6 @@ const orderItemSchema = new mongoose.Schema({
     min: 0
   }
 });
-
 const orderSchema = new mongoose.Schema({
   orderNumber: {
     type: String,
@@ -146,36 +144,26 @@ const orderSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-
-// Générer un numéro de commande unique avant sauvegarde
 orderSchema.pre('save', async function(next) {
   if (!this.orderNumber) {
     const date = new Date();
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    
-    // Compter les commandes du jour
     const startOfDay = new Date(year, date.getMonth(), date.getDate());
     const endOfDay = new Date(year, date.getMonth(), date.getDate() + 1);
-    
     const count = await this.constructor.countDocuments({
       createdAt: {
         $gte: startOfDay,
         $lt: endOfDay
       }
     });
-    
     const orderNum = String(count + 1).padStart(4, '0');
     this.orderNumber = `BEN-${year}${month}${day}-${orderNum}`;
   }
   next();
 });
-
-// Index pour optimiser les recherches
 orderSchema.index({ user: 1 });
 orderSchema.index({ status: 1 });
-orderSchema.index({ orderNumber: 1 });
 orderSchema.index({ createdAt: -1 });
-
 module.exports = mongoose.model('Order', orderSchema);
