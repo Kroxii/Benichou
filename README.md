@@ -1,5 +1,8 @@
-![Status](https://img.shields.io/badge/Frontend-✅%20Complet-success)
-![Status](https://img.shields.io/badge/Backend-🏗️%20Structure%20créée-warning)
+![Status](https://img.shields.io/badge/Frontend-✅%20Complet-success   └── 📂 database/           # Gestion de base de données
+       └── 📂 seeders/        # Scripts de données initiales
+           ├── 📄 categoriesSeeder.js
+           ├── 📄 productsSeeder.js
+           └── 📄 usersSeeder.jss](https://img.shields.io/badge/Backend-🏗️%20Structure%20créée-warning)
 ![Version](https://img.shields.io/badge/Version-Frontend%20v1.0-blue)
 ![Last Update](https://img.shields.io/badge/Dernière%20mise%20à%20jour-Août%202025-lightgrey)
 
@@ -122,12 +125,12 @@ Benichou/
 
 ### Backend 🏗️ PRÉVU
 - **Runtime** : Node.js avec Express.js (à configurer)
-- **Base de données** : PostgreSQL ou MongoDB (à choisir)
+- **Base de données** : MongoDB avec Mongoose
 - **Authentification** : JWT (JSON Web Tokens)
 - **API Documentation** : Swagger/OpenAPI
 - **Validation** : Middleware de validation des données
 - **Sécurité** : CORS, authentification, autorisation
-- **ORM/ODM** : Sequelize (PostgreSQL) ou Mongoose (MongoDB)
+- **ODM** : Mongoose (MongoDB)
 
 ## 📝 Fonctionnalités et Progression
 

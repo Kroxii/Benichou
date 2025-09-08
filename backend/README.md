@@ -50,13 +50,10 @@ backend/
 │   └── 📄 payment.js        # Configuration paiement
 │
 └── 📂 database/              # Gestion de base de données
-    ├── 📂 migrations/        # Scripts de migration
-    │   ├── 📄 001_create_users.sql
-    │   ├── 📄 002_create_products.sql
-    │   └── 📄 003_create_orders.sql
-    └── 📂 seeders/           # Données de test
-        ├── 📄 products.json
-        └── 📄 categories.json
+    └── 📂 seeders/           # Scripts de données initiales
+        ├── 📄 categories.js
+        ├── 📄 products.js
+        └── 📄 users.js
 ```
 
 ## 🎯 Fonctionnalités Prévues
@@ -102,9 +99,8 @@ backend/
 - **TypeScript** : Typage statique (optionnel)
 
 ### Base de Données
-- **PostgreSQL** : Base de données relationnelle
-- **Redis** : Cache et sessions
-- **Prisma/Sequelize** : ORM
+- **MongoDB** : Base de données NoSQL
+- **Mongoose** : ODM pour MongoDB
 
 ### Authentification
 - **JWT** : JSON Web Tokens
@@ -172,6 +168,149 @@ PUT    /api/orders/:id       # Modifier commande (admin)
 GET    /api/users/profile    # Profil utilisateur
 PUT    /api/users/profile    # Modifier profil
 GET    /api/users/:id        # Détail utilisateur (admin)
+```
+
+## 🗃️ Structure de Base de Données (MongoDB)
+
+### Collections Principales
+
+#### Users
+```javascript
+{
+  _id: ObjectId,
+  username: String (unique),
+  email: String (unique),
+  password: String (hashed),
+  firstName: String,
+  lastName: String,
+  role: String (enum: 'user', 'admin'),
+  isActive: Boolean,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### Categories
+```javascript
+{
+  _id: ObjectId,
+  name: String (unique),
+  description: String,
+  slug: String (unique),
+  isActive: Boolean,
+  sortOrder: Number,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### Products
+```javascript
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  price: Number,
+  stock: Number,
+  category: ObjectId (ref: 'Category'),
+  images: [{
+    url: String,
+    alt: String,
+    isPrimary: Boolean
+  }],
+  sku: String (unique),
+  isActive: Boolean,
+  isFeatured: Boolean,
+  tags: [String],
+  attributes: Map,
+  rating: {
+    average: Number,
+    count: Number
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### Orders
+```javascript
+{
+  _id: ObjectId,
+  orderNumber: String (unique),
+  user: ObjectId (ref: 'User'),
+  items: [{
+    product: ObjectId (ref: 'Product'),
+    quantity: Number,
+    price: Number,
+    subtotal: Number
+  }],
+  totalAmount: Number,
+  status: String (enum),
+  shippingAddress: Object,
+  billingAddress: Object,
+  paymentMethod: String,
+  paymentStatus: String,
+  paymentDate: Date,
+  shippingMethod: String,
+  shippingCost: Number,
+  trackingNumber: String,
+  notes: String,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+## 🚀 Plan de Développement
+
+### Phase 1 : Foundation (2-3 semaines)
+- [ ] Setup projet Node.js + Express
+- [ ] Configuration MongoDB + Mongoose
+- [ ] Authentification JWT
+- [ ] API basique produits
+- [ ] Tests unitaires
+
+### Phase 2 : Core Features (3-4 semaines)
+- [ ] API panier complet
+- [ ] Système de commandes
+- [ ] Intégration paiement
+- [ ] Interface admin basique
+- [ ] Documentation API
+
+### Phase 3 : Advanced Features (2-3 semaines)
+- [ ] Gestion du stock
+- [ ] Notifications email
+- [ ] Analytics et reporting
+- [ ] Optimisations performance
+- [ ] Monitoring
+
+### Phase 4 : Production (1-2 semaines)
+- [ ] Déploiement et CI/CD
+- [ ] Tests d'intégration
+- [ ] Monitoring production
+- [ ] Sauvegardes automatiques
+
+## 📚 Ressources de Développement
+
+### Documentation
+- [Express.js Guide](https://expressjs.com/)
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [Mongoose Documentation](https://mongoosejs.com/docs/)
+- [Stripe API Reference](https://stripe.com/docs/api)
+- [JWT.io](https://jwt.io/)
+
+### Bonnes Pratiques
+- Architecture REST
+- Validation des données
+- Gestion des erreurs
+- Logging et monitoring
+- Tests automatisés
+- Sécurité (OWASP)
+
+---
+
+**Status** : 🚧 En attente de développement
+**Estimation** : 8-12 semaines de développement
+**Priorité** : Moyenne (après validation du frontend)
 ```
 
 ## 🗃️ Structure de Base de Données

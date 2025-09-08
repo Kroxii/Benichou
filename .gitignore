@@ -48,6 +48,10 @@ backend/build/
 *.sqlite
 *.sqlite3
 
+# MongoDB (si utilisation locale)
+data/
+mongodb/
+
 # Cache
 .npm
 .eslintcache
