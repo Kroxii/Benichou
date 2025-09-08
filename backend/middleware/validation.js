@@ -1,7 +1,7 @@
 const validation = {
   // Validation pour l'inscription
   validateRegister: (req, res, next) => {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName, username } = req.body;
     const errors = [];
 
     // Validation email
@@ -9,6 +9,17 @@ const validation = {
       errors.push('L\'email est requis');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       errors.push('Format d\'email invalide');
+    }
+
+    // Validation username
+    if (!username) {
+      errors.push('Le nom d\'utilisateur est requis');
+    } else if (username.length < 3) {
+      errors.push('Le nom d\'utilisateur doit contenir au moins 3 caractères');
+    } else if (username.length > 50) {
+      errors.push('Le nom d\'utilisateur ne peut pas dépasser 50 caractères');
+    } else if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+      errors.push('Le nom d\'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores');
     }
 
     // Validation mot de passe
@@ -25,6 +36,8 @@ const validation = {
       errors.push('Le prénom est requis');
     } else if (firstName.length < 2) {
       errors.push('Le prénom doit contenir au moins 2 caractères');
+    } else if (firstName.length > 50) {
+      errors.push('Le prénom ne peut pas dépasser 50 caractères');
     }
 
     // Validation nom
@@ -32,6 +45,8 @@ const validation = {
       errors.push('Le nom est requis');
     } else if (lastName.length < 2) {
       errors.push('Le nom doit contenir au moins 2 caractères');
+    } else if (lastName.length > 50) {
+      errors.push('Le nom ne peut pas dépasser 50 caractères');
     }
 
     if (errors.length > 0) {
@@ -137,6 +152,130 @@ const validation = {
 
     req.query.page = pageNum;
     req.query.limit = limitNum;
+    next();
+  },
+
+  // Validation pour l'email (mot de passe oublié, renvoi de vérification)
+  validateEmail: (req, res, next) => {
+    const { email } = req.body;
+    const errors = [];
+
+    if (!email) {
+      errors.push('L\'email est requis');
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.push('Format d\'email invalide');
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).json({
+        error: 'Données invalides',
+        details: errors
+      });
+    }
+
+    next();
+  },
+
+  // Validation pour la réinitialisation de mot de passe
+  validatePasswordReset: (req, res, next) => {
+    const { password } = req.body;
+    const errors = [];
+
+    if (!password) {
+      errors.push('Le nouveau mot de passe est requis');
+    } else if (password.length < 8) {
+      errors.push('Le mot de passe doit contenir au moins 8 caractères');
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+      errors.push('Le mot de passe doit contenir au moins une minuscule, une majuscule et un chiffre');
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).json({
+        error: 'Données invalides',
+        details: errors
+      });
+    }
+
+    next();
+  },
+
+  // Validation pour le changement de mot de passe
+  validatePasswordChange: (req, res, next) => {
+    const { currentPassword, newPassword } = req.body;
+    const errors = [];
+
+    if (!currentPassword) {
+      errors.push('Le mot de passe actuel est requis');
+    }
+
+    if (!newPassword) {
+      errors.push('Le nouveau mot de passe est requis');
+    } else if (newPassword.length < 8) {
+      errors.push('Le nouveau mot de passe doit contenir au moins 8 caractères');
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(newPassword)) {
+      errors.push('Le nouveau mot de passe doit contenir au moins une minuscule, une majuscule et un chiffre');
+    }
+
+    if (currentPassword === newPassword) {
+      errors.push('Le nouveau mot de passe doit être différent de l\'ancien');
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).json({
+        error: 'Données invalides',
+        details: errors
+      });
+    }
+
+    next();
+  },
+
+  // Validation pour la mise à jour du profil
+  validateProfileUpdate: (req, res, next) => {
+    const { firstName, lastName, username, phone } = req.body;
+    const errors = [];
+
+    // Validation prénom (optionnel mais si présent doit être valide)
+    if (firstName !== undefined) {
+      if (!firstName || firstName.length < 2) {
+        errors.push('Le prénom doit contenir au moins 2 caractères');
+      } else if (firstName.length > 50) {
+        errors.push('Le prénom ne peut pas dépasser 50 caractères');
+      }
+    }
+
+    // Validation nom (optionnel mais si présent doit être valide)
+    if (lastName !== undefined) {
+      if (!lastName || lastName.length < 2) {
+        errors.push('Le nom doit contenir au moins 2 caractères');
+      } else if (lastName.length > 50) {
+        errors.push('Le nom ne peut pas dépasser 50 caractères');
+      }
+    }
+
+    // Validation username (optionnel mais si présent doit être valide)
+    if (username !== undefined) {
+      if (!username || username.length < 3) {
+        errors.push('Le nom d\'utilisateur doit contenir au moins 3 caractères');
+      } else if (username.length > 50) {
+        errors.push('Le nom d\'utilisateur ne peut pas dépasser 50 caractères');
+      } else if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+        errors.push('Le nom d\'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores');
+      }
+    }
+
+    // Validation téléphone (optionnel)
+    if (phone !== undefined && phone && !/^[\d\s\-\+\(\)]+$/.test(phone)) {
+      errors.push('Format de téléphone invalide');
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).json({
+        error: 'Données invalides',
+        details: errors
+      });
+    }
+
     next();
   }
 };

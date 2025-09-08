@@ -42,19 +42,32 @@ app.use((err, req, res, next) => {
 // Démarrage du serveur
 const startServer = async () => {
   try {
-    // Connexion à la base de données
-    await connectDB();
+    // Tentative de connexion à la base de données
+    const dbConnected = await connectDB();
     
     // Démarrage du serveur
     app.listen(PORT, () => {
       console.log(`🚀 Serveur Benichou TCG démarré sur le port ${PORT}`);
       console.log(`📱 API disponible sur: http://localhost:${PORT}`);
       console.log(`🔗 Documentation API: http://localhost:${PORT}/api`);
-      console.log(`🌱 Pour initialiser les données: npm run seed`);
+      
+      if (dbConnected) {
+        console.log(`🌱 Pour initialiser les données: npm run seed`);
+        console.log(`✅ Base de données connectée`);
+      } else {
+        console.log(`⚠️  Base de données non connectée - Mode démo actif`);
+        console.log(`📖 Consultez les instructions ci-dessus pour installer MongoDB`);
+      }
     });
   } catch (error) {
     console.error('❌ Erreur lors du démarrage du serveur:', error);
-    process.exit(1);
+    console.log('⚠️  Le serveur démarre quand même en mode dégradé...');
+    
+    app.listen(PORT, () => {
+      console.log(`🚀 Serveur Benichou TCG démarré sur le port ${PORT} (mode dégradé)`);
+      console.log(`📱 API disponible sur: http://localhost:${PORT}`);
+      console.log(`⚠️  Certaines fonctionnalités nécessitent MongoDB`);
+    });
   }
 };
 

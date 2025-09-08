@@ -1,4 +1,17 @@
 {
+  "name": "benichou-tcg",
+  "version": "1.0.0",
+  "description": "Boutique en ligne pour cartes à collectionner Benichou TCG",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-all": "npm install && cd backend && npm install",
+    "backend": "cd backend && npm start",
+    "frontend": "cd frontend && npm start"
+  },
+  "keywords": ["tcg", "trading-cards", "ecommerce"],
+  "author": "Benichou",
+  "license": "MIT",
   "dependencies": {
     "mongodb": "^6.19.0"
   }

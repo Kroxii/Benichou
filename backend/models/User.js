@@ -1,5 +1,7 @@
 ﻿const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -20,7 +22,8 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 6,
+    select: false
   },
   firstName: {
     type: String,
@@ -34,14 +37,41 @@ const userSchema = new mongoose.Schema({
     trim: true,
     maxlength: 50
   },
+  phone: {
+    type: String,
+    trim: true
+  },
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    enum: ['customer', 'admin'],
+    default: 'customer'
   },
   isActive: {
     type: Boolean,
     default: true
+  },
+  isEmailVerified: {
+    type: Boolean,
+    default: false
+  },
+  emailVerificationToken: {
+    type: String,
+    select: false
+  },
+  emailVerificationExpires: {
+    type: Date,
+    select: false
+  },
+  passwordResetToken: {
+    type: String,
+    select: false
+  },
+  passwordResetExpires: {
+    type: Date,
+    select: false
+  },
+  lastLogin: {
+    type: Date
   }
 }, {
   timestamps: true
@@ -49,19 +79,39 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   try {
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
     next(error);
   }
 });
+
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
+
+userSchema.methods.generateEmailVerificationToken = function() {
+  const token = crypto.randomBytes(32).toString('hex');
+  this.emailVerificationToken = crypto.createHash('sha256').update(token).digest('hex');
+  this.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 heures
+  return token;
+};
+
+userSchema.methods.generatePasswordResetToken = function() {
+  const token = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
+  this.passwordResetExpires = Date.now() + 60 * 60 * 1000; // 1 heure
+  return token;
+};
+
 userSchema.methods.toJSON = function() {
   const user = this.toObject();
   delete user.password;
+  delete user.emailVerificationToken;
+  delete user.emailVerificationExpires;
+  delete user.passwordResetToken;
+  delete user.passwordResetExpires;
   return user;
 };
 module.exports = mongoose.model('User', userSchema);

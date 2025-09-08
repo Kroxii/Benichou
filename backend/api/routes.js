@@ -19,7 +19,14 @@ router.get('/', (req, res) => {
       auth: {
         register: 'POST /api/auth/register',
         login: 'POST /api/auth/login',
-        profile: 'GET /api/auth/profile (requires token)'
+        profile: 'GET /api/auth/profile (requires token)',
+        verifyEmail: 'GET /api/auth/verify-email/:token',
+        resendVerification: 'POST /api/auth/resend-verification',
+        forgotPassword: 'POST /api/auth/forgot-password',
+        resetPassword: 'POST /api/auth/reset-password/:token',
+        updateProfile: 'PUT /api/auth/profile (requires token)',
+        changePassword: 'PUT /api/auth/change-password (requires token)',
+        deleteAccount: 'DELETE /api/auth/account (requires token)'
       },
       categories: {
         getAll: 'GET /api/categories',
@@ -44,6 +51,13 @@ router.get('/', (req, res) => {
 router.post('/auth/register', validation.validateRegister, userController.register);
 router.post('/auth/login', validation.validateLogin, userController.login);
 router.get('/auth/profile', auth.requireAuth, userController.getProfile);
+router.get('/auth/verify-email/:token', userController.verifyEmail);
+router.post('/auth/resend-verification', validation.validateEmail, userController.resendVerificationEmail);
+router.post('/auth/forgot-password', validation.validateEmail, userController.forgotPassword);
+router.post('/auth/reset-password/:token', validation.validatePasswordReset, userController.resetPassword);
+router.put('/auth/profile', auth.requireAuth, validation.validateProfileUpdate, userController.updateProfile);
+router.put('/auth/change-password', auth.requireAuth, validation.validatePasswordChange, userController.changePassword);
+router.delete('/auth/account', auth.requireAuth, userController.deleteAccount);
 
 // Routes des catégories
 router.get('/categories', productController.getCategories);

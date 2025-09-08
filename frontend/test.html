@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benichou TCG - Test des fonctionnalités</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        .auth-buttons {
+            margin: 30px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .btn.primary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+        }
+        .btn.primary:hover {
+            background: white;
+        }
+        .features {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .feature {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .feature h3 {
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .demo-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .api-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            text-align: left;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #28a745;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Benichou TCG</h1>
+        <p class="subtitle">Test des fonctionnalités d'authentification</p>
+        
+        <div id="serverStatus" class="status-badge">🔍 Vérification du serveur...</div>
+        
+        <div class="auth-buttons">
+            <a href="index.html" class="btn">🏠 Accueil</a>
+            <a href="register.html" class="btn primary">📝 S'inscrire</a>
+            <a href="login.html" class="btn">🔐 Se connecter</a>
+            <a href="profile.html" class="btn" id="profileBtn" style="display: none;">👤 Mon Profil</a>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 Fonctionnalités implémentées</h2>
+            <p>Toutes les fonctionnalités d'authentification sont maintenant disponibles :</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>📝 Inscription</h3>
+                    <p>Création de compte avec validation des données et envoi d'email de vérification</p>
+                </div>
+                <div class="feature">
+                    <h3>✉️ Vérification Email</h3>
+                    <p>Activation du compte via lien email sécurisé</p>
+                </div>
+                <div class="feature">
+                    <h3>🔐 Connexion</h3>
+                    <p>Authentification sécurisée avec JWT</p>
+                </div>
+                <div class="feature">
+                    <h3>🔒 Réinitialisation</h3>
+                    <p>Récupération de mot de passe par email</p>
+                </div>
+                <div class="feature">
+                    <h3>👤 Profil</h3>
+                    <p>Gestion complète du profil utilisateur</p>
+                </div>
+                <div class="feature">
+                    <h3>🛡️ Sécurité</h3>
+                    <p>Changement de mot de passe et suppression de compte</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>🧪 Compte de démonstration</h3>
+            <div class="api-info">
+                <strong>Email:</strong> test@benichou.com<br>
+                <strong>Mot de passe:</strong> Test123!<br>
+                <em>Ce compte est déjà vérifié et prêt à utiliser</em>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>📡 API Backend</h3>
+            <div class="api-info" id="apiStatus">
+                Vérification de l'état de l'API...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3001';
+        
+        // Vérifier si l'utilisateur est connecté
+        function checkAuthStatus() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (token && user) {
+                const userData = JSON.parse(user);
+                document.getElementById('profileBtn').style.display = 'inline-block';
+                document.getElementById('profileBtn').textContent = `👤 ${userData.firstName}`;
+            }
+        }
+        
+        // Vérifier l'état du serveur
+        async function checkServerStatus() {
+            const statusElement = document.getElementById('serverStatus');
+            const apiElement = document.getElementById('apiStatus');
+            
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusElement.innerHTML = '✅ Serveur en ligne';
+                    statusElement.style.background = '#28a745';
+                    
+                    apiElement.innerHTML = `
+                        <strong>✅ API Status:</strong> ${data.status}<br>
+                        <strong>📊 Version:</strong> ${data.version}<br>
+                        <strong>👥 Utilisateurs:</strong> ${data.users}<br>
+                        <strong>🎯 Mode:</strong> Test (sans MongoDB)<br>
+                        <strong>🌐 URL:</strong> <a href="${API_URL}" target="_blank" style="color: #87ceeb;">${API_URL}</a>
+                    `;
+                } else {
+                    throw new Error('Réponse non OK');
+                }
+            } catch (error) {
+                statusElement.innerHTML = '❌ Serveur hors ligne';
+                statusElement.style.background = '#dc3545';
+                
+                apiElement.innerHTML = `
+                    <strong>❌ Erreur:</strong> Impossible de contacter l'API<br>
+                    <strong>🔧 Solution:</strong> Vérifiez que le serveur backend est démarré sur le port 3001
+                `;
+            }
+        }
+        
+        // Vérifications au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthStatus();
+            checkServerStatus();
+        });
+    </script>
+</body>
+</html>
