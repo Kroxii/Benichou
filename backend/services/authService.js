@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 const authService = {
-  // Générer un token JWT
   generateToken: (userId) => {
     return jwt.sign(
       { userId },
@@ -10,7 +9,6 @@ const authService = {
     );
   },
 
-  // Vérifier un token JWT
   verifyToken: (token) => {
     try {
       return jwt.verify(token, process.env.JWT_SECRET);
@@ -19,7 +17,6 @@ const authService = {
     }
   },
 
-  // Générer un token de réinitialisation de mot de passe
   generateResetToken: (userId) => {
     return jwt.sign(
       { userId, type: 'password_reset' },
@@ -28,7 +25,6 @@ const authService = {
     );
   },
 
-  // Vérifier un token de réinitialisation
   verifyResetToken: (token) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);

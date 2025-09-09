@@ -2,7 +2,6 @@ const Product = require('../models/Product');
 const Category = require('../models/Category');
 
 const productController = {
-  // Obtenir toutes les catégories
   getCategories: async (req, res) => {
     try {
       const categories = await Category.find({ isActive: true })
@@ -21,7 +20,6 @@ const productController = {
     }
   },
 
-  // Obtenir une catégorie par slug
   getCategoryBySlug: async (req, res) => {
     try {
       const { slug } = req.params;
@@ -45,12 +43,10 @@ const productController = {
     }
   },
 
-  // Obtenir tous les produits
   getAllProducts: async (req, res) => {
     try {
       const { page = 1, limit = 20, category, minPrice, maxPrice, inStock } = req.query;
       
-      // Construire le filtre
       const filter = { isActive: true };
       
       if (category) {
@@ -96,7 +92,6 @@ const productController = {
     }
   },
 
-  // Obtenir un produit par ID
   getProductById: async (req, res) => {
     try {
       const { id } = req.params;
@@ -121,7 +116,6 @@ const productController = {
     }
   },
 
-  // Obtenir les produits par catégorie
   getProductsByCategory: async (req, res) => {
     try {
       const { categorySlug } = req.params;
@@ -167,7 +161,6 @@ const productController = {
     }
   },
 
-  // Rechercher des produits
   searchProducts: async (req, res) => {
     try {
       const { q, page = 1, limit = 20 } = req.query;

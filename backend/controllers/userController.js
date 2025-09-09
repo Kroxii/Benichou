@@ -6,12 +6,9 @@ const authService = require('../services/authService');
 const emailService = require('../services/emailService');
 
 const userController = {
-  // Inscription d'un utilisateur
   register: async (req, res) => {
     try {
       const { email, password, firstName, lastName, phone, username } = req.body;
-
-      // Vérifier si l'utilisateur existe déjà
       const existingUser = await User.findOne({ 
         $or: [{ email }, { username }] 
       });
@@ -29,7 +26,6 @@ const userController = {
         }
       }
 
-      // Créer l'utilisateur
       const user = new User({
         email,
         password,
@@ -40,17 +36,14 @@ const userController = {
         role: 'customer'
       });
 
-      // Générer le token de vérification d'email
       const verificationToken = user.generateEmailVerificationToken();
       
       await user.save();
 
-      // Envoyer l'email de vérification
       try {
         await emailService.sendEmailVerification(email, firstName, verificationToken);
       } catch (emailError) {
         console.error('Erreur lors de l\'envoi de l\'email de vérification:', emailError);
-        // Ne pas faire échouer l'inscription si l'email ne peut pas être envoyé
       }
 
       res.status(201).json({
@@ -81,15 +74,10 @@ const userController = {
     }
   },
 
-  // Vérification de l'email
   verifyEmail: async (req, res) => {
     try {
       const { token } = req.params;
-
-      // Hasher le token reçu pour le comparer avec celui en base
       const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
-      // Trouver l'utilisateur avec ce token et vérifier qu'il n'a pas expiré
       const user = await User.findOne({
         emailVerificationToken: hashedToken,
         emailVerificationExpires: { $gt: Date.now() }
@@ -101,20 +89,17 @@ const userController = {
         });
       }
 
-      // Marquer l'email comme vérifié
       user.isEmailVerified = true;
       user.emailVerificationToken = undefined;
       user.emailVerificationExpires = undefined;
       await user.save();
 
-      // Envoyer l'email de bienvenue
       try {
         await emailService.sendWelcomeEmail(user.email, user.firstName);
       } catch (emailError) {
         console.error('Erreur lors de l\'envoi de l\'email de bienvenue:', emailError);
       }
 
-      // Générer le token JWT pour connecter automatiquement l'utilisateur
       const jwtToken = authService.generateToken(user._id);
 
       res.json({
@@ -138,7 +123,6 @@ const userController = {
     }
   },
 
-  // Renvoyer l'email de vérification
   resendVerificationEmail: async (req, res) => {
     try {
       const { email } = req.body;
@@ -156,11 +140,8 @@ const userController = {
         });
       }
 
-      // Générer un nouveau token de vérification
       const verificationToken = user.generateEmailVerificationToken();
       await user.save();
-
-      // Envoyer l'email de vérification
       await emailService.sendEmailVerification(user.email, user.firstName, verificationToken);
 
       res.json({
@@ -174,12 +155,10 @@ const userController = {
     }
   },
 
-  // Connexion d'un utilisateur
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
 
-      // Trouver l'utilisateur
       const user = await User.findOne({ email }).select('+password');
       if (!user) {
         return res.status(401).json({
@@ -187,7 +166,6 @@ const userController = {
         });
       }
 
-      // Vérifier le mot de passe
       const isValidPassword = await user.comparePassword(password);
       if (!isValidPassword) {
         return res.status(401).json({
@@ -195,7 +173,6 @@ const userController = {
         });
       }
 
-      // Vérifier si l'email est vérifié
       if (!user.isEmailVerified) {
         return res.status(401).json({
           error: 'Veuillez vérifier votre email avant de vous connecter',
@@ -203,11 +180,9 @@ const userController = {
         });
       }
 
-      // Mettre à jour la dernière connexion
       user.lastLogin = new Date();
       await user.save();
 
-      // Générer le token JWT
       const token = authService.generateToken(user._id);
 
       res.json({
@@ -231,7 +206,6 @@ const userController = {
     }
   },
 
-  // Obtenir le profil de l'utilisateur connecté
   getProfile: async (req, res) => {
     try {
       const user = await User.findById(req.user.userId);
@@ -263,7 +237,6 @@ const userController = {
     }
   },
 
-  // Demande de réinitialisation de mot de passe
   forgotPassword: async (req, res) => {
     try {
       const { email } = req.body;
@@ -275,11 +248,8 @@ const userController = {
         });
       }
 
-      // Générer le token de réinitialisation
       const resetToken = user.generatePasswordResetToken();
       await user.save();
-
-      // Envoyer l'email de réinitialisation
       await emailService.sendPasswordResetEmail(user.email, user.firstName, resetToken);
 
       res.json({
@@ -293,16 +263,11 @@ const userController = {
     }
   },
 
-  // Réinitialisation du mot de passe
   resetPassword: async (req, res) => {
     try {
       const { token } = req.params;
       const { password } = req.body;
-
-      // Hasher le token reçu
       const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
-      // Trouver l'utilisateur avec ce token
       const user = await User.findOne({
         passwordResetToken: hashedToken,
         passwordResetExpires: { $gt: Date.now() }
@@ -314,13 +279,11 @@ const userController = {
         });
       }
 
-      // Mettre à jour le mot de passe
       user.password = password;
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
       await user.save();
 
-      // Générer un nouveau token JWT
       const jwtToken = authService.generateToken(user._id);
 
       res.json({
@@ -343,13 +306,11 @@ const userController = {
     }
   },
 
-  // Mettre à jour le profil utilisateur
   updateProfile: async (req, res) => {
     try {
       const { firstName, lastName, username, phone } = req.body;
       const userId = req.user.userId;
 
-      // Vérifier si le username est déjà pris (s'il est modifié)
       if (username) {
         const existingUser = await User.findOne({ 
           username, 
@@ -396,7 +357,6 @@ const userController = {
     }
   },
 
-  // Changer le mot de passe
   changePassword: async (req, res) => {
     try {
       const { currentPassword, newPassword } = req.body;
@@ -409,7 +369,6 @@ const userController = {
         });
       }
 
-      // Vérifier le mot de passe actuel
       const isValidPassword = await user.comparePassword(currentPassword);
       if (!isValidPassword) {
         return res.status(400).json({
@@ -417,7 +376,6 @@ const userController = {
         });
       }
 
-      // Mettre à jour le mot de passe
       user.password = newPassword;
       await user.save();
 
@@ -432,7 +390,6 @@ const userController = {
     }
   },
 
-  // Supprimer le compte utilisateur
   deleteAccount: async (req, res) => {
     try {
       const userId = req.user.userId;

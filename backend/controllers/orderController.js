@@ -2,7 +2,6 @@ const Order = require('../models/Order');
 const Product = require('../models/Product');
 
 const orderController = {
-  // Créer une nouvelle commande
   createOrder: async (req, res) => {
     try {
       const { items, shippingAddress, billingAddress, paymentMethod } = req.body;
@@ -13,7 +12,6 @@ const orderController = {
         });
       }
 
-      // Vérifier et calculer le total
       let totalAmount = 0;
       const orderItems = [];
 
@@ -49,7 +47,6 @@ const orderController = {
         });
       }
 
-      // Créer la commande
       const order = new Order({
         user: req.userId,
         items: orderItems,
@@ -61,8 +58,6 @@ const orderController = {
       });
 
       await order.save();
-
-      // Mettre à jour le stock des produits
       for (const item of items) {
         await Product.findByIdAndUpdate(
           item.productId,
@@ -70,7 +65,6 @@ const orderController = {
         );
       }
 
-      // Peupler la commande avec les détails des produits
       await order.populate('items.product', 'name slug images');
       await order.populate('user', 'firstName lastName email');
 
@@ -87,7 +81,6 @@ const orderController = {
     }
   },
 
-  // Obtenir les commandes de l'utilisateur connecté
   getUserOrders: async (req, res) => {
     try {
       const { page = 1, limit = 10 } = req.query;
@@ -118,7 +111,6 @@ const orderController = {
     }
   },
 
-  // Obtenir une commande par ID
   getOrderById: async (req, res) => {
     try {
       const { id } = req.params;

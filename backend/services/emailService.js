@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const emailService = {
-  // Configuration du transporteur avec gestion d'erreurs robuste
   createTransporter() {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -12,25 +11,21 @@ const emailService = {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-      // Options de performance et retry
       maxConnections: 5,
       maxMessages: 10,
-      rateLimit: 14, // 14 messages par seconde max
-      connectionTimeout: 60000, // 60 secondes
-      greetingTimeout: 30000, // 30 secondes
-      socketTimeout: 60000, // 60 secondes
+      rateLimit: 14,
+      connectionTimeout: 60000,
+      greetingTimeout: 30000,
+      socketTimeout: 60000,
     });
   },
 
-  // Envoi d'email avec gestion d'erreurs améliorée
   async sendEmail(to, subject, html) {
     try {
-      // Validation des paramètres
       if (!to || !subject || !html) {
         throw new Error('Paramètres email manquants (to, subject, html)');
       }
 
-      // Validation de l'email
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(to)) {
         throw new Error('Adresse email destinataire invalide');
@@ -38,7 +33,6 @@ const emailService = {
 
       const transporter = this.createTransporter();
       
-      // Vérification de la connexion SMTP
       try {
         await transporter.verify();
       } catch (verifyError) {
@@ -65,7 +59,6 @@ const emailService = {
     } catch (error) {
       console.error('❌ Erreur lors de l\'envoi de l\'email:', error.message);
       
-      // Mapping des erreurs SMTP vers des messages utilisateur
       const errorMap = {
         'EAUTH': 'Authentification SMTP échouée - Vérifiez les identifiants dans .env',
         'ECONNECTION': 'Impossible de se connecter au serveur SMTP - Vérifiez host/port',
@@ -87,7 +80,6 @@ const emailService = {
     }
   },
 
-  // Email de vérification avec template amélioré
   async sendEmailVerification(email, firstName, token) {
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email.html?token=${token}`;
     
@@ -138,7 +130,6 @@ const emailService = {
     return this.sendEmail(email, '🎴 Vérification de votre compte Benichou TCG', html);
   },
 
-  // Email de réinitialisation de mot de passe
   async sendPasswordResetEmail(email, firstName, token) {
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password.html?token=${token}`;
     
