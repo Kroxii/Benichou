@@ -58,7 +58,7 @@ const users = [
   {
     username: 'admin',
     email: 'admin@benichou.com',
-    password: 'admin123',
+    password: 'Admin123!',
     firstName: 'Admin',
     lastName: 'Benichou',
     role: 'admin',
@@ -67,28 +67,28 @@ const users = [
   {
     username: 'john_doe',
     email: 'john.doe@example.com',
-    password: 'password123',
+    password: 'Password123!',
     firstName: 'John',
     lastName: 'Doe',
-    role: 'user',
+    role: 'customer',
     isActive: true
   },
   {
     username: 'jane_smith',
     email: 'jane.smith@example.com',
-    password: 'password123',
+    password: 'Password123!',
     firstName: 'Jane',
     lastName: 'Smith',
-    role: 'user',
+    role: 'customer',
     isActive: true
   },
   {
     username: 'mike_johnson',
     email: 'mike.johnson@example.com',
-    password: 'password123',
+    password: 'Password123!',
     firstName: 'Mike',
     lastName: 'Johnson',
-    role: 'user',
+    role: 'customer',
     isActive: true
   }
 ];

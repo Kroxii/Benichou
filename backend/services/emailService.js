@@ -1,279 +1,194 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
-class EmailService {
-  constructor() {
-    this.transporter = this.createTransporter();
-  }
-
+const emailService = {
+  // Configuration du transporteur avec gestion d'erreurs robuste
   createTransporter() {
-    // Configuration pour le développement (utilise Ethereal Email)
-    // En production, remplacez par votre fournisseur SMTP réel
-    if (process.env.NODE_ENV === 'production') {
-      return nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: true,
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      });
-    } else {
-      // Configuration pour le développement
-      return nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-          user: 'ethereal.user@ethereal.email',
-          pass: 'verysecret'
-        }
-      });
-    }
-  }
+    return nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      // Options de performance et retry
+      maxConnections: 5,
+      maxMessages: 10,
+      rateLimit: 14, // 14 messages par seconde max
+      connectionTimeout: 60000, // 60 secondes
+      greetingTimeout: 30000, // 30 secondes
+      socketTimeout: 60000, // 60 secondes
+    });
+  },
 
-  async sendEmail(to, subject, htmlContent, textContent = '') {
+  // Envoi d'email avec gestion d'erreurs améliorée
+  async sendEmail(to, subject, html) {
     try {
-      const mailOptions = {
-        from: process.env.FROM_EMAIL || '"Benichou TCG" <noreply@benichou-tcg.com>',
-        to,
-        subject,
-        text: textContent,
-        html: htmlContent,
-      };
-
-      const info = await this.transporter.sendMail(mailOptions);
-      
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('📧 Email envoyé avec succès');
-        console.log('   Destinataire:', to);
-        console.log('   Sujet:', subject);
-        console.log('   Preview URL:', nodemailer.getTestMessageUrl(info));
+      // Validation des paramètres
+      if (!to || !subject || !html) {
+        throw new Error('Paramètres email manquants (to, subject, html)');
       }
 
-      return { success: true, messageId: info.messageId };
+      // Validation de l'email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(to)) {
+        throw new Error('Adresse email destinataire invalide');
+      }
+
+      const transporter = this.createTransporter();
+      
+      // Vérification de la connexion SMTP
+      try {
+        await transporter.verify();
+      } catch (verifyError) {
+        console.error('❌ Échec de vérification SMTP:', verifyError.message);
+        throw new Error('Impossible de se connecter au serveur SMTP');
+      }
+
+      const mailOptions = {
+        from: process.env.FROM_EMAIL,
+        to,
+        subject,
+        html
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      
+      console.log(`✅ Email envoyé avec succès à ${to}`);
+      return { 
+        success: true, 
+        messageId: info.messageId,
+        timestamp: new Date().toISOString()
+      };
+      
     } catch (error) {
-      console.error('❌ Erreur lors de l\'envoi de l\'email:', error);
-      return { success: false, error: error.message };
+      console.error('❌ Erreur lors de l\'envoi de l\'email:', error.message);
+      
+      // Mapping des erreurs SMTP vers des messages utilisateur
+      const errorMap = {
+        'EAUTH': 'Authentification SMTP échouée - Vérifiez les identifiants dans .env',
+        'ECONNECTION': 'Impossible de se connecter au serveur SMTP - Vérifiez host/port',
+        'EMESSAGE': 'Format de message email invalide',
+        'EENVELOPE': 'Adresse email destinataire invalide',
+        'ETIMEDOUT': 'Timeout de connexion SMTP - Serveur indisponible',
+        'EDNS': 'Erreur de résolution DNS - Vérifiez l\'host SMTP',
+        'ENOTFOUND': 'Serveur SMTP introuvable'
+      };
+      
+      const userMessage = errorMap[error.code] || `Erreur email: ${error.message}`;
+      
+      return { 
+        success: false, 
+        error: userMessage,
+        code: error.code || 'UNKNOWN',
+        timestamp: new Date().toISOString()
+      };
     }
-  }
+  },
 
-  async sendEmailVerification(email, firstName, verificationToken) {
-    const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify-email?token=${verificationToken}`;
+  // Email de vérification avec template amélioré
+  async sendEmailVerification(email, firstName, token) {
+    const verificationUrl = `${process.env.FRONTEND_URL}/verify-email.html?token=${token}`;
     
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-            .button { display: inline-block; background: #667eea; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-            .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>🎮 Bienvenue chez Benichou TCG !</h1>
-            </div>
-            <div class="content">
-              <p>Bonjour <strong>${firstName}</strong>,</p>
-              
-              <p>Merci de vous être inscrit sur Benichou TCG ! Nous sommes ravis de vous accueillir dans notre communauté de passionnés de cartes à collectionner.</p>
-              
-              <p>Pour finaliser votre inscription et activer votre compte, veuillez cliquer sur le bouton ci-dessous :</p>
-              
-              <p style="text-align: center;">
-                <a href="${verificationUrl}" class="button">✉️ Vérifier mon email</a>
-              </p>
-              
-              <p>Si le bouton ne fonctionne pas, vous pouvez copier et coller ce lien dans votre navigateur :</p>
-              <p style="word-break: break-all; background: #eee; padding: 10px; border-radius: 5px;">
-                ${verificationUrl}
-              </p>
-              
-              <p><strong>⚠️ Important :</strong> Ce lien est valable pendant 24 heures.</p>
-              
-              <p>Si vous n'avez pas créé de compte sur notre site, vous pouvez ignorer cet email.</p>
-              
-              <p>À bientôt sur Benichou TCG !<br>
-              L'équipe Benichou TCG</p>
-            </div>
-            <div class="footer">
-              <p>© 2024 Benichou TCG - Votre boutique de cartes à collectionner</p>
-            </div>
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center;">
+          <h1>🎴 Benichou TCG</h1>
+          <h2>Vérification de votre compte</h2>
+        </div>
+        
+        <div style="padding: 30px; background-color: #f8f9fa;">
+          <p>Bonjour <strong>${firstName}</strong>,</p>
+          
+          <p>Bienvenue chez Benichou TCG ! Pour activer votre compte, veuillez cliquer sur le bouton ci-dessous :</p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${verificationUrl}" 
+               style="background: #28a745; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+              ✅ Vérifier mon compte
+            </a>
           </div>
-        </body>
-      </html>
-    `;
-
-    const textContent = `
-      Bonjour ${firstName},
-      
-      Merci de vous être inscrit sur Benichou TCG !
-      
-      Pour finaliser votre inscription, veuillez cliquer sur ce lien :
-      ${verificationUrl}
-      
-      Ce lien est valable pendant 24 heures.
-      
-      L'équipe Benichou TCG
-    `;
-
-    return await this.sendEmail(
-      email,
-      '🎮 Confirmez votre inscription sur Benichou TCG',
-      htmlContent,
-      textContent
-    );
-  }
-
-  async sendWelcomeEmail(email, firstName) {
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-            .button { display: inline-block; background: #28a745; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>🎉 Votre compte est activé !</h1>
-            </div>
-            <div class="content">
-              <p>Félicitations <strong>${firstName}</strong> !</p>
-              
-              <p>Votre compte Benichou TCG est maintenant activé et vous pouvez profiter de toutes nos fonctionnalités :</p>
-              
-              <ul>
-                <li>🛒 Parcourir notre catalogue de cartes</li>
-                <li>� Passer des commandes en toute sécurité</li>
-                <li>📦 Suivre vos commandes</li>
-                <li>⭐ Gérer vos favoris</li>
-              </ul>
-              
-              <p style="text-align: center;">
-                <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}" class="button">🏪 Découvrir la boutique</a>
-              </p>
-              
-              <p>Merci de faire confiance à Benichou TCG !</p>
-              
-              <p>L'équipe Benichou TCG</p>
-            </div>
+          
+          <p>Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :</p>
+          <p style="word-break: break-all; color: #666;">${verificationUrl}</p>
+          
+          <div style="background: #e9ecef; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p style="margin: 0;"><strong>⏰ Important :</strong> Ce lien expire dans 24 heures.</p>
           </div>
-        </body>
-      </html>
+          
+          <p>Une fois votre compte activé, vous pourrez :</p>
+          <ul>
+            <li>🛒 Passer des commandes</li>
+            <li>📦 Suivre vos livraisons</li>
+            <li>💳 Gérer vos moyens de paiement</li>
+            <li>🎁 Accéder aux offres exclusives</li>
+          </ul>
+          
+          <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
+          
+          <p style="font-size: 12px; color: #6c757d;">
+            Vous recevez cet email car vous avez créé un compte sur Benichou TCG.<br>
+            Si vous n'êtes pas à l'origine de cette demande, ignorez simplement cet email.
+          </p>
+        </div>
+      </div>
     `;
 
-    return await this.sendEmail(
-      email,
-      '🎉 Bienvenue sur Benichou TCG - Votre compte est activé !',
-      htmlContent
-    );
-  }
+    return this.sendEmail(email, '🎴 Vérification de votre compte Benichou TCG', html);
+  },
 
-  async sendPasswordResetEmail(email, firstName, resetToken) {
-    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
+  // Email de réinitialisation de mot de passe
+  async sendPasswordResetEmail(email, firstName, token) {
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password.html?token=${token}`;
     
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #dc3545; color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-            .button { display: inline-block; background: #dc3545; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>🔒 Réinitialisation de mot de passe</h1>
-            </div>
-            <div class="content">
-              <p>Bonjour <strong>${firstName}</strong>,</p>
-              
-              <p>Vous avez demandé la réinitialisation de votre mot de passe sur Benichou TCG.</p>
-              
-              <p>Cliquez sur le bouton ci-dessous pour créer un nouveau mot de passe :</p>
-              
-              <p style="text-align: center;">
-                <a href="${resetUrl}" class="button">🔐 Réinitialiser mon mot de passe</a>
-              </p>
-              
-              <p><strong>⚠️ Important :</strong> Ce lien est valable pendant 1 heure.</p>
-              
-              <p>Si vous n'avez pas demandé cette réinitialisation, vous pouvez ignorer cet email. Votre mot de passe restera inchangé.</p>
-              
-              <p>L'équipe Benichou TCG</p>
-            </div>
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; padding: 20px; text-align: center;">
+          <h1>🎴 Benichou TCG</h1>
+          <h2>Réinitialisation de mot de passe</h2>
+        </div>
+        
+        <div style="padding: 30px; background-color: #f8f9fa;">
+          <p>Bonjour <strong>${firstName}</strong>,</p>
+          
+          <p>Vous avez demandé la réinitialisation de votre mot de passe. Cliquez sur le bouton ci-dessous pour créer un nouveau mot de passe :</p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" 
+               style="background: #dc3545; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+              🔒 Réinitialiser mon mot de passe
+            </a>
           </div>
-        </body>
-      </html>
+          
+          <p>Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :</p>
+          <p style="word-break: break-all; color: #666;">${resetUrl}</p>
+          
+          <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p style="margin: 0;"><strong>⚠️ Important :</strong> Ce lien expire dans 1 heure pour votre sécurité.</p>
+          </div>
+          
+          <div style="background: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p style="margin: 0;">
+              <strong>🛡️ Conseils de sécurité :</strong><br>
+              • Choisissez un mot de passe fort (8+ caractères)<br>
+              • Utilisez majuscules, minuscules et chiffres<br>
+              • Ne partagez jamais votre mot de passe
+            </p>
+          </div>
+          
+          <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
+          
+          <p style="font-size: 12px; color: #6c757d;">
+            Si vous n'avez pas demandé cette réinitialisation, ignorez cet email ou contactez-nous.<br>
+            Votre mot de passe actuel reste inchangé tant que vous ne cliquez pas sur le lien.
+          </p>
+        </div>
+      </div>
     `;
 
-    return await this.sendEmail(
-      email,
-      '🔒 Réinitialisation de votre mot de passe - Benichou TCG',
-      htmlContent
-    );
+    return this.sendEmail(email, '🔒 Réinitialisation de votre mot de passe Benichou TCG', html);
   }
+};
 
-  async sendOrderConfirmation(email, firstName, order) {
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #28a745; color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>✅ Commande confirmée !</h1>
-            </div>
-            <div class="content">
-              <p>Bonjour <strong>${firstName}</strong>,</p>
-              
-              <p>Votre commande <strong>#${order.orderNumber}</strong> a été confirmée avec succès !</p>
-              
-              <p><strong>Total :</strong> ${order.total}€</p>
-              
-              <p>Nous préparons votre commande et vous recevrez bientôt un email de suivi.</p>
-              
-              <p>Merci pour votre confiance !</p>
-              
-              <p>L'équipe Benichou TCG</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    `;
-
-    return await this.sendEmail(
-      email,
-      `✅ Confirmation de votre commande #${order.orderNumber} - Benichou TCG`,
-      htmlContent
-    );
-  }
-}
-
-module.exports = new EmailService();
+module.exports = emailService;
