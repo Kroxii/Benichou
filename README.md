@@ -123,5 +123,6 @@ const response = await fetch('http://localhost:3001/api/auth/register', {
 
 ---
 
-**Version** : 0.4.2 | **Statut** : En développement actif  
+**Version** ![Version](https://img.shields.io/badge/Version-%20v0.4.2-red)
+**Statut** : En développement actif  
 **Stack** : Node.js + Express + MongoDB + Bootstrap | **Port** : Backend 3001, Frontend 3000
