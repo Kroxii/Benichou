@@ -1,225 +1,165 @@
-# 🃏 Benichou TCG - Boutique de Cartes à Collectionner
+# 🎴 Benichou TCG - Boutique de Cartes à Collectionner
 
-## 📋 Description
+> **Plateforme complète de vente en ligne spécialisée dans les TCG (Trading Card Games)**  
+> Stack : Node.js + Express + MongoDB + Frontend responsive
 
-Benichou est une boutique en ligne spécialisée dans les cartes à collectionner TCG (Trading Card Game). Le projet comprend :
+---
 
-- **Frontend** : Site web vitrine avec catalogue de produits
-- **Backend** : API REST avec gestion des utilisateurs, produits et commandes
-- **Base de données** : MongoDB pour le stockage des données
+## 🏗️ Architecture Simplifiée
 
-## 🚀 Démarrage Rapide
+### 📂 **Backend** (API REST - Node.js)
+```
+backend/
+├── 📁 api/           # Routes et configuration Express
+├── 📁 controllers/   # Logique métier (users, products, orders)
+├── 📁 models/        # Schémas MongoDB (User, Product, Category, Order)
+├── 📁 services/      # Services (auth, email, payment)
+├── 📁 middleware/    # Sécurité, validation, CORS
+├── 📁 config/        # Base de données, JWT, environnement
+├── 📁 database/      # Seeders et données initiales
+└── 📄 server.js      # Point d'entrée (port 3001)
+```
 
-### 1. Prérequis
+### 📂 **Frontend** (Interface utilisateur)
+```
+frontend/
+├── 📄 index.html         # Page d'accueil
+├── 📁 pages/             # Catalogues TCG (Pokemon, Yu-Gi-Oh!, Magic...)
+├── 📁 assets/css/        # Styles (Bootstrap + custom)
+├── 📁 assets/js/         # Scripts interactifs
+├── 📁 assets/images/     # Visuels et logos
+├── 📄 login.html         # Authentification
+└── 📄 register.html      # Inscription
+```
 
-- **Node.js** (version 18+) : [Télécharger](https://nodejs.org/)
-- **MongoDB** (une des options) :
-  - Docker (recommandé) : [Télécharger](https://docs.docker.com/get-docker/)
-  - Installation locale : [Guide MongoDB](https://docs.mongodb.com/manual/installation/)
-  - MongoDB Atlas (cloud) : [Créer un compte](https://www.mongodb.com/cloud/atlas)
+---
 
-### 2. Installation
+## 🔧 **Stack Technique**
 
+| **Backend** | **Frontend** |
+|-------------|--------------|
+| Node.js 18+ | HTML5 + CSS3 |
+| Express.js | Bootstrap 5.3 |
+| MongoDB Atlas | JavaScript ES6+ |
+| JWT Auth | Swiper.js |
+| Nodemailer | Responsive Design |
+
+---
+
+## 📡 **API Endpoints Essentiels**
+
+```http
+# 🔐 Authentification
+POST   /api/auth/register     # Inscription
+POST   /api/auth/login        # Connexion  
+GET    /api/auth/profile      # Profil utilisateur
+
+# 📦 Produits TCG
+GET    /api/products          # Liste des produits
+GET    /api/products/:id      # Détail produit
+GET    /api/categories        # Catégories TCG
+
+# 🛒 Commandes
+POST   /api/orders            # Nouvelle commande
+GET    /api/orders            # Historique utilisateur
+```
+
+---
+
+## 🚀 **Démarrage Rapide**
+
+### 1. **Installation Backend**
 ```bash
-# Cloner le repository
-git clone https://github.com/Kroxii/Benichou.git
-cd Benichou
-
-# Installer les dépendances backend
 cd backend
 npm install
+cp .env.example .env    # Configurer les variables
+npm run seed           # Initialiser les données
+npm start              # Démarrer API (port 3001)
 ```
 
-### 3. Configuration de la Base de Données
-
-#### Option A : Avec Docker (Recommandé)
-```powershell
-# Windows
-./scripts/start-mongodb.ps1
-
-# Linux/macOS
-chmod +x scripts/start-mongodb.sh
-./scripts/start-mongodb.sh
+### 2. **Installation Frontend**
+```bash
+cd frontend
+npx http-server -p 3000   # Serveur local (port 3000)
 ```
 
-#### Option B : MongoDB Local
-1. Installer MongoDB localement
-2. Démarrer le service MongoDB
-3. La configuration par défaut utilise `mongodb://localhost:27017/benichou_db`
-
-#### Option C : MongoDB Atlas (Cloud)
-1. Créer un compte sur [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-2. Créer un cluster gratuit
-3. Modifier le fichier `.env` avec votre URL de connexion :
+### 3. **Variables d'Environnement (.env)**
 ```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/benichou_db
-```
+# Base de données MongoDB
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/benichou_db
 
-### 4. Configuration Environment
-
-Le fichier `.env` est déjà configuré avec des valeurs par défaut :
-
-```env
-# Configuration de base de données MongoDB
-MONGODB_URI=mongodb://localhost:27017/benichou_db
-
-# Configuration JWT
-JWT_SECRET=benichou_super_secret_jwt_key_2025
+# Authentification JWT
+JWT_SECRET=your_super_secret_key
 JWT_EXPIRES_IN=7d
 
-# Configuration serveur
-PORT=3000
-NODE_ENV=development
+# Email (Gmail recommandé)
+SMTP_HOST=smtp.gmail.com
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+
+# URLs
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:3001
 ```
 
-### 5. Initialisation des Données
+---
+
+## ✨ **Fonctionnalités**
+
+### ✅ **Implémentées**
+- 🔐 Système d'authentification JWT complet
+- 📧 Validation par email avec Nodemailer  
+- 👤 Gestion utilisateurs (inscription, connexion, profil)
+- 🔑 Réinitialisation de mot de passe
+- 📱 Interface responsive avec Bootstrap
+- 🎴 Catalogues par jeu TCG (Pokemon, Yu-Gi-Oh!, Magic...)
+- 🗄️ Base de données MongoDB avec seeders
+
+### 🔄 **En Développement**
+- 🛒 Système de commandes complet
+- 💳 Intégration paiement (Stripe/PayPal)
+- 📦 Gestion des stocks produits
+- 👨‍💼 Panel administrateur
+
+---
+
+## 🛠️ **Scripts de Développement**
 
 ```bash
-cd backend
+# Backend
+npm start              # Démarrer le serveur
+npm run dev            # Mode développement avec nodemon
+npm run seed           # Initialiser les données de test
 
-# Tester la connexion à MongoDB
-npm run test:connection
-
-# Initialiser toutes les données (catégories, utilisateurs, produits)
-npm run seed
-
-# Ou initialiser séparément :
-npm run seed:categories
-npm run seed:users
-npm run seed:products
+# Frontend  
+npx http-server -p 3000           # Serveur statique
+npx live-server --port=3000       # Avec rechargement automatique
 ```
 
-### 6. Démarrage des Services
+---
 
-```bash
-# Démarrer le serveur backend
-cd backend
-npm start
+## 📖 **Documentation**
 
-# Le serveur sera accessible sur http://localhost:3000
+- **API Documentation** : `GET http://localhost:3001/api`
+- **Health Check** : `GET http://localhost:3001/api/health`
+
+### Exemple d'utilisation API :
+```javascript
+// Inscription utilisateur
+const response = await fetch('http://localhost:3001/api/auth/register', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    email: 'user@example.com',
+    password: 'SecurePass123!',
+    firstName: 'John',
+    lastName: 'Doe',
+    username: 'johndoe'
+  })
+});
 ```
 
-## 🛠 Commandes Disponibles
+---
 
-### Backend
-```bash
-# Démarrer le serveur en production
-npm start
-
-# Démarrer en mode développement (avec rechargement automatique)
-npm run dev
-
-# Tester la connexion à MongoDB
-npm run test:connection
-
-# Initialiser les données
-npm run seed                # Toutes les données
-npm run seed:categories     # Seulement les catégories
-npm run seed:users         # Seulement les utilisateurs
-npm run seed:products      # Seulement les produits
-
-# Afficher les données existantes
-npm run show:data
-```
-
-## 🔌 API Endpoints
-
-### Authentification
-- `POST /api/auth/register` - Inscription utilisateur
-- `POST /api/auth/login` - Connexion utilisateur
-- `GET /api/auth/profile` - Profil utilisateur (authentifié)
-
-### Catégories
-- `GET /api/categories` - Liste des catégories
-- `GET /api/categories/:slug` - Détails d'une catégorie
-
-### Produits
-- `GET /api/products` - Liste des produits (avec pagination)
-- `GET /api/products/:id` - Détails d'un produit
-- `GET /api/products/category/:categorySlug` - Produits par catégorie
-- `GET /api/products/search?q=terme` - Recherche de produits
-
-### Commandes (Authentifiées)
-- `POST /api/orders` - Créer une commande
-- `GET /api/orders` - Commandes de l'utilisateur
-- `GET /api/orders/:id` - Détails d'une commande
-
-### Utilitaires
-- `GET /api/health` - Status de l'API
-- `GET /api/` - Documentation des endpoints
-
-## 🗄 Modèles de Données
-
-### Catégories
-- Pokemon, Yu-Gi-Oh!, Magic: The Gathering, Lorcana, Altered, Riftbound, Accessoires
-
-### Utilisateurs
-- Clients et administrateurs avec authentification JWT
-
-### Produits
-- Boosters, decks, cartes singles avec gestion des stocks
-
-### Commandes
-- Panier, adresses, statuts de commande, historique
-
-## 🔧 Dépannage
-
-### Erreur de connexion MongoDB
-```bash
-# Vérifier si MongoDB est démarré
-docker ps | grep mongo
-
-# Redémarrer MongoDB avec Docker
-docker restart benichou-mongodb
-
-# Tester la connexion
-cd backend
-npm run test:connection
-```
-
-### Erreur de port occupé
-```bash
-# Changer le port dans .env
-PORT=3001
-
-# Ou tuer le processus utilisant le port 3000
-# Windows
-netstat -ano | findstr :3000
-taskkill /PID <PID> /F
-
-# Linux/macOS
-lsof -ti:3000 | xargs kill -9
-```
-
-### Problèmes de dépendances
-```bash
-# Nettoyer et réinstaller
-cd backend
-rm -rf node_modules package-lock.json
-npm install
-```
-
-## 🚀 Déploiement
-
-### Prérequis Production
-1. Serveur Node.js (PM2 recommandé)
-2. MongoDB (Atlas recommandé pour la production)
-3. Certificat SSL pour HTTPS
-4. Nom de domaine
-
-### Variables d'environnement Production
-```env
-NODE_ENV=production
-MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/benichou_prod
-JWT_SECRET=your-super-secure-secret-key-here
-PORT=3000
-```
-
-## 📞 Support
-
-- **Repository** : [GitHub](https://github.com/Kroxii/Benichou)
-- **Issues** : [Signaler un problème](https://github.com/Kroxii/Benichou/issues)
-
-## 📝 Licence
-
-MIT License - Voir le fichier LICENSE pour plus de détails.
+**Version** : 1.0.0 | **Statut** : En développement actif  
+**Stack** : Node.js + Express + MongoDB + Bootstrap | **Port** : Backend 3001, Frontend 3000
