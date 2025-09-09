@@ -66,44 +66,6 @@ GET    /api/orders            # Historique utilisateur
 
 ---
 
-## 🚀 **Démarrage Rapide**
-
-### 1. **Installation Backend**
-```bash
-cd backend
-npm install
-cp .env.example .env    # Configurer les variables
-npm run seed           # Initialiser les données
-npm start              # Démarrer API (port 3001)
-```
-
-### 2. **Installation Frontend**
-```bash
-cd frontend
-npx http-server -p 3000   # Serveur local (port 3000)
-```
-
-### 3. **Variables d'Environnement (.env)**
-```env
-# Base de données MongoDB
-MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/benichou_db
-
-# Authentification JWT
-JWT_SECRET=your_super_secret_key
-JWT_EXPIRES_IN=7d
-
-# Email (Gmail recommandé)
-SMTP_HOST=smtp.gmail.com
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
-
-# URLs
-FRONTEND_URL=http://localhost:3000
-BACKEND_URL=http://localhost:3001
-```
-
----
-
 ## ✨ **Fonctionnalités**
 
 ### ✅ **Implémentées**
@@ -161,5 +123,5 @@ const response = await fetch('http://localhost:3001/api/auth/register', {
 
 ---
 
-**Version** : 1.0.0 | **Statut** : En développement actif  
+**Version** : 0.4.2 | **Statut** : En développement actif  
 **Stack** : Node.js + Express + MongoDB + Bootstrap | **Port** : Backend 3001, Frontend 3000
