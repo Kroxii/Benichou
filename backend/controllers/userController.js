@@ -35,19 +35,18 @@ const userController = {
         username,
         role: 'customer'
       });
-
-      const verificationToken = user.generateEmailVerificationToken();
       
       await user.save();
 
+      // Envoi d'un email de bienvenue direct (optionnel)
       try {
-        await emailService.sendEmailVerification(email, firstName, verificationToken);
+        await emailService.sendWelcomeEmail(email, firstName);
       } catch (emailError) {
-        console.error('Erreur lors de l\'envoi de l\'email de vérification:', emailError);
+        console.error('Erreur lors de l\'envoi de l\'email de bienvenue:', emailError);
       }
 
       res.status(201).json({
-        message: 'Utilisateur créé avec succès. Un email de vérification a été envoyé.',
+        message: 'Utilisateur créé avec succès. Vous pouvez maintenant vous connecter.',
         user: {
           id: user._id,
           email: user.email,
@@ -74,86 +73,11 @@ const userController = {
     }
   },
 
-  verifyEmail: async (req, res) => {
-    try {
-      const { token } = req.params;
-      const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-      const user = await User.findOne({
-        emailVerificationToken: hashedToken,
-        emailVerificationExpires: { $gt: Date.now() }
-      });
+  // Méthode supprimée : verifyEmail (validation d'email supprimée)
+  // Les utilisateurs sont automatiquement vérifiés lors de l'inscription
 
-      if (!user) {
-        return res.status(400).json({
-          error: 'Token de vérification invalide ou expiré'
-        });
-      }
-
-      user.isEmailVerified = true;
-      user.emailVerificationToken = undefined;
-      user.emailVerificationExpires = undefined;
-      await user.save();
-
-      try {
-        await emailService.sendWelcomeEmail(user.email, user.firstName);
-      } catch (emailError) {
-        console.error('Erreur lors de l\'envoi de l\'email de bienvenue:', emailError);
-      }
-
-      const jwtToken = authService.generateToken(user._id);
-
-      res.json({
-        message: 'Email vérifié avec succès. Bienvenue !',
-        user: {
-          id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          username: user.username,
-          role: user.role,
-          isEmailVerified: user.isEmailVerified
-        },
-        token: jwtToken
-      });
-    } catch (error) {
-      console.error('Erreur lors de la vérification de l\'email:', error);
-      res.status(500).json({
-        error: 'Erreur interne du serveur'
-      });
-    }
-  },
-
-  resendVerificationEmail: async (req, res) => {
-    try {
-      const { email } = req.body;
-
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({
-          error: 'Aucun utilisateur trouvé avec cet email'
-        });
-      }
-
-      if (user.isEmailVerified) {
-        return res.status(400).json({
-          error: 'Cet email est déjà vérifié'
-        });
-      }
-
-      const verificationToken = user.generateEmailVerificationToken();
-      await user.save();
-      await emailService.sendEmailVerification(user.email, user.firstName, verificationToken);
-
-      res.json({
-        message: 'Email de vérification renvoyé avec succès'
-      });
-    } catch (error) {
-      console.error('Erreur lors du renvoi de l\'email de vérification:', error);
-      res.status(500).json({
-        error: 'Erreur interne du serveur'
-      });
-    }
-  },
+  // Méthode supprimée : resendVerificationEmail (plus nécessaire)
+  // La validation d'email n'est plus requise
 
   login: async (req, res) => {
     try {
@@ -173,12 +97,7 @@ const userController = {
         });
       }
 
-      if (!user.isEmailVerified) {
-        return res.status(401).json({
-          error: 'Veuillez vérifier votre email avant de vous connecter',
-          code: 'EMAIL_NOT_VERIFIED'
-        });
-      }
+      // Vérification d'email supprimée - connexion directe autorisée
 
       user.lastLogin = new Date();
       await user.save();

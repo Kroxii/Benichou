@@ -52,15 +52,7 @@ const userSchema = new mongoose.Schema({
   },
   isEmailVerified: {
     type: Boolean,
-    default: false
-  },
-  emailVerificationToken: {
-    type: String,
-    select: false
-  },
-  emailVerificationExpires: {
-    type: Date,
-    select: false
+    default: true
   },
   passwordResetToken: {
     type: String,
@@ -91,12 +83,7 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-userSchema.methods.generateEmailVerificationToken = function() {
-  const token = crypto.randomBytes(32).toString('hex');
-  this.emailVerificationToken = crypto.createHash('sha256').update(token).digest('hex');
-  this.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 heures
-  return token;
-};
+// Méthode supprimée : generateEmailVerificationToken (plus utilisée)
 
 userSchema.methods.generatePasswordResetToken = function() {
   const token = crypto.randomBytes(32).toString('hex');
@@ -108,8 +95,7 @@ userSchema.methods.generatePasswordResetToken = function() {
 userSchema.methods.toJSON = function() {
   const user = this.toObject();
   delete user.password;
-  delete user.emailVerificationToken;
-  delete user.emailVerificationExpires;
+  // Champs supprimés : emailVerificationToken et emailVerificationExpires
   delete user.passwordResetToken;
   delete user.passwordResetExpires;
   return user;

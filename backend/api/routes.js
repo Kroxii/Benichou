@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
         register: 'POST /api/auth/register',
         login: 'POST /api/auth/login',
         profile: 'GET /api/auth/profile (requires token)',
-        verifyEmail: 'GET /api/auth/verify-email/:token',
-        resendVerification: 'POST /api/auth/resend-verification',
+        // verifyEmail: supprimé - validation automatique
+        // resendVerification: supprimé - plus nécessaire
         forgotPassword: 'POST /api/auth/forgot-password',
         resetPassword: 'POST /api/auth/reset-password/:token',
         updateProfile: 'PUT /api/auth/profile (requires token)',
@@ -51,8 +51,9 @@ router.get('/', (req, res) => {
 router.post('/auth/register', validation.validateRegister, userController.register);
 router.post('/auth/login', validation.validateLogin, userController.login);
 router.get('/auth/profile', auth.requireAuth, userController.getProfile);
-router.get('/auth/verify-email/:token', userController.verifyEmail);
-router.post('/auth/resend-verification', validation.validateEmail, userController.resendVerificationEmail);
+// Routes supprimées : vérification d'email plus nécessaire
+// router.get('/auth/verify-email/:token', userController.verifyEmail);
+// router.post('/auth/resend-verification', validation.validateEmail, userController.resendVerificationEmail);
 router.post('/auth/forgot-password', validation.validateEmail, userController.forgotPassword);
 router.post('/auth/reset-password/:token', validation.validatePasswordReset, userController.resetPassword);
 router.put('/auth/profile', auth.requireAuth, validation.validateProfileUpdate, userController.updateProfile);
