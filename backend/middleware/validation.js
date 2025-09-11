@@ -1,55 +1,60 @@
+const security = require('./security');
+
 const validation = {
   // Validation pour l'inscription
   validateRegister: (req, res, next) => {
     const { email, password, firstName, lastName, username } = req.body;
     const errors = [];
 
-    // Validation email
+    // Validation email avec sécurité renforcée
     if (!email) {
       errors.push('L\'email est requis');
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    } else if (!security.validateEmail(email)) {
       errors.push('Format d\'email invalide');
     }
 
-    // Validation username
+    // Validation username avec sécurité renforcée
     if (!username) {
       errors.push('Le nom d\'utilisateur est requis');
-    } else if (username.length < 3) {
-      errors.push('Le nom d\'utilisateur doit contenir au moins 3 caractères');
-    } else if (username.length > 50) {
-      errors.push('Le nom d\'utilisateur ne peut pas dépasser 50 caractères');
-    } else if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
-      errors.push('Le nom d\'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores');
+    } else {
+      const usernameValidation = security.validateUsername(username);
+      if (!usernameValidation.valid) {
+        errors.push(...usernameValidation.errors);
+      }
     }
 
-    // Validation mot de passe
+    // Validation mot de passe avec sécurité renforcée
     if (!password) {
       errors.push('Le mot de passe est requis');
-    } else if (password.length < 8) {
-      errors.push('Le mot de passe doit contenir au moins 8 caractères');
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
-      errors.push('Le mot de passe doit contenir au moins une minuscule, une majuscule et un chiffre');
+    } else {
+      const passwordValidation = security.validatePassword(password);
+      if (!passwordValidation.valid) {
+        errors.push(...passwordValidation.errors);
+      }
     }
 
-    // Validation prénom
+    // Validation prénom avec sécurité renforcée
     if (!firstName) {
       errors.push('Le prénom est requis');
-    } else if (firstName.length < 2) {
-      errors.push('Le prénom doit contenir au moins 2 caractères');
-    } else if (firstName.length > 50) {
-      errors.push('Le prénom ne peut pas dépasser 50 caractères');
+    } else {
+      const nameValidation = security.validateName(firstName);
+      if (!nameValidation.valid) {
+        errors.push('Prénom: ' + nameValidation.errors.join(', '));
+      }
     }
 
-    // Validation nom
+    // Validation nom avec sécurité renforcée
     if (!lastName) {
       errors.push('Le nom est requis');
-    } else if (lastName.length < 2) {
-      errors.push('Le nom doit contenir au moins 2 caractères');
-    } else if (lastName.length > 50) {
-      errors.push('Le nom ne peut pas dépasser 50 caractères');
+    } else {
+      const nameValidation = security.validateName(lastName);
+      if (!nameValidation.valid) {
+        errors.push('Nom: ' + nameValidation.errors.join(', '));
+      }
     }
 
     if (errors.length > 0) {
+      security.logSecurityEvent('INVALID_REGISTRATION_ATTEMPT', req, { errors });
       return res.status(400).json({
         error: 'Données invalides',
         details: errors
@@ -66,13 +71,18 @@ const validation = {
 
     if (!email) {
       errors.push('L\'email est requis');
+    } else if (!security.validateEmail(email)) {
+      errors.push('Format d\'email invalide');
     }
 
     if (!password) {
       errors.push('Le mot de passe est requis');
+    } else if (typeof password !== 'string' || password.length > 128) {
+      errors.push('Mot de passe invalide');
     }
 
     if (errors.length > 0) {
+      security.logSecurityEvent('INVALID_LOGIN_ATTEMPT', req, { email, errors });
       return res.status(400).json({
         error: 'Données invalides',
         details: errors
@@ -87,41 +97,90 @@ const validation = {
     const { items, shippingAddress, paymentMethod } = req.body;
     const errors = [];
 
-    // Validation des articles
+    // Validation des articles avec sécurité renforcée
     if (!items || !Array.isArray(items) || items.length === 0) {
       errors.push('La commande doit contenir au moins un article');
+    } else if (items.length > 50) {
+      errors.push('Trop d\'articles dans la commande (maximum 50)');
     } else {
       items.forEach((item, index) => {
-        if (!item.productId) {
-          errors.push(`Article ${index + 1}: ID du produit requis`);
+        if (!item.productId || !security.validateObjectId(item.productId)) {
+          errors.push(`Article ${index + 1}: ID du produit invalide`);
         }
-        if (!item.quantity || item.quantity < 1) {
+        if (!security.validateQuantity(item.quantity)) {
           errors.push(`Article ${index + 1}: Quantité invalide`);
+        }
+        if (item.price !== undefined && !security.validatePrice(item.price)) {
+          errors.push(`Article ${index + 1}: Prix invalide`);
         }
       });
     }
 
-    // Validation adresse de livraison
+    // Validation adresse de livraison avec sécurité
     if (!shippingAddress) {
       errors.push('L\'adresse de livraison est requise');
     } else {
       const { firstName, lastName, address, city, postalCode, country } = shippingAddress;
-      if (!firstName) errors.push('Prénom requis dans l\'adresse de livraison');
-      if (!lastName) errors.push('Nom requis dans l\'adresse de livraison');
-      if (!address) errors.push('Adresse requise');
-      if (!city) errors.push('Ville requise');
-      if (!postalCode) errors.push('Code postal requis');
-      if (!country) errors.push('Pays requis');
+      
+      if (!firstName) {
+        errors.push('Prénom requis dans l\'adresse de livraison');
+      } else {
+        const nameValidation = security.validateName(firstName);
+        if (!nameValidation.valid) {
+          errors.push('Prénom livraison: ' + nameValidation.errors.join(', '));
+        }
+      }
+      
+      if (!lastName) {
+        errors.push('Nom requis dans l\'adresse de livraison');
+      } else {
+        const nameValidation = security.validateName(lastName);
+        if (!nameValidation.valid) {
+          errors.push('Nom livraison: ' + nameValidation.errors.join(', '));
+        }
+      }
+      
+      if (!address) {
+        errors.push('Adresse requise');
+      } else if (typeof address !== 'string' || address.length > 200) {
+        errors.push('Adresse invalide');
+      }
+      
+      if (!city) {
+        errors.push('Ville requise');
+      } else {
+        const cityValidation = security.validateName(city);
+        if (!cityValidation.valid) {
+          errors.push('Ville: ' + cityValidation.errors.join(', '));
+        }
+      }
+      
+      if (!postalCode) {
+        errors.push('Code postal requis');
+      } else if (typeof postalCode !== 'string' || !/^[0-9A-Za-z\s-]{3,10}$/.test(postalCode)) {
+        errors.push('Code postal invalide');
+      }
+      
+      if (!country) {
+        errors.push('Pays requis');
+      } else {
+        const countryValidation = security.validateName(country);
+        if (!countryValidation.valid) {
+          errors.push('Pays: ' + countryValidation.errors.join(', '));
+        }
+      }
     }
 
     // Validation méthode de paiement
+    const validPaymentMethods = ['card', 'paypal', 'transfer'];
     if (!paymentMethod) {
       errors.push('Méthode de paiement requise');
-    } else if (!['card', 'paypal', 'transfer'].includes(paymentMethod)) {
+    } else if (!validPaymentMethods.includes(paymentMethod)) {
       errors.push('Méthode de paiement invalide');
     }
 
     if (errors.length > 0) {
+      security.logSecurityEvent('INVALID_ORDER_ATTEMPT', req, { errors });
       return res.status(400).json({
         error: 'Données invalides',
         details: errors

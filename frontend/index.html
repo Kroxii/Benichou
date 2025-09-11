@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="author" content="">
+    <meta name="author" content="CardMaster">
     <meta name="keywords" content="TCG, cartes à collectionner, Pokemon, Yu-Gi-Oh, Magic, Lorcana, Altered, Riftbound, accessoires TCG">
     <meta name="description" content="Boutique spécialisée en cartes à collectionner TCG - Pokemon, Yu-Gi-Oh!, Magic the Gathering, Lorcana, Altered, Riftbound et accessoires">
-
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/benichou.png">
+    <link rel="apple-touch-icon" href="assets/images/benichou.png">
+    
+    <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -81,33 +85,17 @@
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Votre panier</span>
-            <span class="badge bg-primary rounded-pill" id="cart-count">3</span>
+            <span class="badge bg-primary rounded-pill" id="cart-count">0</span>
           </h4>
           <ul class="list-group mb-3" id="cart-items">
-            <li class="list-group-item d-flex justify-content-between lh-sm" data-item="booster-pokemon">
-              <div>
-                <h6 class="my-0">Booster Pokemon Écarlate</h6>
-                <small class="text-body-secondary">Pack de 11 cartes</small>
-              </div>
-              <span class="text-body-secondary">4,50€</span>
+            <li class="list-group-item text-center text-muted py-4" id="empty-cart-message">
+              <svg width="48" height="48" viewBox="0 0 24 24" class="mb-2 opacity-50"><use xlink:href="#cart"></use></svg>
+              <p class="mb-0">Votre panier est vide</p>
+              <small>Ajoutez des articles pour commencer vos achats</small>
             </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm" data-item="deck-yugioh">
-              <div>
-                <h6 class="my-0">Deck Yu-Gi-Oh! Structure</h6>
-                <small class="text-body-secondary">Deck pré-construit</small>
-              </div>
-              <span class="text-body-secondary">12€</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm" data-item="pochettes-ultra-pro">
-              <div>
-                <h6 class="my-0">Pochettes Ultra Pro</h6>
-                <small class="text-body-secondary">Protection cartes x100</small>
-              </div>
-              <span class="text-body-secondary">8€</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between" id="cart-total">
+            <li class="list-group-item d-flex justify-content-between d-none" id="cart-total">
               <span>Total (EUR)</span>
-              <strong id="total-amount">24,50€</strong>
+              <strong id="total-amount">0,00€</strong>
             </li>
           </ul>
 
@@ -136,7 +124,7 @@
             <span class="text-primary">Recherche</span>
           </h4>
           <form role="search" action="index.html" method="get" class="d-flex mt-3 gap-0">
-            <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Recherchez vos cartes TCG..." aria-label="Recherchez vos cartes TCG...">
+            <input class="form-control rounded-start rounded-0 bg-light" type="text" placeholder="Recherchez vos cartes TCG..." aria-label="Recherchez vos cartes TCG...">
             <button class="btn btn-dark rounded-end rounded-0" type="submit">Rechercher</button>
           </form>
         </div>
@@ -188,6 +176,14 @@
               <li>
                 <a href="#" class="rounded-circle bg-light p-2 mx-1">
                   <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="rounded-circle bg-light p-2 mx-1 position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" id="cart-badge">
+                    <span id="cart-badge-count">0</span>
+                  </span>
                 </a>
               </li>
               <li class="d-lg-none">
@@ -254,9 +250,7 @@
                     <li class="nav-item">
                       <a href="pages/accessoires.html" class="nav-link">Accessoires</a>
                     </li>
-                    <li class="nav-item">
-                      <a href="test.html" class="nav-link">Test</a>
-                    </li>
+                    <!-- Test link disabled - no test.html file -->
                   </ul>
                 
                 </div>
@@ -446,72 +440,132 @@
               <div class="swiper-wrapper">
                 
                 <div class="swiper-slide">
-                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body py-0">
                           <p class="text-muted mb-0">Booster Pack</p>
                           <h5 class="card-title">Pokemon Écarlate & Violet - Obsidienne</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">4,50€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Pokemon Écarlate & Violet - Obsidienne"
+                                    data-description="Booster Pack - 11 cartes"
+                                    data-price="4.50">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="swiper-slide">
-                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body py-0">
                           <p class="text-muted mb-0">Structure Deck</p>
                           <h5 class="card-title">Yu-Gi-Oh! - Albaz Strike Reloaded</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">12,00€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Yu-Gi-Oh! - Albaz Strike Reloaded"
+                                    data-description="Structure Deck"
+                                    data-price="12.00">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="swiper-slide">
-                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body py-0">
                           <p class="text-muted mb-0">Commander Deck</p>
                           <h5 class="card-title">Magic - Fallout Hail Caesar</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">25,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Magic - Fallout Hail Caesar"
+                                    data-description="Commander Deck"
+                                    data-price="25.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="swiper-slide">
-                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body py-0">
                           <p class="text-muted mb-0">Starter Deck</p>
                           <h5 class="card-title">Lorcana - The First Chapter</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">16,50€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Lorcana - The First Chapter"
+                                    data-description="Starter Deck"
+                                    data-price="16.50">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="swiper-slide">
-                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body py-0">
                           <p class="text-muted mb-0">Booster Box</p>
                           <h5 class="card-title">Altered - Beyond the Gates</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">89,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Altered - Beyond the Gates"
+                                    data-description="Booster Box - 24 boosters"
+                                    data-price="89.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="swiper-slide">
-                  <div class="card mb-3 p-3 rounded-4 shadow border-0">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body py-0">
                           <p class="text-muted mb-0">Extension Set</p>
                           <h5 class="card-title">One Piece - Paramount War</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">3,75€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="One Piece - Paramount War"
+                                    data-description="Extension Set - Booster"
+                                    data-price="3.75">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -649,11 +703,119 @@
             <div class="products-carousel swiper">
               <div class="swiper-wrapper">
                 
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Deck Starter</p>
+                          <h5 class="card-title">Pokemon Deck Elite Dracaufeu</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">19,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Pokemon Deck Elite Dracaufeu"
+                                    data-description="Deck Starter - 60 cartes"
+                                    data-price="19.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                </div>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Booster Pack</p>
+                          <h5 class="card-title">Yu-Gi-Oh! Toon Chaos</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">4,25€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Yu-Gi-Oh! Toon Chaos"
+                                    data-description="Booster Pack - 11 cartes"
+                                    data-price="4.25">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Bundle</p>
+                          <h5 class="card-title">Magic Bundle Eldraine</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">42,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Magic Bundle Eldraine"
+                                    data-description="Bundle - 10 boosters + accessoires"
+                                    data-price="42.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Accessoire</p>
+                          <h5 class="card-title">Tapis de Jeu Ultra Pro</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">24,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Tapis de Jeu Ultra Pro"
+                                    data-description="Accessoire - Tapis de jeu premium"
+                                    data-price="24.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Booster</p>
+                          <h5 class="card-title">Lorcana - Set Azura</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">5,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Lorcana - Set Azura"
+                                    data-description="Booster - 12 cartes Disney"
+                                    data-price="5.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
               </div>
@@ -695,11 +857,96 @@
             <div class="products-carousel swiper">
               <div class="swiper-wrapper">
                 
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Rare</p>
+                          <h5 class="card-title">Pikachu Promo Gold</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">89,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Pikachu Promo Gold"
+                                    data-description="Carte Rare - Edition limitée"
+                                    data-price="89.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                </div>
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Ultra Rare</p>
+                          <h5 class="card-title">Dragon Blanc Ultime</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">129,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Dragon Blanc Ultime"
+                                    data-description="Ultra Rare - Yu-Gi-Oh!"
+                                    data-price="129.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Mythique</p>
+                          <h5 class="card-title">Lotus Noir Magic</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">2499,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Lotus Noir Magic"
+                                    data-description="Mythique - Collection Vintage"
+                                    data-price="2499.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="card mb-3 p-3 rounded-4 shadow border-0 product-card">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                        <div class="card-body py-0">
+                          <p class="text-muted mb-0">Holographique</p>
+                          <h5 class="card-title">Elsa Enchanted Lorcana</h5>
+                          <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="h6 text-primary mb-0">45,99€</span>
+                            <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    data-name="Elsa Enchanted Lorcana"
+                                    data-description="Holographique - Disney Lorcana"
+                                    data-price="45.99">
+                              <svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#plus"></use></svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
               </div>
@@ -1009,7 +1256,341 @@
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
+    <!-- Module de sécurité - DOIT être chargé en premier -->
+    <script src="assets/js/security.js"></script>
+    
     <script src="assets/js/script.js"></script>
+    
+    <!-- Script sécurisé pour le panier -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Attendre que le module Security soit chargé
+      function waitForSecurity(callback) {
+        if (window.Security) {
+          callback();
+        } else {
+          setTimeout(() => waitForSecurity(callback), 100);
+        }
+      }
+      
+      waitForSecurity(function() {
+        // Vérifier si le panier n'est pas déjà initialisé
+        if (window.secureCartInitialized) {
+          return;
+        }
+        window.secureCartInitialized = true;
+        
+        // Initialiser le panier sécurisé
+        let secureCart = Security.secureStorage.get('cardmaster_secure_cart') || [];
+        
+        function saveCart() {
+          Security.secureStorage.set('cardmaster_secure_cart', secureCart);
+        }
+        
+        function updateCartDisplay() {
+          const cartItemsContainer = document.getElementById('cart-items');
+          const cartCount = document.getElementById('cart-count');
+          const cartBadgeCount = document.getElementById('cart-badge-count');
+          const cartBadge = document.getElementById('cart-badge');
+          const emptyMessage = document.getElementById('empty-cart-message');
+          const cartTotal = document.getElementById('cart-total');
+          const totalAmount = document.getElementById('total-amount');
+          
+          if (!cartItemsContainer) return;
+          
+          // Vider le contenu actuel sauf les éléments spéciaux
+          cartItemsContainer.querySelectorAll('li:not(#empty-cart-message, #cart-total)').forEach(item => item.remove());
+          
+          if (secureCart.length === 0) {
+            if (emptyMessage) emptyMessage.classList.remove('d-none');
+            if (cartTotal) cartTotal.classList.add('d-none');
+            if (cartCount) cartCount.textContent = '0';
+            if (cartBadgeCount) cartBadgeCount.textContent = '0';
+            if (cartBadge) cartBadge.classList.add('d-none');
+          } else {
+            if (emptyMessage) emptyMessage.classList.add('d-none');
+            if (cartTotal) cartTotal.classList.remove('d-none');
+            
+            let total = 0;
+            let totalItems = 0;
+            
+            secureCart.forEach((item, index) => {
+              // Valider et sécuriser les données de l'article
+              const securePrice = Security.validatePrice(item.price) ? parseFloat(item.price) : 0;
+              const secureQuantity = Security.validateQuantity(item.quantity) ? parseInt(item.quantity) : 0;
+              const secureName = Security.sanitizeText(item.name) || 'Produit sans nom';
+              const secureDescription = Security.sanitizeText(item.description) || '';
+              
+              total += securePrice * secureQuantity;
+              totalItems += secureQuantity;
+              
+              const li = Security.createSecureElement('li');
+              li.className = 'list-group-item d-flex justify-content-between lh-sm';
+              
+              // Créer le contenu de manière sécurisée
+              const itemContent = document.createElement('div');
+              
+              const itemTitle = Security.createSecureElement('h6', secureName);
+              itemTitle.className = 'my-0';
+              itemContent.appendChild(itemTitle);
+              
+              const itemDesc = Security.createSecureElement('small', secureDescription);
+              itemDesc.className = 'text-body-secondary';
+              itemContent.appendChild(itemDesc);
+              
+              const itemControls = document.createElement('div');
+              itemControls.className = 'mt-1';
+              
+              const decreaseBtn = Security.createSecureElement('button', '-');
+              decreaseBtn.className = 'btn btn-sm btn-outline-secondary';
+              decreaseBtn.setAttribute('onclick', 'decreaseSecureQuantity(' + index + ')');
+              itemControls.appendChild(decreaseBtn);
+              
+              const quantitySpan = Security.createSecureElement('span', 'Qté: ' + secureQuantity);
+              quantitySpan.className = 'mx-2';
+              itemControls.appendChild(quantitySpan);
+              
+              const increaseBtn = Security.createSecureElement('button', '+');
+              increaseBtn.className = 'btn btn-sm btn-outline-secondary';
+              increaseBtn.setAttribute('onclick', 'increaseSecureQuantity(' + index + ')');
+              itemControls.appendChild(increaseBtn);
+              
+              const removeBtn = Security.createSecureElement('button');
+              removeBtn.className = 'btn btn-sm btn-outline-danger ms-2';
+              removeBtn.setAttribute('onclick', 'removeSecureItem(' + index + ')');
+              removeBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24"><use xlink:href="#trash"></use></svg>';
+              itemControls.appendChild(removeBtn);
+              
+              itemContent.appendChild(itemControls);
+              li.appendChild(itemContent);
+              
+              const priceDiv = document.createElement('div');
+              priceDiv.className = 'text-end';
+              
+              const totalPriceSpan = Security.createSecureElement('span', (securePrice * secureQuantity).toFixed(2) + '€');
+              totalPriceSpan.className = 'text-body-secondary';
+              priceDiv.appendChild(totalPriceSpan);
+              
+              priceDiv.appendChild(document.createElement('br'));
+              
+              const unitPriceSmall = Security.createSecureElement('small', securePrice.toFixed(2) + '€ / unité');
+              unitPriceSmall.className = 'text-muted';
+              priceDiv.appendChild(unitPriceSmall);
+              
+              li.appendChild(priceDiv);
+              
+              if (cartTotal && cartTotal.parentNode) {
+                cartTotal.parentNode.insertBefore(li, cartTotal);
+              }
+            });
+            
+            if (cartCount) cartCount.textContent = totalItems;
+            if (cartBadgeCount) cartBadgeCount.textContent = totalItems;
+            if (cartBadge) cartBadge.classList.remove('d-none');
+            if (totalAmount) totalAmount.textContent = total.toFixed(2) + '€';
+          }
+        }
+        
+        // Fonction sécurisée pour ajouter au panier
+        window.addToSecureCart = function(name, description, price) {
+          // Valider et sécuriser toutes les entrées
+          const secureName = Security.sanitizeText(name);
+          const secureDescription = Security.sanitizeText(description);
+          const securePrice = parseFloat(price);
+          
+          if (!secureName || !Security.validatePrice(securePrice)) {
+            showSecureNotification('Erreur: Données produit invalides', 'danger');
+            return;
+          }
+          
+          const existingItem = secureCart.find(item => Security.sanitizeText(item.name) === secureName);
+          
+          if (existingItem) {
+            const newQuantity = existingItem.quantity + 1;
+            if (Security.validateQuantity(newQuantity)) {
+              existingItem.quantity = newQuantity;
+            } else {
+              showSecureNotification('Quantité maximale atteinte', 'warning');
+              return;
+            }
+          } else {
+            secureCart.push({
+              name: secureName,
+              description: secureDescription,
+              price: securePrice,
+              quantity: 1
+            });
+          }
+          
+          saveCart();
+          updateCartDisplay();
+          showSecureNotification(secureName + ' ajouté au panier !');
+        };
+        
+        // Fonctions sécurisées pour gérer les quantités
+        window.increaseSecureQuantity = function(index) {
+          if (secureCart[index]) {
+            const newQuantity = secureCart[index].quantity + 1;
+            if (Security.validateQuantity(newQuantity)) {
+              secureCart[index].quantity = newQuantity;
+              saveCart();
+              updateCartDisplay();
+            } else {
+              showSecureNotification('Quantité maximale atteinte', 'warning');
+            }
+          }
+        };
+        
+        window.decreaseSecureQuantity = function(index) {
+          if (secureCart[index] && secureCart[index].quantity > 1) {
+            secureCart[index].quantity -= 1;
+            saveCart();
+            updateCartDisplay();
+          }
+        };
+        
+        window.removeSecureItem = function(index) {
+          if (secureCart[index]) {
+            const removedItem = secureCart[index];
+            secureCart.splice(index, 1);
+            saveCart();
+            updateCartDisplay();
+            showSecureNotification(Security.sanitizeText(removedItem.name) + ' retiré du panier');
+          }
+        };
+        
+        // Fonction sécurisée pour vider le panier
+        const clearCartBtn = document.getElementById('clear-cart-btn');
+        if (clearCartBtn) {
+          clearCartBtn.addEventListener('click', function() {
+            if (secureCart.length === 0) {
+              showSecureNotification('Le panier est déjà vide');
+              return;
+            }
+            
+            if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+              secureCart = [];
+              saveCart();
+              updateCartDisplay();
+              showSecureNotification('Panier vidé !');
+            }
+          });
+        }
+        
+        // Fonction sécurisée pour afficher les notifications
+        function showSecureNotification(message, type = 'success') {
+          const secureMessage = Security.sanitizeText(message);
+          const secureType = ['success', 'danger', 'warning', 'info'].includes(type) ? type : 'success';
+          
+          const toast = Security.createSecureElement('div');
+          toast.className = 'toast align-items-center text-bg-' + secureType + ' border-0 position-fixed';
+          toast.style.cssText = 'top: 20px; right: 20px; z-index: 1055;';
+          
+          const toastBody = document.createElement('div');
+          toastBody.className = 'd-flex';
+          
+          const bodyContent = document.createElement('div');
+          bodyContent.className = 'toast-body';
+          bodyContent.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" class="me-2"><use xlink:href="#check"></use></svg>';
+          bodyContent.appendChild(document.createTextNode(secureMessage));
+          toastBody.appendChild(bodyContent);
+          
+          const closeBtn = Security.createSecureElement('button');
+          closeBtn.className = 'btn-close btn-close-white me-2 m-auto';
+          closeBtn.setAttribute('data-bs-dismiss', 'toast');
+          closeBtn.type = 'button';
+          toastBody.appendChild(closeBtn);
+          
+          toast.appendChild(toastBody);
+          document.body.appendChild(toast);
+          
+          // Vérifier si Bootstrap Toast est disponible
+          if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+          } else {
+            // Fallback si Bootstrap n'est pas chargé
+            toast.style.display = 'block';
+            setTimeout(() => {
+              if (toast.parentNode) {
+                document.body.removeChild(toast);
+              }
+            }, 3000);
+          }
+          
+          toast.addEventListener('hidden.bs.toast', function() {
+            if (toast.parentNode) {
+              document.body.removeChild(toast);
+            }
+          });
+        }
+        
+        // Ajouter les événements sécurisés aux boutons "Ajouter au panier"
+        function initSecureCartButtons() {
+          document.querySelectorAll('.add-to-cart-btn:not(.secure-cart-initialized)').forEach(button => {
+            button.classList.add('secure-cart-initialized');
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              const name = Security.sanitizeText(this.getAttribute('data-name'));
+              const description = Security.sanitizeText(this.getAttribute('data-description'));
+              const price = this.getAttribute('data-price');
+              
+              if (!name || !Security.validatePrice(parseFloat(price))) {
+                showSecureNotification('Erreur: Données produit manquantes ou invalides', 'danger');
+                return;
+              }
+              
+              addToSecureCart(name, description, price);
+              
+              // Animation sécurisée du bouton
+              const originalText = this.innerHTML;
+              this.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" class="me-1"><use xlink:href="#check"></use></svg>Ajouté !';
+              this.classList.add('btn-success');
+              this.classList.remove('btn-primary');
+              this.disabled = true;
+              
+              setTimeout(() => {
+                this.innerHTML = originalText;
+                this.classList.remove('btn-success');
+                this.classList.add('btn-primary');
+                this.disabled = false;
+              }, 1500);
+            });
+          });
+        }
+        
+        // Initialiser les boutons et observer les nouveaux éléments
+        initSecureCartButtons();
+        
+        // Observer sécurisé pour les nouveaux boutons ajoutés dynamiquement
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+              initSecureCartButtons();
+            }
+          });
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+        
+        // Initialiser l'affichage au chargement
+        updateCartDisplay();
+        
+        // Debug info sécurisé
+        console.log('🔒 Secure Cart System initialized');
+        console.log('📦 Items in cart:', secureCart.length);
+        
+        // Compatibilité avec l'ancien système
+        window.addToSimpleCart = window.addToSecureCart;
+        window.increaseQuantity = window.increaseSecureQuantity;
+        window.decreaseQuantity = window.decreaseSecureQuantity;
+        window.removeItem = window.removeSecureItem;
+      });
+    });
+    </script>
   </body>
 </html>
 
