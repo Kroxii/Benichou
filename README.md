@@ -102,13 +102,13 @@ npx live-server --port=3000       # Avec rechargement automatique
 
 ## 📖 **Documentation**
 
-- **API Documentation** : `GET http://localhost:3001/api`
-- **Health Check** : `GET http://localhost:3001/api/health`
+- **API Documentation** : `GET http://localhost:3000/api`
+- **Health Check** : `GET http://localhost:3000/api/health`
 
 ### Exemple d'utilisation API :
 ```javascript
 // Inscription utilisateur
-const response = await fetch('http://localhost:3001/api/auth/register', {
+const response = await fetch('http://localhost:3000/api/auth/register', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

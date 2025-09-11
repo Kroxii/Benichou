@@ -351,7 +351,7 @@
         window.opener = null;
       });
       
-      console.log('🔒 Module de sécurité initialisé');
+      // console.log('🔒 Module de sécurité initialisé'); // Commenté pour la production
     }
   };
 

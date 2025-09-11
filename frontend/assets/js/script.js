@@ -174,7 +174,7 @@
   var initCartManagement = function() {
     // Le panier est maintenant géré par le script inline dans index.html
     // Cette fonction est gardée pour la compatibilité
-    console.log('Cart management initialized - Simple cart system active');
+    // console.log('Cart management initialized - Simple cart system active'); // Commenté pour la production
   };
 
   // Initialisation avec protection contre les erreurs
@@ -187,7 +187,7 @@
         initJarallax();
         initChocolat();
         initCartManagement();
-        console.log('✅ All scripts initialized successfully');
+        // console.log('✅ All scripts initialized successfully'); // Commenté pour la production
       } catch (error) {
         console.error('❌ Error during script initialization:', error);
       }
@@ -200,7 +200,7 @@
         initJarallax();
         initChocolat();
         initCartManagement();
-        console.log('✅ Scripts initialized without jQuery');
+        // console.log('✅ Scripts initialized without jQuery'); // Commenté pour la production
       } catch (error) {
         console.error('❌ Error during vanilla script initialization:', error);
       }
