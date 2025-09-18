@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const security = require('../middleware/security');
 
 const productController = {
   getCategories: async (req, res) => {
@@ -95,6 +96,14 @@ const productController = {
   getProductById: async (req, res) => {
     try {
       const { id } = req.params;
+      
+      // Validation stricte de l'ObjectId
+      if (!security.validateObjectId(id)) {
+        return res.status(400).json({
+          error: 'ID de produit invalide'
+        });
+      }
+      
       const product = await Product.findOne({ _id: id, isActive: true })
         .populate('category', 'name slug');
 

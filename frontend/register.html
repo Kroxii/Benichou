@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription - Benichou TCG</title>
     
-    <!-- Module de sécurité -->
-    <script src="assets/js/security.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -136,54 +134,7 @@
         </div>
     </div>
 
-    <script>
-                // Configuration API
-        const API_URL = 'http://localhost:3000/api';
-        
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            
-            try {
-                const response = await fetch(`${API_URL}/auth/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                const result = await response.json();
-                const messageDiv = document.getElementById('message');
-                
-                if (response.ok) {
-                    messageDiv.innerHTML = `
-                        <div class="success">
-                            ✅ ${result.message}
-                            <br><br>
-                            <strong>Vérifiez votre email pour activer votre compte !</strong>
-                        </div>
-                    `;
-                    document.getElementById('registerForm').reset();
-                } else {
-                    let errorMessage = result.error;
-                    if (result.details && result.details.length > 0) {
-                        errorMessage += '<ul>';
-                        result.details.forEach(detail => {
-                            errorMessage += `<li>${detail}</li>`;
-                        });
-                        errorMessage += '</ul>';
-                    }
-                    messageDiv.innerHTML = `<div class="error">❌ ${errorMessage}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('message').innerHTML = `
-                    <div class="error">❌ Erreur de connexion au serveur</div>
-                `;
-            }
-        });
-    </script>
+    <!-- Script unifié -->
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

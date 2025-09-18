@@ -16,14 +16,19 @@ const auth = {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decoded.userId);
 
-      if (!user) {
+      if (!user || !user.isActive) {
         return res.status(401).json({
-          error: 'Token invalide - utilisateur non trouvé'
+          error: 'Token invalide - utilisateur non trouvé ou désactivé'
         });
       }
 
-      req.userId = user._id;
-      req.user = user;
+      // Utiliser uniquement req.user pour éviter la confusion
+      req.user = {
+        userId: user._id,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive
+      };
       next();
     } catch (error) {
       if (error.name === 'JsonWebTokenError') {

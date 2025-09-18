@@ -22,10 +22,32 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
 
 app.use(cors(corsOptions));
+
+// Protection basique contre CSRF
+app.use((req, res, next) => {
+  // Vérifier que les requêtes POST/PUT/DELETE proviennent d'AJAX
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    const requestedWith = req.get('X-Requested-With');
+    const origin = req.get('Origin');
+    const referer = req.get('Referer');
+    
+    // Permettre si c'est une requête AJAX ou si l'origine est autorisée
+    if (requestedWith === 'XMLHttpRequest' || 
+        (origin && corsOptions.origin.includes(origin)) ||
+        (referer && corsOptions.origin.some(allowedOrigin => referer.startsWith(allowedOrigin)))) {
+      return next();
+    }
+    
+    return res.status(403).json({
+      error: 'Requête CSRF détectée - Origin non autorisée'
+    });
+  }
+  next();
+});
 
 // Middlewares de parsing avec limites de sécurité
 app.use(express.json({ 

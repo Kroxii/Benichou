@@ -33,6 +33,24 @@
     --danger-color       : #DC3545;
 }
 
+/* Variables pour le mode sombre */
+[data-theme="dark"] {
+    --accent-color       : #FFD700;
+    --dark-color         : #ffffff;
+    --light-dark-color   : #f0f0f0;
+    --light-color        : #121212;
+    --grey-color         : #2d2d2d;
+    --light-grey-color   : #1e1e1e;
+    --primary-color      : #4A90E2;
+    --light-primary-color   : #1a1a2e;
+    --secondary-color    : #7B68EE;
+    --tertiary-color     : #FF6B8A;
+    --success-color      : #4CAF50;
+    --warning-color      : #FFA726;
+    --info-color         : #29B6F6;
+    --danger-color       : #F44336;
+}
+
 
 :root {
     --body-font           : "Open Sans", sans-serif;
@@ -197,66 +215,6 @@ h1,h2,h3,h4,h5,h6 {
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
   --bs-gutter-x: 3rem;
-}
-
-
-
-
-
-.preloader-wrapper {
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 111;
-  background: var(--light-color);
-}
-
-.preloader-wrapper .preloader {
-  margin: 20% auto 0;
-  transform: translateZ(0);
-}
-
-.preloader:before,
-.preloader:after {
-  content: '';
-  position: absolute;
-  top: 0;
-}
-
-.preloader:before,
-.preloader:after,
-.preloader {
-  border-radius: 50%;
-  width: 2em;
-  height: 2em;
-  animation: animation 1.2s infinite ease-in-out;
-}
-
-.preloader {
-  animation-delay: -0.16s;
-}
-
-.preloader:before {
-  left: -3.5em;
-  animation-delay: -0.32s;
-}
-
-.preloader:after {
-  left: 3.5em;
-}
-
-@keyframes animation {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 2em 0 -1em var(--accent-color);
-  }
-  40% {
-    box-shadow: 0 2em 0 0 var(--accent-color);
-  }
 }
 
 
@@ -961,5 +919,298 @@ a {
   .banner-ad .banner-content {
     padding: 30px 20px;
   }
+}
+
+/* =================================================================
+   MODE SOMBRE - Styles et transitions
+   ================================================================= */
+
+/* Transition fluide pour tous les éléments */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Styles de base pour le mode sombre */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+/* Header et navigation en mode sombre */
+[data-theme="dark"] header {
+  background-color: var(--light-color);
+  border-color: var(--grey-color);
+}
+
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .navbar-nav {
+  background-color: var(--light-color);
+}
+
+[data-theme="dark"] .navbar-nav .nav-link {
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .navbar-nav .nav-link:hover {
+  color: var(--accent-color);
+}
+
+/* Cards et contenus en mode sombre */
+[data-theme="dark"] .card,
+[data-theme="dark"] .product-item,
+[data-theme="dark"] .category-item {
+  background-color: var(--grey-color);
+  border-color: var(--light-grey-color);
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .card-body,
+[data-theme="dark"] .card-header,
+[data-theme="dark"] .card-footer {
+  background-color: var(--grey-color);
+  color: var(--dark-color);
+}
+
+/* Boutons en mode sombre */
+[data-theme="dark"] .btn-light {
+  background-color: var(--grey-color);
+  border-color: var(--light-grey-color);
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .btn-light:hover {
+  background-color: var(--light-grey-color);
+  color: var(--dark-color);
+}
+
+/* Formulaires en mode sombre */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--grey-color);
+  border-color: var(--light-grey-color);
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+  background-color: var(--grey-color);
+  border-color: var(--accent-color);
+  color: var(--dark-color);
+  box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+}
+
+/* Dropdown menus en mode sombre */
+[data-theme="dark"] .dropdown-menu {
+  background-color: var(--grey-color);
+  border-color: var(--light-grey-color);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-item:focus {
+  background-color: var(--light-grey-color);
+  color: var(--dark-color);
+}
+
+/* Offcanvas en mode sombre */
+[data-theme="dark"] .offcanvas {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .offcanvas-header,
+[data-theme="dark"] .offcanvas-body {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+/* Tables en mode sombre */
+[data-theme="dark"] .table {
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > td,
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > th {
+  background-color: var(--grey-color);
+}
+
+/* Bordures et séparateurs en mode sombre */
+[data-theme="dark"] .border,
+[data-theme="dark"] .border-top,
+[data-theme="dark"] .border-bottom,
+[data-theme="dark"] .border-left,
+[data-theme="dark"] .border-right {
+  border-color: var(--grey-color) !important;
+}
+
+/* Sections et backgrounds en mode sombre */
+[data-theme="dark"] section {
+  background-color: var(--light-color);
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: var(--grey-color) !important;
+}
+
+/* Barre de recherche en mode sombre */
+[data-theme="dark"] .search-bar {
+  background-color: var(--grey-color) !important;
+  border: 1px solid var(--light-grey-color);
+}
+
+[data-theme="dark"] .search-bar input {
+  background-color: transparent !important;
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .search-bar input::placeholder {
+  color: var(--dark-color);
+  opacity: 0.7;
+}
+
+[data-theme="dark"] .search-bar button {
+  color: var(--dark-color);
+}
+
+[data-theme="dark"] .search-bar button:hover {
+  color: var(--accent-color);
+}
+
+/* =================================================================
+   BARRE DE RECHERCHE - Améliorations et interactions
+   ================================================================= */
+
+/* Styles de base pour la barre de recherche */
+.search-bar {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.search-bar:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 4px 16px rgba(15, 52, 96, 0.2);
+  border-color: var(--primary-color);
+}
+
+/* Input de recherche */
+.search-bar input {
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.search-bar input::placeholder {
+  transition: opacity 0.2s ease;
+}
+
+.search-bar input:focus::placeholder {
+  opacity: 0.6;
+}
+
+/* Bouton de recherche */
+.search-bar button {
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.05);
+}
+
+.search-bar button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Mode sombre pour les interactions */
+[data-theme="dark"] .search-bar:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
+}
+
+[data-theme="dark"] .search-bar:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .search-bar button:hover {
+  background-color: var(--accent-color);
+  color: var(--light-color);
+}
+
+/* Responsive améliorations */
+@media (max-width: 991px) {
+  .search-bar {
+    margin: 0.5rem 0;
+  }
+}
+
+/* Animation lors de la soumission */
+.search-bar.searching {
+  opacity: 0.8;
+}
+
+.search-bar.searching button {
+  animation: searchPulse 1s infinite;
+}
+
+@keyframes searchPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Animation du bouton de thème */
+#theme-toggle {
+  position: relative;
+  overflow: hidden;
+  text-decoration: none !important;
+}
+
+#theme-toggle:hover {
+  text-decoration: none !important;
+}
+
+.theme-icon {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+[data-theme="dark"] #theme-toggle .sun-icon {
+  transform: rotate(180deg);
+  opacity: 0;
+}
+
+[data-theme="dark"] #theme-toggle .moon-icon {
+  transform: rotate(0deg);
+  opacity: 1;
+}
+
+/* Bouton de thème hover effects */
+#theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] #theme-toggle {
+  background-color: var(--grey-color) !important;
+  color: var(--dark-color);
 }
 

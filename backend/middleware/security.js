@@ -274,6 +274,17 @@ const security = {
         },
         standardHeaders: true,
         legacyHeaders: false,
+        skip: (req) => {
+          // Permettre les requêtes internes
+          return req.ip === '127.0.0.1' || req.ip === '::1';
+        },
+        handler: (req, res) => {
+          console.warn(`🚨 Rate limit exceeded for IP: ${req.ip}`);
+          res.status(429).json({
+            error: 'Trop de requêtes depuis cette IP',
+            retryAfter: Math.round(15 * 60) // 15 minutes en secondes
+          });
+        }
       })
     ];
   },

@@ -1,0 +1,12 @@
+<!-- Placeholder SVG pour les produits sans image -->
+<svg width="200" height="280" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="280" fill="#F8F9FA"/>
+  <rect x="20" y="20" width="160" height="220" rx="8" fill="#E9ECEF" stroke="#DEE2E6" stroke-width="2"/>
+  <circle cx="100" cy="100" r="30" fill="#6C757D"/>
+  <rect x="40" y="160" width="120" height="8" rx="4" fill="#ADB5BD"/>
+  <rect x="60" y="180" width="80" height="6" rx="3" fill="#CED4DA"/>
+  <rect x="70" y="200" width="60" height="6" rx="3" fill="#CED4DA"/>
+  <text x="100" y="250" text-anchor="middle" fill="#6C757D" font-family="Arial, sans-serif" font-size="12">
+    Carte TCG
+  </text>
+</svg>

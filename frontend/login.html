@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - Benichou TCG</title>
     
-    <!-- Module de sécurité -->
-    <script src="assets/js/security.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -125,95 +123,7 @@
         </div>
     </div>
 
-    <script>
-                // Configuration API
-        const API_URL = 'http://localhost:3000/api';
-        
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            
-            try {
-                const response = await fetch(`${API_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                const result = await response.json();
-                const messageDiv = document.getElementById('message');
-                
-                if (response.ok) {
-                    // Stocker le token
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('user', JSON.stringify(result.user));
-                    
-                    messageDiv.innerHTML = `
-                        <div class="success">
-                            ✅ ${result.message}
-                            <br><br>
-                            Redirection vers le profil...
-                        </div>
-                    `;
-                    
-                    // Rediriger vers le profil après 2 secondes
-                    setTimeout(() => {
-                        window.location.href = 'profile.html';
-                    }, 2000);
-                } else {
-                    if (result.code === 'EMAIL_NOT_VERIFIED') {
-                        messageDiv.innerHTML = `
-                            <div class="error">
-                                ❌ ${result.error}
-                                <br><br>
-                                <button onclick="resendVerification('${data.email}')">
-                                    Renvoyer l'email de vérification
-                                </button>
-                            </div>
-                        `;
-                    } else {
-                        messageDiv.innerHTML = `<div class="error">❌ ${result.error}</div>`;
-                    }
-                }
-            } catch (error) {
-                document.getElementById('message').innerHTML = `
-                    <div class="error">❌ Erreur de connexion au serveur</div>
-                `;
-            }
-        });
-        
-        async function resendVerification(email) {
-            try {
-                const response = await fetch(`${API_URL}/auth/resend-verification`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email })
-                });
-                
-                const result = await response.json();
-                const messageDiv = document.getElementById('message');
-                
-                if (response.ok) {
-                    messageDiv.innerHTML = `
-                        <div class="success">
-                            ✅ ${result.message}
-                        </div>
-                    `;
-                } else {
-                    messageDiv.innerHTML = `<div class="error">❌ ${result.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('message').innerHTML = `
-                    <div class="error">❌ Erreur lors du renvoi de l'email</div>
-                `;
-            }
-        }
-    </script>
+    <!-- Script unifié -->
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

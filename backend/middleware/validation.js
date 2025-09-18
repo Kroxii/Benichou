@@ -197,9 +197,9 @@ const validation = {
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
 
-    if (isNaN(pageNum) || pageNum < 1) {
+    if (isNaN(pageNum) || pageNum < 1 || pageNum > 10000) {
       return res.status(400).json({
-        error: 'Le numéro de page doit être un entier positif'
+        error: 'Le numéro de page doit être un entier entre 1 et 10000'
       });
     }
 

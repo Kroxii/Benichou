@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Debug - Benichou TCG</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>🐛 Test de Debugging Frontend</h1>
+    <div id="test-results"></div>
+    
+    <!-- Boutons de test -->
+    <button onclick="testAuthManager()">Test AuthManager</button>
+    <button onclick="testCartManager()">Test CartManager</button>
+    <button onclick="testThemeManager()">Test ThemeManager</button>
+    <button onclick="testSearchManager()">Test SearchManager</button>
+    <button onclick="testProductManager()">Test ProductManager</button>
+    
+    <!-- Elements pour les tests -->
+    <div id="theme-toggle" style="display: none;">
+        <span class="sun-icon">☀️</span>
+        <span class="moon-icon">🌙</span>
+    </div>
+    
+    <input type="search" id="search-input" placeholder="Test search..." style="display: none;">
+    
+    <script src="assets/js/script.js"></script>
+    
+    <script>
+        function addTestResult(message, type = 'success') {
+            const results = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = `${new Date().toLocaleTimeString()} - ${message}`;
+            results.appendChild(div);
+        }
+        
+        function testAuthManager() {
+            try {
+                if (window.authManager) {
+                    addTestResult('✅ AuthManager existe et est initialisé');
+                    if (typeof window.authManager.logout === 'function') {
+                        addTestResult('✅ AuthManager.logout() est disponible');
+                    } else {
+                        addTestResult('❌ AuthManager.logout() manquant', 'error');
+                    }
+                } else {
+                    addTestResult('❌ AuthManager non initialisé', 'error');
+                }
+            } catch (e) {
+                addTestResult(`❌ Erreur AuthManager: ${e.message}`, 'error');
+            }
+        }
+        
+        function testCartManager() {
+            try {
+                if (window.cartManager) {
+                    addTestResult('✅ CartManager existe et est initialisé');
+                    if (typeof window.addToCart === 'function') {
+                        addTestResult('✅ Fonction globale addToCart() disponible');
+                        // Test d'ajout au panier
+                        window.addToCart('test-123', 'Produit Test', '9.99');
+                        addTestResult('✅ Test addToCart() réussi');
+                    } else {
+                        addTestResult('❌ Fonction addToCart() manquante', 'error');
+                    }
+                } else {
+                    addTestResult('❌ CartManager non initialisé', 'error');
+                }
+            } catch (e) {
+                addTestResult(`❌ Erreur CartManager: ${e.message}`, 'error');
+            }
+        }
+        
+        function testThemeManager() {
+            try {
+                if (window.themeManager) {
+                    addTestResult('✅ ThemeManager existe et est initialisé');
+                    // Test de basculement de thème
+                    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+                    addTestResult(`ℹ️ Thème actuel: ${currentTheme || 'non défini'}`, 'warning');
+                } else {
+                    addTestResult('❌ ThemeManager non initialisé', 'error');
+                }
+            } catch (e) {
+                addTestResult(`❌ Erreur ThemeManager: ${e.message}`, 'error');
+            }
+        }
+        
+        function testSearchManager() {
+            try {
+                if (window.searchManager) {
+                    addTestResult('✅ SearchManager existe et est initialisé');
+                } else {
+                    addTestResult('❌ SearchManager non initialisé', 'error');
+                }
+            } catch (e) {
+                addTestResult(`❌ Erreur SearchManager: ${e.message}`, 'error');
+            }
+        }
+        
+        function testProductManager() {
+            try {
+                if (window.productManager) {
+                    addTestResult('✅ ProductManager existe et est initialisé');
+                } else {
+                    addTestResult('❌ ProductManager non initialisé', 'error');
+                }
+            } catch (e) {
+                addTestResult(`❌ Erreur ProductManager: ${e.message}`, 'error');
+            }
+        }
+        
+        // Tests automatiques au chargement
+        setTimeout(() => {
+            addTestResult('🚀 Début des tests automatiques', 'warning');
+            testAuthManager();
+            testCartManager();
+            testThemeManager();
+            testSearchManager();
+            testProductManager();
+            
+            // Test de la configuration
+            if (window.CONFIG) {
+                addTestResult('✅ Configuration globale chargée');
+                addTestResult(`ℹ️ API URL: ${window.CONFIG.API_URL}`, 'warning');
+            } else {
+                addTestResult('❌ Configuration manquante', 'error');
+            }
+            
+            // Test du module Security
+            if (window.Security) {
+                addTestResult('✅ Module Security chargé');
+                // Test de chiffrement
+                const testText = 'Hello World';
+                const encrypted = window.Security.encrypt(testText);
+                const decrypted = window.Security.decrypt(encrypted);
+                if (decrypted === testText) {
+                    addTestResult('✅ Chiffrement/déchiffrement fonctionne');
+                } else {
+                    addTestResult('❌ Problème de chiffrement', 'error');
+                }
+            } else {
+                addTestResult('❌ Module Security manquant', 'error');
+            }
+            
+            addTestResult('🏁 Tests terminés', 'warning');
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -78,76 +78,7 @@
         </div>
     </div>
 
-    <script>
-        // Configuration API
-        const API_URL = 'http://localhost:3000/api';
-        
-        // Récupérer le token depuis l'URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        
-        if (!token) {
-            document.getElementById('content').innerHTML = `
-                <div class="error">
-                    <h2>❌ Lien invalide</h2>
-                    <p>Le lien de vérification est invalide ou manquant.</p>
-                    <a href="login.html" style="color: white; text-decoration: none;">
-                        <button>Retour à la connexion</button>
-                    </a>
-                </div>
-            `;
-        } else {
-            verifyEmail(token);
-        }
-        
-        async function verifyEmail(token) {
-            try {
-                const response = await fetch(`${API_URL}/auth/verify-email/${token}`, {
-                    method: 'GET'
-                });
-                
-                const result = await response.json();
-                const contentDiv = document.getElementById('content');
-                
-                if (response.ok) {
-                    // Stocker le token JWT et les infos utilisateur
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('user', JSON.stringify(result.user));
-                    
-                    contentDiv.innerHTML = `
-                        <div class="success">
-                            <h2>✅ Email vérifié avec succès !</h2>
-                            <p>${result.message}</p>
-                            <p><strong>Bienvenue ${result.user.firstName} !</strong></p>
-                            <a href="profile.html" style="color: white; text-decoration: none;">
-                                <button>Accéder à mon profil</button>
-                            </a>
-                            <a href="index.html" style="color: white; text-decoration: none;">
-                                <button>Découvrir la boutique</button>
-                            </a>
-                        </div>
-                    `;
-                } else {
-                    contentDiv.innerHTML = `
-                        <div class="error">
-                            <h2>❌ Erreur de vérification</h2>
-                            <p>${result.error}</p>
-                            <a href="login.html" style="color: white; text-decoration: none;">
-                                <button>Retour à la connexion</button>
-                            </a>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                document.getElementById('content').innerHTML = `
-                    <div class="error">
-                        <h2>❌ Erreur de connexion</h2>
-                        <p>Impossible de vérifier votre email. Veuillez réessayer.</p>
-                        <button onclick="verifyEmail('${token}')">Réessayer</button>
-                    </div>
-                `;
-            }
-        }
-    </script>
+    <!-- Script unifié -->
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

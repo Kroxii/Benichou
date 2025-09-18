@@ -48,7 +48,7 @@ const orderController = {
       }
 
       const order = new Order({
-        user: req.userId,
+        user: req.user.userId,
         items: orderItems,
         totalAmount,
         shippingAddress,
@@ -85,13 +85,13 @@ const orderController = {
     try {
       const { page = 1, limit = 10 } = req.query;
 
-      const orders = await Order.find({ user: req.userId })
+      const orders = await Order.find({ user: req.user.userId })
         .populate('items.product', 'name slug images')
         .sort({ createdAt: -1 })
         .limit(limit * 1)
         .skip((page - 1) * limit);
 
-      const total = await Order.countDocuments({ user: req.userId });
+      const total = await Order.countDocuments({ user: req.user.userId });
 
       res.json({
         success: true,
